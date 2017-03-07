@@ -3,17 +3,11 @@
 
 Krembo::Krembo()
 {
-  //comment DEBUG_MODE in logger.h to disable Serial and debug printing
-  #ifdef DEBUG_MODE
-    Serial.begin(9600);
-  #endif
-
   //init rgba sensors (must select i2c_mux before rgba sensor init)
   i2c_mux_.select((uint8_t)SensorAddr::RGBA_SENSOR1);
   rgba_sensor1_.init();
   i2c_mux_.select((uint8_t)SensorAddr::RGBA_SENSOR2);
   rgba_sensor2_.init();
-
 }
 
 //--------------mobile_base functions-----------------
@@ -21,17 +15,10 @@ bool Krembo::drive(int linear_spd, int angular_spd)
 {
   return mobile_base_.drive(linear_spd, angular_spd);
 }
-void Krembo::standbyMotors() { mobile_base_.standby(); }
+
 void Krembo::stopMotors() { mobile_base_.stop(); }
 
-
 //--------------rgba_sensor functions-----------------
-bool Krembo::updateSensorVals(SensorAddr sensor_addr)
-{
-  return (sensor_addr == SensorAddr::RGBA_SENSOR1) ?
-          rgba_sensor1_.updateVals() : rgba_sensor2_.updateVals();
-}
-
 uint16_t Krembo::getSensorAmbient(SensorAddr sensor_addr)
 {
   return (sensor_addr == SensorAddr::RGBA_SENSOR1) ?
@@ -81,4 +68,10 @@ void Krembo::writeRGBToLed(uint8_t red_val,
                    uint8_t blue_val)
 {
   rgb_led_.write(red_val, green_val, blue_val);
+}
+
+//---------------accel_gyro functions------------------
+void Krembo::printIMU()
+{
+  accel_gyro_.print();
 }

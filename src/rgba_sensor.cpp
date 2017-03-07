@@ -46,30 +46,49 @@ void RGBASensor::init()
 
 bool RGBASensor::updateVals()
 {
-  // Read the light levels (ambient, red, green, blue)
-  if (  !apds_.readAmbientLight(ambient_light_) ||
+  //Read and update the light levels (ambient, red, green, blue)
+  if (!apds_.readAmbientLight(ambient_light_) ||
       !apds_.readRedLight(red_light_) ||
       !apds_.readGreenLight(green_light_) ||
       !apds_.readBlueLight(blue_light_) ||
-      !apds_.readProximity(proximity_) )
-      {
-          Serial.println("Error reading light\proximity values");
-          return false;
-      }
-    /*  else
-      {
-  Serial.print("Ambient: ");
-  Serial.print(ambient_light_);
-  Serial.print(" Red: ");
-  Serial.print(red_light_);
-  Serial.print(" Green: ");
-  Serial.print(green_light_);
-  Serial.print(" Blue: ");
-  Serial.print(blue_light_);
-  Serial.print(" Proximity: ");
-  Serial.println(proximity_data_);*/
+      !apds_.readProximity(proximity_))
+      return false; //Error reading sensor
   return true;
-    //}
+}
+
+uint16_t RGBASensor::getAmbient()
+{
+  if (updateVals())
+    return ambient_light_;
+  return 0;
+}
+
+uint16_t RGBASensor::getRed()
+{
+  if (updateVals())
+    return red_light_;
+  return 0;
+}
+
+uint16_t RGBASensor::getGreen()
+{
+  if (updateVals())
+    return green_light_;
+  return 0;
+}
+
+uint16_t RGBASensor::getBlue()
+{
+  if (updateVals())
+    return blue_light_;
+  return 0;
+}
+
+uint8_t RGBASensor::getDistance()
+{
+  if (updateVals())
+    return proximity_;
+  return 0;
 }
 
 /****************************void print()***************************
@@ -78,10 +97,15 @@ bool RGBASensor::updateVals()
 ********************************************************************/
 void RGBASensor::print()
 {
-  Serial.println("------------RGBA Sensor Values------------");
-  Serial.print("Ambient: "); Serial.print(ambient_light_);
-  Serial.print(" | Red: ");   Serial.print(red_light_);
-  Serial.print(" | Green: ");   Serial.print(green_light_);
-  Serial.print(" | Blue: ");  Serial.print(blue_light_);
-  Serial.print(" | Proximity: ");  Serial.println(proximity_);
+  if (updateVals())
+  {
+    Serial.println("------------RGBA Sensor Values------------");
+    Serial.print("Ambient: "); Serial.print(ambient_light_);
+    Serial.print(" | Red: ");   Serial.print(red_light_);
+    Serial.print(" | Green: ");   Serial.print(green_light_);
+    Serial.print(" | Blue: ");  Serial.print(blue_light_);
+    Serial.print(" | Proximity: ");  Serial.println(proximity_);
+  }
+  else
+    Serial.println("[RGBSensor]: Error while trying to read from sensor");
 }

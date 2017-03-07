@@ -9,7 +9,9 @@
 #include "mobile_base.h"
 #include "rgb_led.h"
 #include "rgba_sensor.h"
+#include "accel_gyro.h"
 
+//comment DEBUG_MODE in logger.h to disable Serial and debug printing
 
 enum class SensorAddr //TODO: extract this to krembo, and make constructor here take int8
 {
@@ -20,12 +22,13 @@ enum class SensorAddr //TODO: extract this to krembo, and make constructor here 
 class Krembo
 {
 private:
-  MobileBase mobile_base_; //V
-  I2CMux i2c_mux_; //V
-  RGBASensor rgba_sensor1_; //V
-  RGBASensor rgba_sensor2_; //V
-  Battery battery_; //V
-  RGBLed rgb_led_; //V
+  MobileBase mobile_base_; 
+  I2CMux i2c_mux_;
+  RGBASensor rgba_sensor1_;
+  RGBASensor rgba_sensor2_;
+  Battery battery_;
+  RGBLed rgb_led_;
+  AccelGyro accel_gyro_;
 
 public:
 
@@ -33,11 +36,9 @@ public:
 
   //--------------mobile_base functions-----------------
   bool drive(int linear_spd, int angular_spd);
-  void standbyMotors();
   void stopMotors();
 
   //--------------rgba_sensor functions-----------------
-  bool updateSensorVals(SensorAddr sensor_addr);
   uint16_t getSensorAmbient(SensorAddr sensor_addr);
   uint16_t getSensorRed(SensorAddr sensor_addr);
   uint16_t getSensorGreen(SensorAddr sensor_addr);
@@ -57,8 +58,8 @@ public:
                      uint8_t green_val,
                      uint8_t blue_val);
 
-
-
+  //---------------accel_gyro functions------------------
+  void printIMU();
 };
 
 #endif //KREMBO_H

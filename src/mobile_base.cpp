@@ -48,7 +48,7 @@ void MobileBase::setMotorDirection(Motor motor, Direction direction)
 
 bool MobileBase::drive(int linear_spd, int angular_spd)
 {
-  digitalWrite(MOTOR_STBY_LEG,HIGH);
+  digitalWrite(MOTOR_STBY_LEG, HIGH);
   if ((linear_spd < -100 || linear_spd > 100) ||
       (angular_spd < -100 || angular_spd > 100))
     return false;
@@ -56,14 +56,14 @@ bool MobileBase::drive(int linear_spd, int angular_spd)
   int linear_scale = int((linear_spd / 100.0) * 255.0);
   int angular_scale = int((angular_spd / 100.0) * 255.0);
 
-  Serial.print("linear_scale: "); Serial.println(linear_scale);
-  Serial.print("angular_scale: "); Serial.println(angular_scale);
+  //Serial.print("linear_scale: "); Serial.println(linear_scale);
+  //Serial.print("angular_scale: "); Serial.println(angular_scale);
 
   int left_cmd = linear_scale - angular_scale;
   int right_cmd = linear_scale + angular_scale;
 
-  Serial.print("left cmd: "); Serial.println(left_cmd);
-  Serial.print("right cmd: "); Serial.println(right_cmd);
+  //Serial.print("left cmd: "); Serial.println(left_cmd);
+  //Serial.print("right cmd: "); Serial.println(right_cmd);
 
   if (left_cmd > 255) left_cmd = 255;
   else if (left_cmd < -255) left_cmd = -255;
@@ -86,10 +86,15 @@ bool MobileBase::drive(int linear_spd, int angular_spd)
     right_cmd = -right_cmd;
   }
 
-  Serial.print("left cmd=: "); Serial.println(left_cmd);
-  Serial.print("right cmd=: "); Serial.println(right_cmd);
+  //Serial.print("left cmd=: "); Serial.println(left_cmd);
+  //Serial.print("right cmd=: "); Serial.println(right_cmd);
 
   analogWrite(LEFT_MOTOR_PWM_LEG, left_cmd);
-  analogWrite(RIGHT_MOTOR_PWM_LEG, right_cmd); //PROBLEM
+  analogWrite(RIGHT_MOTOR_PWM_LEG, right_cmd); 
   return true;
+}
+
+void MobileBase::stop()
+{
+  digitalWrite(MOTOR_STBY_LEG, LOW);
 }

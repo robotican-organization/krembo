@@ -18,14 +18,15 @@ private:
   I2CMux i2c_mux_;
   SparkFun_APDS9960 apds_;
 
+  bool updateVals();
+
 public:
   void init();
-  bool updateVals();
-  uint16_t getAmbient() { return ambient_light_; }
-  uint16_t getRed() { return red_light_; }
-  uint16_t getGreen() { return green_light_; }
-  uint16_t getBlue() { return blue_light_; }
-  uint8_t getDistance() { return proximity_; }
+  uint16_t getAmbient();
+  uint16_t getRed();
+  uint16_t getGreen();
+  uint16_t getBlue();
+  uint8_t getDistance();
   void print();
 
 };
