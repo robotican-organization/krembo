@@ -1,6 +1,0 @@
-C:\Users\ron\documents\visual studio 2013\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
-C:\Users\ron\documents\visual studio 2013\Projects\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
-C:\Users\ron\documents\visual studio 2013\Projects\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
-E:\photon\TCP\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
-E:\photon\TCP\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
-E:\photon\TCP\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

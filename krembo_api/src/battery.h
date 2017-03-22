@@ -5,7 +5,7 @@
 
 #define BATTERY_LVL_LEG A4
 #define CHARGING_LVL_LEG A5
-#define IS_FULL_CHARGE_LEG D7
+#define IS_FULL_CHARGE_LEG DAC
 #define IS_CHARGINE_LEG D5
 
 class Battery

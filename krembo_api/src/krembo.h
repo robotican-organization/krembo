@@ -9,6 +9,8 @@
 #include "mobile_base.h"
 #include "rgb_led.h"
 #include "rgba_sensor.h"
+#include "com_layer.h"
+#include "wkc.h"
 
 //comment DEBUG_MODE in logger.h to disable Serial and debug printing
 

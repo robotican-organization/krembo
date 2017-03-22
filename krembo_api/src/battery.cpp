@@ -5,8 +5,8 @@ Battery::Battery()
 {
   pinMode(BATTERY_LVL_LEG, INPUT);
   pinMode(CHARGING_LVL_LEG, INPUT);
-  pinMode(IS_FULL_CHARGE_LEG, INPUT_PULLUP);
-  pinMode(IS_CHARGINE_LEG, INPUT_PULLUP);
+  pinMode(IS_FULL_CHARGE_LEG, INPUT);
+  pinMode(IS_CHARGINE_LEG, INPUT);
 }
 
 float Battery::readBatLvl()
