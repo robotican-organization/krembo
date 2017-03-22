@@ -2,9 +2,6 @@
 #define RGBA_SENSOR_H
 
 #include "SparkFun_APDS9960.h"
-#include "i2c_mux.h"
-
-
 
 class RGBASensor
 {
@@ -15,7 +12,6 @@ private:
   uint16_t blue_light_;
   uint8_t proximity_; //distance
 
-  I2CMux i2c_mux_;
   SparkFun_APDS9960 apds_;
 
   bool updateVals();

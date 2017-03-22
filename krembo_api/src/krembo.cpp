@@ -73,5 +73,5 @@ void Krembo::writeRGBToLed(uint8_t red_val,
 //---------------accel_gyro functions------------------
 void Krembo::printIMU()
 {
-  accel_gyro_.print();
+  //accel_gyro_.print();
 }

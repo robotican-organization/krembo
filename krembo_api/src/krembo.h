@@ -9,7 +9,6 @@
 #include "mobile_base.h"
 #include "rgb_led.h"
 #include "rgba_sensor.h"
-#include "accel_gyro.h"
 
 //comment DEBUG_MODE in logger.h to disable Serial and debug printing
 
@@ -22,13 +21,12 @@ enum class SensorAddr //TODO: extract this to krembo, and make constructor here 
 class Krembo
 {
 private:
-  MobileBase mobile_base_; 
+  MobileBase mobile_base_;
   I2CMux i2c_mux_;
   RGBASensor rgba_sensor1_;
   RGBASensor rgba_sensor2_;
   Battery battery_;
   RGBLed rgb_led_;
-  AccelGyro accel_gyro_;
 
 public:
 

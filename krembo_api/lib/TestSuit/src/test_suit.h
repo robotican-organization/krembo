@@ -14,6 +14,8 @@ public:
   void testIMU();
   void testRGBLeds();
   void testBattery();
+  void testAllFunctions();
+  void testAllTogether();
 
 };
 

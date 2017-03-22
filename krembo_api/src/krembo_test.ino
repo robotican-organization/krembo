@@ -26,6 +26,7 @@
 
 #include "quaternionFilters.h"
 #include "MPU9250.h"
+#include "test_suit.h"
 
 #define AHRS true         // Set to false for basic data read
 #define SerialDebug true  // Set to true to get Serial output for debugging
@@ -35,9 +36,14 @@ int intPin = 12;  // These can be changed, 2 and 3 are the Arduinos ext int pins
 int myLed  = 13;  // Set up pin 13 led for toggling
 
 MPU9250 myIMU;
+TestSuit test_suit;
 
 void setup()
 {
+  pinMode(A0, INPUT);
+
+
+  /*
   Wire.begin();
   // TWBR = 12;  // 400 kbit/sec I2C speed
   Serial.begin(38400);
@@ -110,12 +116,18 @@ void setup()
     Serial.println(c, HEX);
     while(1) ; // Loop forever if communication doesn't happen
   }
+  */
 }
 
 void loop()
 {
+  test_suit.testAllTogether();
+  //Serial.println(analogRead(A0));
+
+  //test_suit.testAllTogether();
   // If intPin goes high, all data registers have new data
   // On interrupt, check if data ready interrupt
+  /*
   if (myIMU.readByte(MPU9250_ADDRESS, INT_STATUS) & 0x01)
   {
     myIMU.readAccelData(myIMU.accelCount);  // Read the x/y/z adc values
@@ -301,4 +313,5 @@ void loop()
       myIMU.sum = 0;
     } // if (myIMU.delt_t > 500)
   } // if (AHRS)
+  */
 }

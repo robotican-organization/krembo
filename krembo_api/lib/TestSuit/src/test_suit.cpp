@@ -66,3 +66,24 @@ void TestSuit::testBattery()
   krembo_.printBatVals();
   delay(2000);
 }
+
+void TestSuit::testAllFunctions()
+{
+  testEngns();
+  testRGBSensors();
+  testIMU();
+  testRGBLeds();
+  testBattery();
+  testAllFunctions();
+  testAllTogether();
+}
+
+void TestSuit::testAllTogether()
+{
+  krembo_.drive(100, 0);
+  krembo_.printSensor(SensorAddr::RGBA_SENSOR1);
+  krembo_.printSensor(SensorAddr::RGBA_SENSOR2);
+  krembo_.writeRGBToLed(255, 255, 255);
+  krembo_.printBatVals();
+  krembo_.printIMU();
+}

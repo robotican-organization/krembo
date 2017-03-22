@@ -16,7 +16,7 @@ float Battery::readBatLvl()
 
 float Battery::readChargelvl()
 {
-  return (analogRead(CHARGING_LVL_LEG) * 3.3 * (5.0/3.0)) / 4095.0;
+  return (analogRead(CHARGING_LVL_LEG) * 3.3 * (5.0 / 3.0)) / 4095.0;
 }
 
 void Battery::print()
@@ -24,7 +24,7 @@ void Battery::print()
   Serial.println("------------Battry Values------------");
   Serial.print("Battery level: "); Serial.print(readBatLvl());
   Serial.print(" | Charge Level: "); Serial.print(readChargelvl());
-  Serial.print(" |Is Charging: "); Serial.print(isCharging() == false ? "No" : "Yes" );
+  Serial.print(" | Is Charging: "); Serial.print(isCharging() == false ? "No" : "Yes" );
   Serial.print(" | Is Full: "); Serial.println(isFull() == false ? "No" : "Yes" );
 }
 
