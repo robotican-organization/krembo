@@ -3,7 +3,7 @@
 
 void TestSuit::testEngns()
 {
-  Serial.println("------------TESTING ENGNGS------------");
+  /*Serial.println("------------TESTING ENGNGS------------");
   Serial.println("TEST 1: driving fwd");
   krembo_.drive(100, 0);
   delay(2000);
@@ -24,30 +24,30 @@ void TestSuit::testEngns()
   delay(2000);
   Serial.println("TEST 7: stoping engines");
   krembo_.stopMotors();
-  delay(2000);
+  delay(2000);*/
 }
 
 void TestSuit::testRGBSensors()
 {
-  Serial.println("------------TESTING RGB SENSORS------------");
+/*  Serial.println("------------TESTING RGB SENSORS------------");
   Serial.println("TEST 1: sensor 1");
   krembo_.printSensor(SensorAddr::RGBA_SENSOR1);
   Serial.println("TEST 2: sensor 2");
   krembo_.printSensor(SensorAddr::RGBA_SENSOR2);
-  delay(2000);
+  delay(2000);*/
 }
 
 void TestSuit::testIMU()
 {
-  Serial.println("------------TESTING IMU SENSORS------------");
+/*  Serial.println("------------TESTING IMU SENSORS------------");
   Serial.println("TEST 1: imu sensor");
   krembo_.printIMU();
-  delay(2000);
+  delay(2000);*/
 }
 
 void TestSuit::testRGBLeds()
 {
-  Serial.println("------------TESTING RGB LEDS------------");
+/*  Serial.println("------------TESTING RGB LEDS------------");
   Serial.println("TEST 1: red");
   krembo_.writeRGBToLed(255, 0, 0);
   delay(2000);
@@ -56,34 +56,34 @@ void TestSuit::testRGBLeds()
   delay(2000);
   Serial.println("TEST 3: blue");
   krembo_.writeRGBToLed(0, 0, 255);
-  delay(2000);
+  delay(2000);*/
 }
 
 void TestSuit::testBattery()
 {
-  Serial.println("------------TESTING BATTERY------------");
+  /*Serial.println("------------TESTING BATTERY------------");
   Serial.println("TEST 1: battery");
   krembo_.printBatVals();
-  delay(2000);
+  delay(2000);*/
 }
 
 void TestSuit::testAllFunctions()
 {
-  testEngns();
+  /*testEngns();
   testRGBSensors();
   testIMU();
   testRGBLeds();
   testBattery();
   testAllFunctions();
-  testAllTogether();
+  testAllTogether();*/
 }
 
 void TestSuit::testAllTogether()
 {
-  krembo_.drive(100, 0);
+/*  krembo_.drive(100, 0);
   krembo_.printSensor(SensorAddr::RGBA_SENSOR1);
   krembo_.printSensor(SensorAddr::RGBA_SENSOR2);
   krembo_.writeRGBToLed(255, 255, 255);
   krembo_.printBatVals();
-  krembo_.printIMU();
+  krembo_.printIMU();*/
 }

@@ -232,6 +232,7 @@ namespace DefaultNamespace
             this.Controls.Add(this.textBoxPort);
             this.Name = "SocketServer";
             this.Text = "SocketServer";
+            this.Load += new System.EventHandler(this.SocketServer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,5 +440,10 @@ namespace DefaultNamespace
 				}
 			}	
 	   }
-	}
+
+        private void SocketServer_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

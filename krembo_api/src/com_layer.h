@@ -8,16 +8,20 @@
 class COMLayer
 {
 private:
+  bool connected_;
   TCPClient client_;
+  void stringToIp(const char *ip_str, byte ip_arr[]);
 
 public:
-  //COMLayer();
-  bool connect(byte server_addr[], uint16_t port);
+  COMLayer();
+  bool connect(const char* ip, uint16_t port);
+  bool isConnected();
   bool bytesWaiting();
   void write(byte val);
   void write(byte buff[], size_t len);
   byte read();
   uint32_t readBuff(byte buff[], size_t len);
+  void disconnect();
 };
 
 #endif

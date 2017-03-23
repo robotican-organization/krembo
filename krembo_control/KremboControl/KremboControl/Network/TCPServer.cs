@@ -43,6 +43,7 @@ namespace KremboControl.Network
                         try
                         {
                             temp_client_ = server_.AcceptTcpClient();
+                            MessageBox.Show("got tcp connection");
                         }
                         catch (Exception)
                         {
@@ -52,7 +53,6 @@ namespace KremboControl.Network
                         //clients_.Add(new CamClient(temp_client_, main_form_));
                         //connected!
                         // Get a stream object for reading and writing
-                        MessageBox.Show("got tcp connection");
 
                     }
                 });

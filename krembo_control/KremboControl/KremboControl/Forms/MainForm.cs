@@ -25,7 +25,7 @@ namespace KremboControl
         {
             //ParticleCLI.getOnlinePhotons();
             TCPServer server = new TCPServer();  
-            server.asyncListenAt(new NetAddr("10.0.2.100", 5668));
+            server.asyncListenAt(new NetAddr("10.0.0.13", 8000));
         }
     }
 }
