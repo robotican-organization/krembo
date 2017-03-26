@@ -80,10 +80,11 @@ void TestSuit::testAllFunctions()
 
 void TestSuit::testAllTogether()
 {
-/*  krembo_.drive(100, 0);
-  krembo_.printSensor(SensorAddr::RGBA_SENSOR1);
-  krembo_.printSensor(SensorAddr::RGBA_SENSOR2);
-  krembo_.writeRGBToLed(255, 255, 255);
-  krembo_.printBatVals();
-  krembo_.printIMU();*/
+  krembo_.base.drive(100, 0);
+  krembo_.rgba1.print();
+  krembo_.rgba1.print();
+  krembo_.led.write(255, 255, 255);
+  krembo_.bat.print();
+  delay(1000);
+  //krembo_.printIMU();
 }

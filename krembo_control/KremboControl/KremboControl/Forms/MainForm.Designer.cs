@@ -35,7 +35,7 @@
             // 
             this.connected_photons_lstbx.FormattingEnabled = true;
             this.connected_photons_lstbx.ItemHeight = 16;
-            this.connected_photons_lstbx.Location = new System.Drawing.Point(945, 120);
+            this.connected_photons_lstbx.Location = new System.Drawing.Point(135, 86);
             this.connected_photons_lstbx.Name = "connected_photons_lstbx";
             this.connected_photons_lstbx.Size = new System.Drawing.Size(228, 292);
             this.connected_photons_lstbx.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1323, 776);
+            this.ClientSize = new System.Drawing.Size(506, 475);
             this.Controls.Add(this.connected_photons_lstbx);
             this.Name = "Form1";
             this.Text = "Form1";

@@ -120,6 +120,7 @@ namespace DefaultNamespace
             this.textBoxIP.ReadOnly = true;
             this.textBoxIP.Size = new System.Drawing.Size(144, 22);
             this.textBoxIP.TabIndex = 12;
+            this.textBoxIP.TextChanged += new System.EventHandler(this.textBoxIP_TextChanged);
             // 
             // richTextBoxSendMsg
             // 
@@ -442,6 +443,11 @@ namespace DefaultNamespace
 	   }
 
         private void SocketServer_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxIP_TextChanged(object sender, EventArgs e)
         {
 
         }

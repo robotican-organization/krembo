@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KremboControl.Network;
 
 namespace KremboControl.Utils
 {
@@ -23,13 +24,13 @@ namespace KremboControl.Utils
             return cmd;
         }
 
-        public static void flashPhoton(Photon photon, string bin_file_path)
+        public static void flashPhoton(KremboClient photon, string bin_file_path)
         {
 
             Process cmd = startNewCmd();
 
             cmd.StandardInput.WriteLine(@"cd " + bin_file_path);
-            cmd.StandardInput.WriteLine("particle flash " + photon.id + " firmware.bin");
+            cmd.StandardInput.WriteLine("particle flash " + /*photon.id +*/ " firmware.bin");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
 
@@ -41,7 +42,7 @@ namespace KremboControl.Utils
 
         }
 
-        public static void flashPhotons(List<Photon> photons_list, string bin_file_path)
+        public static void flashPhotons(List<KremboClient> photons_list, string bin_file_path)
         {           
             Parallel.ForEach(photons_list, photon =>
             {
@@ -49,7 +50,7 @@ namespace KremboControl.Utils
             });
         }
 
-        public static List<Photon> getOnlinePhotons()
+        public static List<KremboClient> getOnlinePhotons()
         {
             Process cmd = startNewCmd();
             cmd.StandardInput.WriteLine("particle list");

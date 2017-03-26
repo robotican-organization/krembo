@@ -31,7 +31,7 @@ void COMLayer::write(byte buff[], size_t len)
 
 byte COMLayer::read() { return client_.read(); }
 
-uint32_t COMLayer::readBuff(byte buff[], size_t len)
+uint32_t COMLayer::read(byte buff[], size_t len)
 {
   return client_.read(buff, len);
 }

@@ -22,7 +22,15 @@
 8. add photon light functions from photon api
 9. add photon timer functions from photon api
 10. add photon logging functions from photon api
+11. add documentation of wkp protocol
+12. add getting photon details functions from photon api (linke name)
+13. change rgba_sensor to color_sensor
+14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
+
+#define MASTER_IP "10.0.0.13"
+#define MASTER_PORT 8000
+#define KREMBO_ID 2
 
 enum class SensorAddr //TODO: extract this to krembo, and make constructor here take int8
 {
@@ -34,19 +42,24 @@ class Krembo
 {
 private:
 
+  bool id_was_sent;
   I2CMux i2c_mux_;
-
 
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
 
-  Krembo();
-  void loop();
   MobileBase base;
   RGBASensor rgba1;
   RGBASensor rgba2;
   Battery bat;
   RGBLed led;
   COMLayer com;
+  void sendWKC(); //TODO: this function needs to be private. only photon uses it inside loop
+
+  Krembo();
+  void loop();
+  String getParticleID() { return System.deviceID(); }
+  uint8_t getID() { return KREMBO_ID; }
+
 };
 
 #endif //KREMBO_H

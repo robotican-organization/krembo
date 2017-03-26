@@ -62,7 +62,7 @@ namespace KremboControl.Network
             }
             return temp_ip;
         }
-
+        /*
         public static string getLocalIPAddress()
         {
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
@@ -78,6 +78,23 @@ namespace KremboControl.Network
                     return "";
                 }
             }
+        }*/
+
+        public static String getLocalIP()
+        {
+            String strHostName = Dns.GetHostName();
+
+            // Find host by name
+            IPHostEntry iphostentry = Dns.GetHostByName(strHostName);
+
+            // Grab the first IP addresses
+            String IPStr = "";
+            foreach (IPAddress ipaddress in iphostentry.AddressList)
+            {
+                IPStr = ipaddress.ToString();
+                return IPStr;
+            }
+            return IPStr;
         }
 
         public int parsePort(string port)

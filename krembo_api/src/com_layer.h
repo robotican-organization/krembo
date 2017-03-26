@@ -20,7 +20,7 @@ public:
   void write(byte val);
   void write(byte buff[], size_t len);
   byte read();
-  uint32_t readBuff(byte buff[], size_t len);
+  uint32_t read(byte buff[], size_t len);
   void disconnect();
 };
 
