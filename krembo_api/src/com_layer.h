@@ -22,6 +22,7 @@ public:
   byte read();
   uint32_t read(byte buff[], size_t len);
   void disconnect();
+  
 };
 
 #endif

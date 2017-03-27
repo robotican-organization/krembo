@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using KremboControl.Utils;
 using KremboControl.Network;
 using System.Net;
+using System.IO;
 
 namespace KremboControl
 {
@@ -35,13 +36,41 @@ namespace KremboControl
             //ParticleCLI.getOnlinePhotons();
         }
 
-        private void onClientNewMsgCB(WKCMsg wkc_msg)
+        private void onClientNewMsgCB(WKCKrembo2PC wkc_msg)
         {
             Invoke((MethodInvoker)delegate
             {
-                connected_photons_lstbx.Items.Add(wkc_msg.ID);
+                connected_photons_lstbx.Items.Add("Krembo" + wkc_msg.ID);
             });
             
+        }
+
+        private void choose_bin_btn_Click(object sender, EventArgs e)
+        {
+            string bin_file_path = FileTools.chooseFilePath("Binary Files (*.bin)|*.bin");
+            bin_file_path_txtbx.Text = bin_file_path;
+            flash_btn.Enabled = true;
+        }
+
+        private void flash_btn_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(bin_file_path_txtbx.Text))
+            {
+                flash_btn.Enabled = false;
+
+                //TODO: do flash work - flash selected photons
+
+                flash_btn.Enabled = true;
+            }
+            else
+            {
+                MsgBxLogger.errorMsg("Flash Error",
+                                    "Bin file at: " + bin_file_path_txtbx.Text + " doesn't exist");
+                bin_file_path_txtbx.Text = "";
+                flash_btn.Enabled = false;
+            }
+               
+
         }
     }
 }

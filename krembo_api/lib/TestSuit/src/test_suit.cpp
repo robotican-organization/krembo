@@ -50,21 +50,20 @@ void TestSuit::testRGBLeds()
 /*  Serial.println("------------TESTING RGB LEDS------------");
   Serial.println("TEST 1: red");
   krembo_.writeRGBToLed(255, 0, 0);
-  delay(2000);
+  delay(1000);
   Serial.println("TEST 2: green");
   krembo_.writeRGBToLed(0, 255, 0);
-  delay(2000);
+  delay(1000);
   Serial.println("TEST 3: blue");
   krembo_.writeRGBToLed(0, 0, 255);
-  delay(2000);*/
+  delay(1000);*/
 }
 
 void TestSuit::testBattery()
 {
-  /*Serial.println("------------TESTING BATTERY------------");
+/*  Serial.println("------------TESTING BATTERY------------");
   Serial.println("TEST 1: battery");
-  krembo_.printBatVals();
-  delay(2000);*/
+  krembo_.bat.print();*/
 }
 
 void TestSuit::testAllFunctions()
@@ -80,10 +79,11 @@ void TestSuit::testAllFunctions()
 
 void TestSuit::testAllTogether()
 {
-  krembo_.base.drive(100, 0);
-  krembo_.rgba1.print();
-  krembo_.rgba1.print();
-  krembo_.led.write(255, 255, 255);
+  //krembo_.base.drive(100, 0);
+  //krembo_.rgba1.print();
+  //krembo_.rgba2.print();
+  //krembo_.rgba3.print(); //not implementd
+  //krembo_.led.write(255, 255, 255);
   krembo_.bat.print();
   delay(1000);
   //krembo_.printIMU();

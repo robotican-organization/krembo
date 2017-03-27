@@ -14,6 +14,7 @@ namespace KremboControl.Network
 {
     public class KremboClient
     {
+        const string NAME_PREFIX = "Krembo"; //the prefix before id. i.e for Krembo1 prefix is Krembo TODO: move to settings?
         const bool DEBUG_MODE = true;
         TcpClient client_;
         TCPServer server_;
@@ -30,7 +31,7 @@ namespace KremboControl.Network
         {
             client_ = client;
             server_ = server;
-            bytes_in_ = new byte[WKCMsg.MSG_SIZE];
+            bytes_in_ = new byte[WKCKrembo2PC.MSG_SIZE];
             asyncListen();
         }
 

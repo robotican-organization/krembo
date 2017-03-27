@@ -17,7 +17,7 @@ namespace KremboControl.Network
         Task listen_to_cons_task_ = new Task(() => { });
         TcpListener server_;
         List<KremboClient> clients_ = new List<KremboClient>();
-        List<Action<WKCMsg>> subs_list_ = new List<Action<WKCMsg>>();
+        List<Action<WKCKrembo2PC>> subs_list_ = new List<Action<WKCKrembo2PC>>();
         TcpClient temp_client_;
 
         public TCPServer(/*MainForm form*/)
@@ -58,7 +58,7 @@ namespace KremboControl.Network
             }
         }
 
-        public void subscribe(Action<WKCMsg> subCallBack)
+        public void subscribe(Action<WKCKrembo2PC> subCallBack)
         {
             subs_list_.Add(subCallBack);
         }
@@ -66,9 +66,9 @@ namespace KremboControl.Network
         public void onClientRcvdCallBack(byte[] wkc_bytes)
         {
             MessageBox.Show("New msg recved");
-            WKCMsg wkc_msg = new WKCMsg(wkc_bytes);
+            WKCKrembo2PC wkc_msg = new WKCKrembo2PC(wkc_bytes);
 
-            foreach (Action<WKCMsg> subCallBack in subs_list_)
+            foreach (Action<WKCKrembo2PC> subCallBack in subs_list_)
             {
                 subCallBack(wkc_msg);
             }

@@ -1,7 +1,6 @@
 #ifndef KREMBO_H
 #define KREMBO_H
 
-
 #include "application.h"
 #include "battery.h"
 #include "i2c_mux.h"
@@ -9,12 +8,11 @@
 #include "rgb_led.h"
 #include "rgba_sensor.h"
 #include "com_layer.h"
-#include "wkc.h"
+#include "wkc_krembo2pc.h"
 
 /*TODO:
 1. add connection between photons
-2. add errors checking
-3. implement wkp class
+2. add errors checking in code
 4. implement connection between master and photon (protocol)
 5. add documentation
 6. add documentation of Kiril wirings
@@ -35,14 +33,16 @@
 enum class SensorAddr //TODO: extract this to krembo, and make constructor here take int8
 {
   RGBA_SENSOR1 = 0,
-  RGBA_SENSOR2 = 1
+  RGBA_SENSOR2 = 1,
+  //RGBA_SENSOR3 = 2
 };
 
 class Krembo
 {
 private:
 
-  bool id_was_sent;
+  bool id_was_sent_,
+       master_asks_for_data_;
   I2CMux i2c_mux_;
 
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
@@ -50,6 +50,7 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   MobileBase base;
   RGBASensor rgba1;
   RGBASensor rgba2;
+  //RGBASensor rgba3;
   Battery bat;
   RGBLed led;
   COMLayer com;

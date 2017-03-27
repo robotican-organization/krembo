@@ -37,3 +37,19 @@ bool Battery::isFull()
 {
   return digitalRead(IS_FULL_CHARGE_LEG) == LOW ? false : true;
 }
+
+uint8_t Battery::getBatLvl()
+{
+  return (uint8_t)map(readBatLvl(),
+                      MIN_BAT_LVL,
+                      MAX_BAT_LVL,
+                      0, 100);
+}
+
+uint8_t Battery::getChargeLvl()
+{
+  return (uint8_t)map(readChargelvl(),
+                      MIN_CHRG_LVL,
+                      MAX_CHRG_LVL,
+                      0, 100);
+}
