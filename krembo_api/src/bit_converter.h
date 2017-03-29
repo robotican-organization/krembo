@@ -1,6 +1,8 @@
 #ifndef BIT_CONVERTER_H
 #define BIT_CONVERTER_H
 
+#include "application.h"
+
 struct BitConverter
 {
 
@@ -23,6 +25,18 @@ struct BitConverter
   static uint16_t toInt16(byte bytes[], int16_t start_index)
   {
   	return ((bytes[start_index + 1] << 8) | bytes[start_index]);
+  }
+
+  //bit indexes are from right to left, e.g. [7,6,5,4,3,2,1,0]
+  static byte setBitInByte(byte data_byte, byte bit_val, uint8_t bit_indx)
+  {
+    data_byte ^= (-bit_val ^ data_byte) & (1 << bit_indx);
+    return data_byte;
+  }
+
+  static byte getBitInByte(byte data_byte, uint8_t bit_indx)
+  {
+    return (data_byte >> bit_indx) & 1;
   }
 };
 

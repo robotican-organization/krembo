@@ -46,7 +46,27 @@ void MobileBase::setMotorDirection(Motor motor, Direction direction)
   }
 }
 
-bool MobileBase::drive(int linear_spd, int angular_spd)
+void MobileBase::driveJoyCmd(uint8_t joy_x, uint8_t joy_y)
+{
+  //convert x and y to linear and angular speeds
+  int8_t linear_spd;
+  if (joy_x >= JOY_NEUTRAL)
+    linear_spd = joy_x - JOY_NEUTRAL;
+  else
+    linear_spd = JOY_NEUTRAL - joy_x;
+  int8_t angular_spd;
+  if (joy_y >= JOY_NEUTRAL)
+    angular_spd = joy_y - JOY_NEUTRAL;
+  else
+    angular_spd = JOY_NEUTRAL - joy_y;
+  //don't exceed max values
+  if (angular_spd > 100) angular_spd = 100;
+  if (linear_spd > 100) linear_spd = 100;
+
+  drive(linear_spd, angular_spd);
+}
+
+bool MobileBase::drive(int8_t linear_spd, int8_t angular_spd)
 {
   digitalWrite(MOTOR_STBY_LEG, HIGH);
   if ((linear_spd < -100 || linear_spd > 100) ||
@@ -90,7 +110,7 @@ bool MobileBase::drive(int linear_spd, int angular_spd)
   //Serial.print("right cmd=: "); Serial.println(right_cmd);
 
   analogWrite(LEFT_MOTOR_PWM_LEG, left_cmd);
-  analogWrite(RIGHT_MOTOR_PWM_LEG, right_cmd); 
+  analogWrite(RIGHT_MOTOR_PWM_LEG, right_cmd);
   return true;
 }
 

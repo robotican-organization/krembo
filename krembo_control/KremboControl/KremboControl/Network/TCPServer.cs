@@ -72,7 +72,15 @@ namespace KremboControl.Network
             {
                 subCallBack(wkc_msg);
             }
+        }
 
+        public void sendToClient(int client_id, WKCPC2Krembo wkc_msg)
+        {
+            foreach (KremboClient client in clients_)
+            {
+                if (client.id == client_id)
+                    client.send(wkc_msg);
+            }
         }
 
         public void handleNewClientMsg()

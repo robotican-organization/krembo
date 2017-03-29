@@ -15,20 +15,18 @@ namespace KremboControl.Network
     public class KremboClient
     {
         const string NAME_PREFIX = "Krembo"; //the prefix before id. i.e for Krembo1 prefix is Krembo TODO: move to settings?
-        const bool DEBUG_MODE = true;
         TcpClient client_;
         TCPServer server_;
         NetworkStream net_stream_;
         byte[] bytes_in_;
         int num_of_bytes_rcved_;
         Task listen_task_ = new Task(() => { });
-        public int cam_id, human_cam_id;
-        public string human_cam_type, human_cam_state;
-        public char cam_type, cam_content;
         public bool alive = true;
+        public UInt16 id;
 
-        public KremboClient(TcpClient client, TCPServer server)
+        public KremboClient(TcpClient client, UInt16 client_id, TCPServer server)
         {
+            id = client_id;
             client_ = client;
             server_ = server;
             bytes_in_ = new byte[WKCKrembo2PC.MSG_SIZE];
@@ -59,24 +57,23 @@ namespace KremboControl.Network
             });
         }
 
-
-
-            
-        public void send(/*CamMessage.CamAction cam_action*/)
+        public void send(WKCPC2Krembo wkc_msg)
         {
-           /* MessageBox.Show(IsConnected(client_).ToString());
-            byte[] msg_buff = new byte[CamMessage.msgSize];
-            msg_buff[(int)CamMessage.MsgIndx.ID] = (byte)cam_id;
-            msg_buff[(int)CamMessage.MsgIndx.TYPE] = (byte)cam_type;
-            msg_buff[(int)CamMessage.MsgIndx.CONTENT] = (byte)cam_action;
-            msg_buff[(int)CamMessage.MsgIndx.CHECKSUM] = (byte)CamMessage.calcChecksum(System.Text.Encoding.UTF8.GetString(msg_buff).ToCharArray());
-            net_stream_.Write(msg_buff, 0, msg_buff.Length); */
+            byte[] buff = new byte[WKCPC2Krembo.PC2KREMBO_MSG_SIZE];
+            wkc_msg.toBytes(ref buff);
+            net_stream_.Write(buff, 0, buff.Length);
+
+            //send user msg (Krembo expecting to get it after WKC msg)
+            byte[] user_msg_buff = Encoding.ASCII.GetBytes(wkc_msg.user_msg);
+            net_stream_.Write(user_msg_buff, 0, user_msg_buff.Length);
         }
 
         public void close()
         {
             client_.Close();
         }
+
+      
 
         private void handleNewMsg(/*CamMessage cam_msg*/)
         {

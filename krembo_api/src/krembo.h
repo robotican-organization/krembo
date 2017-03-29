@@ -9,6 +9,7 @@
 #include "rgba_sensor.h"
 #include "com_layer.h"
 #include "wkc_krembo2pc.h"
+#include "wkc_pc2krembo.h"
 
 /*TODO:
 1. add connection between photons
@@ -44,6 +45,9 @@ private:
   bool id_was_sent_,
        master_asks_for_data_;
   I2CMux i2c_mux_;
+  void sendWKC();
+  void rcveWKC();
+  void handleWKCFromPC(WKCPC2Krembo wkc_msg);
 
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
 
@@ -54,7 +58,7 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   Battery bat;
   RGBLed led;
   COMLayer com;
-  void sendWKC(); //TODO: this function needs to be private. only photon uses it inside loop
+
 
   Krembo();
   void loop();

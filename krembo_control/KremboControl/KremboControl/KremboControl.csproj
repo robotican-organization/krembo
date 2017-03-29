@@ -70,6 +70,7 @@
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Utils\FileTools.cs" />
     <Compile Include="Utils\Joystick.cs" />
+    <Compile Include="Utils\Krembo.cs" />
     <Compile Include="Utils\ParticleCLI.cs" />
     <Compile Include="Network\KremboClient.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">

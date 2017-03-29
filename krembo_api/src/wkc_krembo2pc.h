@@ -12,7 +12,7 @@
  * |0-255| 0-255  |   0-255     |    0-1 |   0-1  |
  **********************/
 
-#define MSG_SIZE 3 //size bytes arr
+#define KREMBO2PC_MSG_SIZE 3 //size bytes arr
 
 #define ID_INDX 0
 #define BAT_LVL_INDX 1
@@ -31,7 +31,7 @@ public:
   bool is_bat_chrgng,
        is_bat_full;
   void toBytes(byte bytes_arr[]);
-  uint16_t size() { return MSG_SIZE; }
+  uint16_t size() { return KREMBO2PC_MSG_SIZE; }
 };
 
 #endif

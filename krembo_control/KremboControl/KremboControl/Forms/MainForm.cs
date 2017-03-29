@@ -17,7 +17,7 @@ namespace KremboControl
     public partial class Form1 : Form
     {
 
-
+        List<Krembo> krembos_list_ = new List<Krembo>();
         TCPServer server_;
 
 
@@ -25,6 +25,7 @@ namespace KremboControl
         {
             //this.WindowState = FormWindowState.Maximized; //enable this for full screen
             InitializeComponent();
+            connected_photons_lstbx.DataSource = krembos_list_;
             server_ = new TCPServer();
             server_.subscribe(onClientNewMsgCB);
             server_.asyncListenAt(new NetAddr("10.0.0.13", 8000));
@@ -40,9 +41,8 @@ namespace KremboControl
         {
             Invoke((MethodInvoker)delegate
             {
-                connected_photons_lstbx.Items.Add("Krembo" + wkc_msg.ID);
+                krembos_list_.Add(new Krembo(wkc_msg));
             });
-            
         }
 
         private void choose_bin_btn_Click(object sender, EventArgs e)
@@ -69,8 +69,17 @@ namespace KremboControl
                 bin_file_path_txtbx.Text = "";
                 flash_btn.Enabled = false;
             }
-               
+        }
 
+        private void sendtest_btn_Click(object sender, EventArgs e)
+        {
+            WKCPC2Krembo wkc_msg = new WKCPC2Krembo();
+            wkc_msg.data_req = false;
+            wkc_msg.toggle_led = true;
+            wkc_msg.user_msg = "hello krembo";
+            wkc_msg.joy_x = 200;
+            wkc_msg.joy_y = 200;
+            server_.sendToClient(((Krembo)(connected_photons_lstbx.SelectedItem)).krembo_wkc.ID, wkc_msg);
         }
     }
 }

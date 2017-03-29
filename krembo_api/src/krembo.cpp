@@ -25,18 +25,18 @@ void Krembo::loop()
   {
     if (!id_was_sent_) //send id only on once after connection
     {
-        sendWKC();
-        id_was_sent_ = true;
+      sendWKC();
+      id_was_sent_ = true;
     }
     else if (master_asks_for_data_)
     {
-        sendWKC();
+      sendWKC();
     }
 
     if (com.bytesWaiting())
     {
-      char ch = com.read();
-
+      //char ch = com.read();
+      rcveWKC();
     }
   }
 }
@@ -52,4 +52,32 @@ void Krembo::sendWKC()
   byte buff[wkc_msg.size()];
   wkc_msg.toBytes(buff);
   com.write(buff, wkc_msg.size());
+}
+
+void Krembo::rcveWKC()
+{
+  WKCPC2Krembo wkc_msg;
+  byte buff[wkc_msg.size()];
+  com.read(buff, wkc_msg.size());
+  wkc_msg.fromBytes(buff);
+  handleWKCFromPC(wkc_msg);
+}
+
+void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
+{
+  if (wkc_msg.data_req)
+  {
+    //TODO: send sensors data back to master
+  }
+  if (wkc_msg.toggle_led)
+    led.write(0, 0, 255); //blue
+
+  if (wkc_msg.joy_control)
+    base.driveJoyCmd(wkc_msg.joy_x, wkc_msg.joy_y);
+  if (wkc_msg.user_msg_size > 0) //get user message
+  {
+    byte user_msg_buff[wkc_msg.user_msg_size];
+    com.read(user_msg_buff, wkc_msg.user_msg_size);
+    //TODO: do something with user_msg_buff - contains user msg
+  }
 }

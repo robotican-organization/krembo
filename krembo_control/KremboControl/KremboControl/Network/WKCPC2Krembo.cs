@@ -5,53 +5,62 @@ using System.Text;
 using System.Threading.Tasks;
 using KremboControl.Utils;
 
+
+/***************************************************************************************************************
+* |----------------------------------------------N BYTES ARRAY-----------------------------------------------|
+* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |
+* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |
+* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|
+* -------------------------------------------------------------------------------------------------------------|
+* Flags:
+* JC = JOY CONTROL = indicates whether master request to control base with joystick
+* DR = DATA REQUEST = master asks for sensors/Krembo state data
+* TL = TOGGLE LED = master asks to turn on/off led
+* JX = JOY X = joystick x value
+* JY = JOY Y = joystick y value
+* MS = MESSAGE SIZE = user message size
+**************************************************************************************************************/
+
+
 namespace KremboControl.Network
 {
-    class WKCPC2Krembo
+    public class WKCPC2Krembo
     {
-        /***************************************************************************************************************
-         * |----------------------------------------------N BYTES ARRAY-----------------------------------------------|
-         * |          0 (8 BITS FLAGS)             |  1   |  2  |
-         * |DATA REQ|TOGGLE LED|                   | ROLL |PITCH|
-         * |   0-1  |   0-1    |                   |0-255 |0-255|
-         **************************************************************************************************************/
-        /*
-        public const int MSG_SIZE = 3;
-        public const int ID_INDX = 0;
-        public const int BAT_LVL_INDX = 1;
-        public const int BAT_CHRG_LVL_INDX = 2;
-        */
-        public static void toBytes(ref byte[] bytes_buff, JoystickControls joy_controls)
-        {
-            /*
-            //header
-            fillBuffWithBytes(ref bytes_buff, HEADER, PKG_HEADER_INDX);
+        public const int PC2KREMBO_MSG_SIZE = 3;
 
-            //data
-            fillBuffWithBytes(ref bytes_buff, joy_controls.roll_axis, PKG_ROLL_INDX);
-            fillBuffWithBytes(ref bytes_buff, joy_controls.pitch_axis, PKG_PITCH_INDX);
-            fillBuffWithBytes(ref bytes_buff, joy_controls.yaw_axis, PKG_YAW_INDX);
-            fillBuffWithBytes(ref bytes_buff, joy_controls.throttle_axis, PKG_THROTTLE_INDX);
-            fillBuffWithBytes(ref bytes_buff, Convert.ToByte(joy_controls.toggle1), PKG_TOGGLE1_INDX);
-            fillBuffWithBytes(ref bytes_buff, Convert.ToByte(joy_controls.toggle2), PKG_TOGGLE2_INDX);
-            */
-          
+        public const int FLAGS_INDX = 0;
+                    public const int DATA_REQ_BIT = 0;
+                    public const int TOGGLE_LED_BIT = 1;
+                    public const int JOY_CTRL_BIT = 2;
+
+        public const int JOY_X_INDX = 1;
+        public const int JOY_Y_INDX = 2;
+        public const int USER_MSG_SIZE_INDX = 3;
+
+        public UInt16 joy_x,
+                      joy_y;
+
+        public bool data_req,
+                    toggle_led,
+                    joy_control;
+
+        public string user_msg;
+
+        public void toBytes(ref byte [] buff)
+        {
+            byte flags_byte = 0;
+            setBitInByte(ref flags_byte, Convert.ToByte(data_req), DATA_REQ_BIT);
+            setBitInByte(ref flags_byte, Convert.ToByte(toggle_led), TOGGLE_LED_BIT);
+            setBitInByte(ref flags_byte, Convert.ToByte(joy_control), JOY_CTRL_BIT);
+
+            buff[JOY_X_INDX] = (byte)joy_x;
+            buff[JOY_Y_INDX] = (byte)joy_y;
+            buff[USER_MSG_SIZE_INDX] = (byte)user_msg.Length;
         }
 
-        /*
-        private static void fillBuffWithBytes(ref byte[] buff, UInt16 value, int fill_index)
+        void setBitInByte(ref byte data_byte, byte bit_val, byte bit_indx)
         {
-            //int16 - 2 bytes
-            byte[] temp_buff = BitConverter.GetBytes(value);
-            buff[fill_index] = temp_buff[0];
-            buff[fill_index + 1] = temp_buff[1];
+            data_byte ^= (byte)((-bit_val ^ data_byte) & (1 << bit_indx));
         }
-
-        private static void fillBuffWithBytes(ref byte[] buff, byte value, int fill_index)
-        {
-            //bool is only 1 byte
-            byte[] temp_buff = BitConverter.GetBytes(value);
-            buff[fill_index] = temp_buff[0];
-        }*/
     }
 }
