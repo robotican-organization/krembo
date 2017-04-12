@@ -47,7 +47,7 @@ namespace KremboControl.Network
                         try
                         {
                             temp_client_ = server_.AcceptTcpClient();
-                            MessageBox.Show("got tcp connection");
+                           // MessageBox.Show("got tcp connection");
                         }
                         catch (Exception)
                         {
@@ -71,7 +71,7 @@ namespace KremboControl.Network
 
         public void onMsgRcvdCallBack(WKCKrembo2PC wkc_msg)
         {
-            MessageBox.Show("New msg recved");
+        //    MessageBox.Show("New msg recved");
             
             foreach (Action<WKCKrembo2PC> subCallBack in msgs_subs_list_)
             {

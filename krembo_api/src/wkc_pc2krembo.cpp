@@ -4,7 +4,6 @@
 
 void WKCPC2Krembo::fromBytes(byte bytes_arr[])
 {
-  id = (uint8_t)bytes_arr[ID_INDX];
   //extract flags
   data_req = BitConverter::getBitInByte(bytes_arr[FLAGS_INDX],
                                         DATA_REQ_BIT);

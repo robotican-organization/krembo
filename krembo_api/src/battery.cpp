@@ -21,6 +21,7 @@ float Battery::readChargelvl()
 
 void Battery::print()
 {
+  //TODO: use printf instead of println
   Serial.println("------------Battry Values------------");
   Serial.print("Battery level: "); Serial.print(readBatLvl());
   Serial.print(" | Charge Level: "); Serial.print(readChargelvl());
@@ -40,16 +41,10 @@ bool Battery::isFull()
 
 uint8_t Battery::getBatLvl()
 {
-  return (uint8_t)map(readBatLvl(),
-                      MIN_BAT_LVL,
-                      MAX_BAT_LVL,
-                      0, 100);
+  return (uint8_t)((readBatLvl() - MIN_BAT_LVL) / (MAX_BAT_LVL - MIN_BAT_LVL) * 100);
 }
 
 uint8_t Battery::getChargeLvl()
 {
-  return (uint8_t)map(readChargelvl(),
-                      MIN_CHRG_LVL,
-                      MAX_CHRG_LVL,
-                      0, 100);
+  return (uint8_t)((readChargelvl() / MAX_CHRG_LVL) * 100);
 }

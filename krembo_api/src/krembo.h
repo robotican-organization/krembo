@@ -10,6 +10,7 @@
 #include "com_layer.h"
 #include "wkc_krembo2pc.h"
 #include "wkc_pc2krembo.h"
+#include "bluesky_timer.h"
 
 /*TODO:
 1. add connection between photons
@@ -30,6 +31,7 @@
 #define MASTER_IP "10.0.0.11"
 #define MASTER_PORT 8000
 #define KREMBO_ID 2
+#define SEND_DATA_INTERVAL 1000 //ms
 
 enum class SensorAddr //TODO: extract this to krembo, and make constructor here take int8
 {
@@ -45,9 +47,11 @@ private:
   bool id_was_sent_,
        master_asks_for_data_;
   I2CMux i2c_mux_;
+  COMLayer com_;
   void sendWKC();
   void rcveWKC();
   void handleWKCFromPC(WKCPC2Krembo wkc_msg);
+  BlueSkyTimer send_data_timer_;
 
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
 
@@ -57,7 +61,6 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   //RGBASensor rgba3;
   Battery bat;
   RGBLed led;
-  COMLayer com;
 
 
   Krembo();

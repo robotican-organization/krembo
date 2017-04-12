@@ -16,9 +16,9 @@ Krembo::Krembo()
 
 void Krembo::loop()
 {
-  if (!com.isConnected())
+  if (!com_.isConnected())
   {
-    com.connect(MASTER_IP, MASTER_PORT);
+    com_.connect(MASTER_IP, MASTER_PORT);
     id_was_sent_ = false;
   }
   else
@@ -28,12 +28,13 @@ void Krembo::loop()
       sendWKC();
       id_was_sent_ = true;
     }
-    else if (master_asks_for_data_)
+    else if (master_asks_for_data_ && send_data_timer_.finished())
     {
       sendWKC();
+      send_data_timer_.startOver();
     }
 
-    if (com.bytesWaiting())
+    if (com_.bytesWaiting())
     {
       rcveWKC();
     }
@@ -47,17 +48,18 @@ void Krembo::sendWKC()
   wkc_msg.id = getID();
   wkc_msg.bat_lvl = bat.getBatLvl();
   wkc_msg.bat_chrg_lvl = bat.getChargeLvl();
-
+  wkc_msg.is_bat_chrgng = bat.isCharging();
+  wkc_msg.is_bat_full = bat.isFull();
   byte buff[wkc_msg.size()];
   wkc_msg.toBytes(buff);
-  com.write(buff, wkc_msg.size());
+  com_.write(buff, wkc_msg.size());
 }
 
 void Krembo::rcveWKC()
 {
   WKCPC2Krembo wkc_msg;
   byte buff[wkc_msg.size()];
-  com.read(buff, wkc_msg.size());
+  com_.read(buff, wkc_msg.size());
   wkc_msg.fromBytes(buff);
   handleWKCFromPC(wkc_msg);
 }
@@ -65,33 +67,28 @@ void Krembo::rcveWKC()
 void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
 {
   wkc_msg.print();
-  byte user_msg_buff[wkc_msg.user_msg_size];
-  if (wkc_msg.user_msg_size > 0) //get user message
-  {
-
-    com.read(user_msg_buff, wkc_msg.user_msg_size);
-    for (int i=0; i<wkc_msg.user_msg_size; i++)
-    {
-      Serial.print((char)user_msg_buff[i]);
-    }
-    //TODO: do something with user_msg_buff - contains user msg
-  }
-
-
 
   if (wkc_msg.data_req)
   {
-    //TODO: send sensors data back to master
+    master_asks_for_data_ = true;
+    send_data_timer_.start(SEND_DATA_INTERVAL);
   }
+  else
+    master_asks_for_data_ = false;
+
   if (wkc_msg.toggle_led)
-    led.write(0, 0, 255); //blue
+    led.write(0, 0, 255); //blue //TODO: add ability to send RGB to led in protocol
 
   if (wkc_msg.joy_control)
     base.driveJoyCmd(wkc_msg.joy_x, wkc_msg.joy_y);
   if (wkc_msg.user_msg_size > 0) //get user message
   {
     byte user_msg_buff[wkc_msg.user_msg_size];
-    com.read(user_msg_buff, wkc_msg.user_msg_size);
+    com_.read(user_msg_buff, wkc_msg.user_msg_size);
+    for (int i=0; i < wkc_msg.user_msg_size; i++)
+    {
+      Serial.print((char)user_msg_buff[i]); //TODO: delete msg printing after done testing
+    }
     //TODO: do something with user_msg_buff - contains user msg
   }
 }

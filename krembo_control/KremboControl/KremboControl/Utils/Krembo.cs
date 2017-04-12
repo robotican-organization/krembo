@@ -9,6 +9,9 @@ namespace KremboControl.Utils
 {
     class Krembo
     {
+        public const int MAX_BASE_VEL = 255;
+        public const int NEUTRAL_BASE_VEL = 127;
+        public const int MIN_BASE_VEL = 0;
         public WKCKrembo2PC krembo_wkc;
 
         public Krembo(WKCKrembo2PC wkc_msg)
