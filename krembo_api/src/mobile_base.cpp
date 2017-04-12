@@ -49,19 +49,10 @@ void MobileBase::setMotorDirection(Motor motor, Direction direction)
 void MobileBase::driveJoyCmd(uint8_t joy_x, uint8_t joy_y)
 {
   //convert x and y to linear and angular speeds
-  int8_t linear_spd;
-  if (joy_x >= JOY_NEUTRAL)
-    linear_spd = joy_x - JOY_NEUTRAL;
-  else
-    linear_spd = JOY_NEUTRAL - joy_x;
-  int8_t angular_spd;
-  if (joy_y >= JOY_NEUTRAL)
-    angular_spd = joy_y - JOY_NEUTRAL;
-  else
-    angular_spd = JOY_NEUTRAL - joy_y;
-  //don't exceed max values
-  if (angular_spd > 100) angular_spd = 100;
-  if (linear_spd > 100) linear_spd = 100;
+  uint8_t linear_spd = map(joy_x, 0, 255, 100, -100);
+  uint8_t angular_spd = map(joy_y, 0, 255, 100, -100);
+  Serial.printf("linear_spd: %d\n", linear_spd);
+  Serial.printf("angular_spd: %d\n", angular_spd);
 
   drive(linear_spd, angular_spd);
 }

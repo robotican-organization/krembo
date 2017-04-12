@@ -28,10 +28,9 @@ struct BitConverter
   }
 
   //bit indexes are from right to left, e.g. [7,6,5,4,3,2,1,0]
-  static byte setBitInByte(byte data_byte, byte bit_val, uint8_t bit_indx)
+  static void setBitInByte(byte & data_byte, byte bit_val, uint8_t bit_indx)
   {
     data_byte ^= (-bit_val ^ data_byte) & (1 << bit_indx);
-    return data_byte;
   }
 
   static byte getBitInByte(byte data_byte, uint8_t bit_indx)

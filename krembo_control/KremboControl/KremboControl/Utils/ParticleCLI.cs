@@ -24,7 +24,7 @@ namespace KremboControl.Utils
             return cmd;
         }
 
-        public static void flashPhoton(KremboClient photon, string bin_file_path)
+        public static void flashPhoton(KremboClient krembo, string bin_file_path)
         {
 
             Process cmd = startNewCmd();

@@ -22,11 +22,11 @@ namespace KremboControl.Network
         int num_of_bytes_rcved_;
         Task listen_task_ = new Task(() => { });
         public bool alive = true;
-        public UInt16 id;
+        public UInt16 ID { get; private set; }
 
-        public KremboClient(TcpClient client, UInt16 client_id, TCPServer server)
+        public KremboClient(TcpClient client, TCPServer server)
         {
-            id = client_id;
+            //id = client_id;
             client_ = client;
             server_ = server;
             bytes_in_ = new byte[WKCKrembo2PC.MSG_SIZE];
@@ -47,7 +47,9 @@ namespace KremboControl.Network
                         /*ConsoleLogger.write("CamMessage",
                              "got msg: " + bytes_in_ +
                              " | size: " + bytes_in_.Length, DEBUG_MODE);*/
-                        server_.onClientRcvdCallBack(bytes_in_);
+                        WKCKrembo2PC wkc_msg = new WKCKrembo2PC(bytes_in_);
+                        ID = wkc_msg.ID;
+                        server_.onMsgRcvdCallBack(wkc_msg);
                     }
                 }
                 catch (Exception)
@@ -59,13 +61,14 @@ namespace KremboControl.Network
 
         public void send(WKCPC2Krembo wkc_msg)
         {
-            byte[] buff = new byte[WKCPC2Krembo.PC2KREMBO_MSG_SIZE];
-            wkc_msg.toBytes(ref buff);
+            //send user msg (Krembo expecting to get it after WKC msg)
+            //byte[] user_msg_buff = Encoding.ASCII.GetBytes(wkc_msg.user_msg);
+
+            // byte[] buff = new byte[WKCPC2Krembo.];
+            byte[] buff = wkc_msg.toBytes();
             net_stream_.Write(buff, 0, buff.Length);
 
-            //send user msg (Krembo expecting to get it after WKC msg)
-            byte[] user_msg_buff = Encoding.ASCII.GetBytes(wkc_msg.user_msg);
-            net_stream_.Write(user_msg_buff, 0, user_msg_buff.Length);
+            
         }
 
         public void close()

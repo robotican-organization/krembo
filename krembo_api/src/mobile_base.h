@@ -4,14 +4,12 @@
 #include "application.h"
 
 #define LEFT_MOTOR_DIR_LEG1 D4
-#define LEFT_MOTOR_DIR_LEG2 D6
+#define LEFT_MOTOR_DIR_LEG2 D5
 #define LEFT_MOTOR_PWM_LEG D2
 #define RIGHT_MOTOR_DIR_LEG1 A2
 #define RIGHT_MOTOR_DIR_LEG2 A3
 #define RIGHT_MOTOR_PWM_LEG D3
 #define MOTOR_STBY_LEG A1
-
-#define JOY_NEUTRAL 127.5 // = sizeof(uint8_t / 2)
 
 class MobileBase
 {

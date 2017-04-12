@@ -23,7 +23,7 @@ void Krembo::loop()
   }
   else
   {
-    if (!id_was_sent_) //send id only on once after connection
+    if (!id_was_sent_) //send id only once after connection
     {
       sendWKC();
       id_was_sent_ = true;
@@ -35,7 +35,6 @@ void Krembo::loop()
 
     if (com.bytesWaiting())
     {
-      //char ch = com.read();
       rcveWKC();
     }
   }
@@ -65,6 +64,21 @@ void Krembo::rcveWKC()
 
 void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
 {
+  wkc_msg.print();
+  byte user_msg_buff[wkc_msg.user_msg_size];
+  if (wkc_msg.user_msg_size > 0) //get user message
+  {
+
+    com.read(user_msg_buff, wkc_msg.user_msg_size);
+    for (int i=0; i<wkc_msg.user_msg_size; i++)
+    {
+      Serial.print((char)user_msg_buff[i]);
+    }
+    //TODO: do something with user_msg_buff - contains user msg
+  }
+
+
+
   if (wkc_msg.data_req)
   {
     //TODO: send sensors data back to master
