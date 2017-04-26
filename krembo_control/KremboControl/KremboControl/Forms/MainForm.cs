@@ -11,6 +11,7 @@ using KremboControl.Utils;
 using KremboControl.Network;
 using System.Net;
 using System.IO;
+using KremboControl.Forms;
 
 namespace KremboControl
 {
@@ -30,9 +31,10 @@ namespace KremboControl
             
             server_ = new TCPServer();
             server_.subscribeToMsgs(onClientNewMsgCB);
-            server_.asyncListenAt(new NetAddr("10.0.0.11", 8000));
-            
+            server_.asyncListenAt(new NetAddr("10.0.0.13", 8000));
         }
+
+     
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -50,45 +52,26 @@ namespace KremboControl
                     {
                         //remove existing krembo (make place for updated one)
                         krembos_list_.Remove(krembo);
+                        break;
                     }
-                    break;
+                    
                 }
                 krembos_list_.Add(updated_krembo);
                 if (connected_photons_lstbx.SelectedItem.Equals(updated_krembo))
-                {
-                    id_lbl.Text = "ID: " + updated_krembo.krembo_wkc.ID.ToString();
-                    bat_lvl_lbl.Text = "Bat lvl: " + updated_krembo.krembo_wkc.BatLvl.ToString();
-                    bat_chrg_lvl_lbl.Text = "Chrg lvl: " + updated_krembo.krembo_wkc.BatChrgLvl.ToString();
-                }
-                
+                    updateKremboImgLbls(updated_krembo);
+                else
+                    connected_photons_lstbx.SelectedItem = updated_krembo; 
             });
         }
 
-        private void choose_bin_btn_Click(object sender, EventArgs e)
+        public void updateKremboImgLbls(Krembo krembo)
         {
-            string bin_file_path = FileTools.chooseFilePath("Binary Files (*.bin)|*.bin");
-            bin_file_path_txtbx.Text = bin_file_path;
-            flash_btn.Enabled = true;
+            id_lbl.Text = "ID: " + krembo.krembo_wkc.ID.ToString();
+            bat_lvl_lbl.Text = "Bat lvl: " + krembo.krembo_wkc.BatLvl.ToString();
+            bat_chrg_lvl_lbl.Text = "Chrg lvl: " + krembo.krembo_wkc.BatChrgLvl.ToString();
         }
 
-        private void flash_btn_Click(object sender, EventArgs e)
-        {
-            if (File.Exists(bin_file_path_txtbx.Text))
-            {
-                flash_btn.Enabled = false;
-
-                //TODO: do flash work - flash selected photons
-
-                flash_btn.Enabled = true;
-            }
-            else
-            {
-                MsgBxLogger.errorMsg("Flash Error",
-                                    "Bin file at: " + bin_file_path_txtbx.Text + " doesn't exist");
-                bin_file_path_txtbx.Text = "";
-                flash_btn.Enabled = false;
-            }
-        }
+    
 
         private void sendtest_btn_Click(object sender, EventArgs e)
         {
@@ -105,6 +88,21 @@ namespace KremboControl
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void flashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new FlashForm()).Show();
+        }
+
+        private void connected_photons_lstbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateKremboImgLbls((Krembo)connected_photons_lstbx.SelectedItem);
         }
     }
 }

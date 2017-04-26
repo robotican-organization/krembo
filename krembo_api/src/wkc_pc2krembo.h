@@ -5,9 +5,9 @@
 
 /***************************************************************************************************************
 * |----------------------------------------------N BYTES ARRAY-------------------------------------------------|
-* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |
-* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |
-* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|
+* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |  3 - 3+MS  |
+* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |    MSC     |
+* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|MS MSC bytes|
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
@@ -16,6 +16,7 @@
 * JX = JOY X = joystick x value
 * JY = JOY Y = joystick y value
 * MS = MESSAGE SIZE = user message size
+* MSC = MESSAGE CONTENT = user message content
 **************************************************************************************************************/
 
 

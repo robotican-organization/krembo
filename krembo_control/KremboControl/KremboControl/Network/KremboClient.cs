@@ -22,7 +22,7 @@ namespace KremboControl.Network
         int num_of_bytes_rcved_;
         Task listen_task_ = new Task(() => { });
         public bool alive = true;
-        public UInt16 ID { get; private set; }
+        public string ID { get; private set; }
 
         public KremboClient(TcpClient client, TCPServer server)
         {

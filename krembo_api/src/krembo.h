@@ -28,9 +28,8 @@
 14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
 
-#define MASTER_IP "10.0.0.11"
+#define MASTER_IP "10.0.0.13"
 #define MASTER_PORT 8000
-#define KREMBO_ID 2
 #define SEND_DATA_INTERVAL 1000 //ms
 
 enum class SensorAddr //TODO: extract this to krembo, and make constructor here take int8
@@ -66,7 +65,6 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   Krembo();
   void loop();
   String getParticleID() { return System.deviceID(); }
-  uint8_t getID() { return KREMBO_ID; }
 
 };
 

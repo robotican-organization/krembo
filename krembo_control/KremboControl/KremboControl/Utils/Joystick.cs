@@ -43,28 +43,7 @@ namespace KremboControl.Utils
 
     class Joystick
     {
-        //TODO: insert to settings form ----------------------------------------------------------------
-        public const int PITCH_AXIS_MIN_VAL = 1350;
-        public const int PITCH_AXIS_MAX_VAL = 1650;
-        public const int ROLL_AXIS_MIN_VAL = 1350;
-        public const int ROLL_AXIS_MAX_VAL = 1650;
-        public const int THROTTLE_AXIS_MIN_VAL = 1000;
-        public const int THROTTLE_AXIS_MAX_VAL = 2000;
-        public const int YAW_AXIS_MIN_VAL = 1000;
-        public const int YAW_AXIS_MAX_VAL = 2000;
-
-        public const int ROLL_TRIM_INC = 1;
-        public const int PITCH_TRIM_INC = 1;
-        public const int YAW_TRIM_INC = 1;
-        public const int THROTTLE_TRIM_INC = 1;
-        //----------------------------------------------------------------------------------------------
-
-        //-----------------------------------CONSTANT SETTINGS------------------------------------------
-        public const int TRIM_MAX_RANGE = 500;
-
-        public const int PWM_AXES_MAX_VAL = 2000;
-        public const int PWM_AXES_MIN_VAL = 1000;
-
+        /*************CONST SETTINGS**************/
         public const int JOY_AXES_MAX_VAL = 65535;
         public const int JOY_AXES_MIN_VAL = 0;
 
@@ -74,17 +53,11 @@ namespace KremboControl.Utils
         public const int HAT_DOWN = 18000;
 
         public const bool BUTTON_PRESSED = true;
-        //----------------------------------------------------------------------------------------------
 
         private IntPtr window_handle_;
         private Device joy_dev_;
+        
 
-        /************JOYSTICK STATES************
-         * Z axis = roll
-         * RZ axis = pitch
-         * X axis = yaw
-         * Y axis = throttle
-         **************************************/
         private JoystickState joy_state_;
 
         private JoystickControls joy_ctrls_;
@@ -99,11 +72,6 @@ namespace KremboControl.Utils
             window_handle_ = window_handle;
             joy_ctrls_ = new JoystickControls();
         }
-/*
-        public UInt16 getRollAxis() { return joy_ctrls_.roll_axis; }
-        public UInt16 getPitchAxis() { return joy_ctrls_.pitch_axis; }
-        public UInt16 getThrottleAxis() { return joy_ctrls_.throttle_axis; }
-        public UInt16 getYawAxis() { return joy_ctrls_.yaw_axis; }*/
 
         public JoystickControls getJoyControls()
         {
@@ -117,8 +85,6 @@ namespace KremboControl.Utils
             {
                 if (AcquireJoystick(sticks))
                 {
-                    //MsgBxLogger.infoMsg("", "");
-                    //enableTimer();
                     return true;
                 }
             }
@@ -199,69 +165,6 @@ namespace KremboControl.Utils
             try
             {
                 readJoystickControls();
-
-                //-----------------------------CALCULATE TRIM--------------------------
-                //trim roll
-                if (buttons[2] == BUTTON_PRESSED)
-                {
-                    joy_ctrls_.roll_trim += ROLL_TRIM_INC;
-                    if (joy_ctrls_.roll_trim > TRIM_MAX_RANGE) joy_ctrls_.roll_trim = TRIM_MAX_RANGE;
-                }
-                if (buttons[0] == BUTTON_PRESSED)
-                {
-                    joy_ctrls_.roll_trim -= ROLL_TRIM_INC;
-                    if (joy_ctrls_.roll_trim < -TRIM_MAX_RANGE) joy_ctrls_.roll_trim = -TRIM_MAX_RANGE;
-                }
-                //trim pitch
-                if (buttons[3] == BUTTON_PRESSED)
-                {
-                    joy_ctrls_.pitch_trim += PITCH_TRIM_INC;
-                    if (joy_ctrls_.pitch_trim > TRIM_MAX_RANGE) joy_ctrls_.pitch_trim = TRIM_MAX_RANGE;
-                }
-                if (buttons[1] == BUTTON_PRESSED)
-                {
-                    joy_ctrls_.pitch_trim -= PITCH_TRIM_INC;
-                    if (joy_ctrls_.pitch_trim < -TRIM_MAX_RANGE) joy_ctrls_.pitch_trim = -TRIM_MAX_RANGE;
-                }
-                //trim yaw
-                if (view_hat[0] == HAT_RIGHT)
-                {
-                    joy_ctrls_.yaw_trim += YAW_TRIM_INC;
-                    if (joy_ctrls_.yaw_trim > TRIM_MAX_RANGE) joy_ctrls_.yaw_trim = TRIM_MAX_RANGE;
-                }
-                if (view_hat[0] == HAT_LEFT)
-                {
-                    joy_ctrls_.yaw_trim -= YAW_TRIM_INC;
-                    if (joy_ctrls_.yaw_trim < -TRIM_MAX_RANGE) joy_ctrls_.yaw_trim = -TRIM_MAX_RANGE;
-                }
-                //trim throttle
-                if (view_hat[0] == HAT_UP)
-                {
-                    joy_ctrls_.throttle_trim += THROTTLE_TRIM_INC;
-                    if (joy_ctrls_.throttle_trim > TRIM_MAX_RANGE) joy_ctrls_.throttle_axis = TRIM_MAX_RANGE;
-                }
-                if (view_hat[0] == HAT_DOWN)
-                {
-                    joy_ctrls_.throttle_trim -= THROTTLE_TRIM_INC;
-                    if (joy_ctrls_.throttle_trim < -TRIM_MAX_RANGE) joy_ctrls_.throttle_trim = -TRIM_MAX_RANGE;
-                }
-
-                //-----------------------------APPLY TRIM AND LIMITAIONS--------------------------
-                joy_ctrls_.pitch_axis = (UInt16)((int)joy_ctrls_.pitch_axis + joy_ctrls_.pitch_trim);
-                joy_ctrls_.roll_axis = (UInt16)((int)joy_ctrls_.roll_axis + joy_ctrls_.roll_trim);
-                joy_ctrls_.throttle_axis = (UInt16)((int)joy_ctrls_.throttle_axis + joy_ctrls_.throttle_trim);
-                joy_ctrls_.yaw_axis = (UInt16)((int)joy_ctrls_.yaw_axis + joy_ctrls_.yaw_trim);
-
-                //---------------------------LIMIT VALUES TO VALID INPUTS-------------------------
-                if (joy_ctrls_.pitch_axis < PWM_AXES_MIN_VAL) joy_ctrls_.pitch_axis = PWM_AXES_MIN_VAL;
-                if (joy_ctrls_.pitch_axis > PWM_AXES_MAX_VAL) joy_ctrls_.pitch_axis = PWM_AXES_MAX_VAL;
-                if (joy_ctrls_.roll_axis < PWM_AXES_MIN_VAL) joy_ctrls_.roll_axis = PWM_AXES_MIN_VAL;
-                if (joy_ctrls_.roll_axis > PWM_AXES_MAX_VAL) joy_ctrls_.roll_axis = PWM_AXES_MAX_VAL;
-                if (joy_ctrls_.throttle_axis < PWM_AXES_MIN_VAL) joy_ctrls_.throttle_axis = PWM_AXES_MIN_VAL;
-                if (joy_ctrls_.throttle_axis > PWM_AXES_MAX_VAL) joy_ctrls_.throttle_axis = PWM_AXES_MAX_VAL;
-                if (joy_ctrls_.yaw_axis < PWM_AXES_MIN_VAL) joy_ctrls_.yaw_axis = PWM_AXES_MIN_VAL;
-                if (joy_ctrls_.yaw_axis > PWM_AXES_MAX_VAL) joy_ctrls_.yaw_axis = PWM_AXES_MAX_VAL;
-
                 return true;
             }
             catch
@@ -323,7 +226,7 @@ namespace KremboControl.Utils
             Poll();
 
             //read axes values
-            joy_ctrls_.roll_axis = (UInt16)mapVal(joy_state_.Z, 
+          /*  joy_ctrls_.roll_axis = (UInt16)mapVal(joy_state_.Z, 
                                                   JOY_AXES_MIN_VAL, 
                                                   JOY_AXES_MAX_VAL, 
                                                   ROLL_AXIS_MIN_VAL, 
@@ -357,7 +260,7 @@ namespace KremboControl.Utils
                                                                     ), 
                                                             YAW_AXIS_MIN_VAL, 
                                                             YAW_AXIS_MAX_VAL
-                                                            );
+                                                            );*/
             
             //read joystick hat values
             view_hat = joy_state_.GetPointOfView();

@@ -16,6 +16,16 @@ Krembo::Krembo()
 
 void Krembo::loop()
 {
+/*  String id = System.deviceID();
+  byte id_bytes[24];
+  id.getBytes(id_bytes, ID_SIZE+1);
+  for(int i=0; i < 24; i++)
+  {
+    Serial.print((char)id_bytes[i]);
+  }
+  Serial.println();*/
+
+
   if (!com_.isConnected())
   {
     com_.connect(MASTER_IP, MASTER_PORT);
@@ -45,7 +55,6 @@ void Krembo::sendWKC()
 {
   //build WKC msg
   WKCKrembo2PC wkc_msg;
-  wkc_msg.id = getID();
   wkc_msg.bat_lvl = bat.getBatLvl();
   wkc_msg.bat_chrg_lvl = bat.getChargeLvl();
   wkc_msg.is_bat_chrgng = bat.isCharging();
