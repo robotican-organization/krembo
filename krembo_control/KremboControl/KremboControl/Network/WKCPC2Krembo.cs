@@ -38,8 +38,8 @@ namespace KremboControl.Network
         public const int JOY_Y_INDX = 2;
         public const int USER_MSG_SIZE_INDX = 3;
 
-        public UInt16 joy_x,
-                      joy_y;
+        public ushort linear_vel,
+                      angular_vel;
 
         public bool data_req,
                     toggle_led,
@@ -58,8 +58,8 @@ namespace KremboControl.Network
             setBitInByte(ref flags_byte, Convert.ToByte(joy_control), JOY_CTRL_BIT);
             buff[FLAGS_INDX] = flags_byte;
 
-            buff[JOY_X_INDX] = (byte)joy_x;
-            buff[JOY_Y_INDX] = (byte)joy_y;
+            buff[JOY_X_INDX] = (byte)linear_vel;
+            buff[JOY_Y_INDX] = (byte)angular_vel;
             buff[USER_MSG_SIZE_INDX] = (byte)user_msg.Length;
 
             for (int i=PC2KREMBO_MSG_SIZE;
@@ -74,6 +74,16 @@ namespace KremboControl.Network
         void setBitInByte(ref byte data_byte, byte bit_val, byte bit_indx)
         {
             data_byte ^= (byte)((-bit_val ^ data_byte) & (1 << bit_indx));
+        }
+
+        public void FillBaseMsg(ushort linear_vel, ushort angular_vel)
+        {
+            data_req = true;
+            toggle_led = false;
+            joy_control = true;
+            user_msg = "";
+            this.linear_vel = linear_vel;
+            this.angular_vel = angular_vel;
         }
     }
 }

@@ -28,7 +28,7 @@
 14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
 
-#define MASTER_IP "10.0.0.13"
+#define MASTER_IP "10.0.0.21"
 #define MASTER_PORT 8000
 #define SEND_DATA_INTERVAL 1000 //ms
 

@@ -79,7 +79,7 @@ namespace KremboControl.Network
             }
         }
 
-        public void sendToClient(string client_id, WKCPC2Krembo wkc_msg)
+        public void sendToKrembo(string client_id, WKCPC2Krembo wkc_msg)
         {
             foreach (KremboClient client in clients_)
             {

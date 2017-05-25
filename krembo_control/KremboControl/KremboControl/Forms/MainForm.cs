@@ -31,7 +31,7 @@ namespace KremboControl
             
             server_ = new TCPServer();
             server_.subscribeToMsgs(onClientNewMsgCB);
-            server_.asyncListenAt(new NetAddr("10.0.0.13", 8000));
+            server_.asyncListenAt(new NetAddr("10.0.0.21", 8000));
         }
 
      
@@ -80,9 +80,14 @@ namespace KremboControl
             wkc_msg.toggle_led = false;
             wkc_msg.joy_control = true;
             wkc_msg.user_msg = "hello krembo";
-            wkc_msg.joy_x = Krembo.NEUTRAL_BASE_VEL;
-            wkc_msg.joy_y = Krembo.NEUTRAL_BASE_VEL;
-            server_.sendToClient(((Krembo)(connected_photons_lstbx.SelectedItem)).krembo_wkc.ID, wkc_msg); //client is chosen by connection socket (no need for id)
+            wkc_msg.linear_vel = Krembo.NEUTRAL_BASE_VEL;
+            wkc_msg.angular_vel = Krembo.NEUTRAL_BASE_VEL;
+            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).krembo_wkc.ID, wkc_msg); //client is chosen by connection socket (no need for id)
+        }
+
+        private void SendMsgToSelectedKrembo(WKCPC2Krembo wkc_msg)
+        {
+            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).krembo_wkc.ID, wkc_msg); //client is chosen by connection socket (no need for id)
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -102,7 +107,48 @@ namespace KremboControl
 
         private void connected_photons_lstbx_SelectedIndexChanged(object sender, EventArgs e)
         {
+            controller_grbx.Enabled = true;
             updateKremboImgLbls((Krembo)connected_photons_lstbx.SelectedItem);
+        }
+
+        private void linear_vel_sbar_Scroll(object sender, EventArgs e)
+        {
+            WKCPC2Krembo wkc_msg = new WKCPC2Krembo();
+            wkc_msg.FillBaseMsg(Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value),
+                                Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value));
+            SendMsgToSelectedKrembo(wkc_msg);
+
+            linear_vel_lbl.Text = linear_vel_sbar.Value.ToString() + " %";
+        }
+
+        private void angular_vel_sbar_Scroll(object sender, EventArgs e)
+        {
+            WKCPC2Krembo wkc_msg = new WKCPC2Krembo();
+            wkc_msg.FillBaseMsg(Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value),
+                                Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value));
+            SendMsgToSelectedKrembo(wkc_msg);
+
+            angular_vel_lbl.Text = angular_vel_sbar.Value.ToString() + " %";
+        }
+
+        private void reset_lin_vel_btn_Click(object sender, EventArgs e)
+        {
+            WKCPC2Krembo wkc_msg = new WKCPC2Krembo();
+            wkc_msg.FillBaseMsg(Krembo.ConvertToKremboVel(-100, 100, 0),
+                                Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value));
+            SendMsgToSelectedKrembo(wkc_msg);
+            linear_vel_sbar.Value = 0;
+            linear_vel_lbl.Text = "0 %";
+        }
+
+        private void reset_ang_vel_btn_Click(object sender, EventArgs e)
+        {
+            WKCPC2Krembo wkc_msg = new WKCPC2Krembo();
+            wkc_msg.FillBaseMsg(Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value),
+                                Krembo.ConvertToKremboVel(-100, 100, 0));
+            SendMsgToSelectedKrembo(wkc_msg);
+            angular_vel_sbar.Value = 0;
+            angular_vel_lbl.Text = "0 %";
         }
     }
 }
