@@ -5,22 +5,22 @@ void TestSuit::testEngns()
 {
   Serial.println("------------TESTING ENGNGS------------");
   Serial.println("TEST 1: driving fwd");
-  krembo_.base.drive(100, 0);
+  krembo_.Base.drive(100, 0);
   delay(2000);
   Serial.println("TEST 2: driving bwd");
-  krembo_.base.drive(-100, 0);
+  krembo_.Base.drive(-100, 0);
   delay(2000);
   Serial.println("TEST 3: driving right fast");
-  krembo_.base.drive(100, 100);
+  krembo_.Base.drive(100, 100);
   delay(2000);
   Serial.println("TEST 4: driving left fast");
-  krembo_.base.drive(100, -100);
+  krembo_.Base.drive(100, -100);
   delay(2000);
   Serial.println("TEST 5: driving right slow");
-  krembo_.base.drive(70, 30);
+  krembo_.Base.drive(70, 30);
   delay(2000);
   Serial.println("TEST 6: driving left slow");
-  krembo_.base.drive(70, -30);
+  krembo_.Base.drive(70, -30);
   delay(2000);
   //Serial.println("TEST 7: stoping engines");
   //krembo_.base.stopMotors();
@@ -79,12 +79,12 @@ void TestSuit::testAllFunctions()
 
 void TestSuit::testAllTogether()
 {
-  testEngns();
-  krembo_.rgba1.print();
-  krembo_.rgba2.print();
+  //testEngns();
+  krembo_.RGBA_N.print();
+  //krembo_.rgba2.print();
   //krembo_.rgba3.print(); //not implementd
-  krembo_.led.write(255, 255, 255);
-  krembo_.bat.print();
-  delay(1000);
+  //krembo_.led.write(255, 255, 255);
+  //krembo_.bat.print();
+  delay(500);
   //krembo_.printIMU();
 }

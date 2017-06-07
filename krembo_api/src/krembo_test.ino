@@ -11,6 +11,6 @@ void setup()
 
 void loop()
 {
-  krembo.loop();
-  //test_suit.testAllTogether();
+  //krembo.loop();
+  test_suit.testAllTogether();
 }

@@ -3,15 +3,12 @@
 
 Krembo::Krembo()
 {
+  Wire.begin();
+
+  //rgba sensors can only be init after wire.begin
+  RGBA_N.init(uint8_t(RGBAAddr::N));
   id_was_sent_ = false;
   master_asks_for_data_ = false;
-  //init rgba sensors (must select i2c_mux before rgba sensor init)
-  i2c_mux_.select((uint8_t)SensorAddr::RGBA_SENSOR1);
-  rgba1.init();
-  i2c_mux_.select((uint8_t)SensorAddr::RGBA_SENSOR2);
-  rgba2.init();
-  //i2c_mux_.select((uint8_t)SensorAddr::RGBA_SENSOR3);
-  //rgba3.init();
 }
 
 void Krembo::loop()
@@ -55,10 +52,10 @@ void Krembo::sendWKC()
 {
   //build WKC msg
   WKCKrembo2PC wkc_msg;
-  wkc_msg.bat_lvl = bat.getBatLvl();
-  wkc_msg.bat_chrg_lvl = bat.getChargeLvl();
-  wkc_msg.is_bat_chrgng = bat.isCharging();
-  wkc_msg.is_bat_full = bat.isFull();
+  wkc_msg.bat_lvl = Bat.getBatLvl();
+  wkc_msg.bat_chrg_lvl = Bat.getChargeLvl();
+  wkc_msg.is_bat_chrgng = Bat.isCharging();
+  wkc_msg.is_bat_full = Bat.isFull();
   byte buff[wkc_msg.size()];
   wkc_msg.toBytes(buff);
   com_.write(buff, wkc_msg.size());
@@ -86,10 +83,10 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
     master_asks_for_data_ = false;
 
   if (wkc_msg.toggle_led)
-    led.write(0, 0, 255); //blue //TODO: add ability to send RGB to led in protocol
+    Led.write(0, 0, 255); //blue //TODO: add ability to send RGB to Bat in protocol
 
   if (wkc_msg.joy_control)
-    base.driveJoyCmd(wkc_msg.joy_x, wkc_msg.joy_y);
+    Base.driveJoyCmd(wkc_msg.joy_x, wkc_msg.joy_y);
   if (wkc_msg.user_msg_size > 0) //get user message
   {
     byte user_msg_buff[wkc_msg.user_msg_size];

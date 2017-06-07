@@ -3,7 +3,6 @@
 
 #include "application.h"
 #include "battery.h"
-#include "i2c_mux.h"
 #include "mobile_base.h"
 #include "rgb_led.h"
 #include "rgba_sensor.h"
@@ -27,15 +26,14 @@
 13. change rgba_sensor to color_sensor
 14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
-
 #define MASTER_IP "10.0.0.21"
 #define MASTER_PORT 8000
 #define SEND_DATA_INTERVAL 1000 //ms
 
-enum class SensorAddr //TODO: extract this to krembo, and make constructor here take int8
+enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {
-  RGBA_SENSOR1 = 0,
-  RGBA_SENSOR2 = 1,
+  N = 0,
+  NE = 1
   //RGBA_SENSOR3 = 2
 };
 
@@ -45,7 +43,6 @@ private:
 
   bool id_was_sent_,
        master_asks_for_data_;
-  I2CMux i2c_mux_;
   COMLayer com_;
   void sendWKC();
   void rcveWKC();
@@ -54,13 +51,12 @@ private:
 
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
 
-  MobileBase base;
-  RGBASensor rgba1;
-  RGBASensor rgba2;
+  MobileBase Base;
+  RGBASensor RGBA_N;
+  //RGBASensor RGBA_NE;
   //RGBASensor rgba3;
-  Battery bat;
-  RGBLed led;
-
+  Battery Bat;
+  RGBLed Led;
 
   Krembo();
   void loop();

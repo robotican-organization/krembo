@@ -1,10 +1,13 @@
 
 #include "rgba_sensor.h"
 
-void RGBASensor::init()
+void RGBASensor::init(uint8_t addr)
 {
+  addr_ = addr;
+
   apds_ = SparkFun_APDS9960();
 
+  i2cMuxSelectMe();
   //I2CMux::select((uint8_t)sensor_addr);
 
   if ( apds_.init() ) {
@@ -44,8 +47,19 @@ void RGBASensor::init()
  }
 }
 
+bool RGBASensor::i2cMuxSelectMe()
+{
+  if (addr_ > 7)
+    return false;
+  Wire.beginTransmission(MUX_ADDR);
+  Wire.write(1 << addr_);
+  Wire.endTransmission();
+  return true;
+}
+
 bool RGBASensor::updateVals()
 {
+  i2cMuxSelectMe();
   //Read and update the light levels (ambient, red, green, blue)
   if (!apds_.readAmbientLight(ambient_light_) ||
       !apds_.readRedLight(red_light_) ||
