@@ -176,6 +176,11 @@ namespace KremboControl
                 flash_btn.Enabled = false;
 
                 //TODO: do flash work - flash selected photons
+                var id_list = new List<string>();
+                Parallel.ForEach(id_list, id =>
+                {
+                    ParticleCLI.flashPhoton(id, bin_path_lbl.Text);
+                });
 
                 flash_btn.Enabled = true;
             }

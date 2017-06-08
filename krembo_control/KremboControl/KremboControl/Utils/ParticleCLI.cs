@@ -24,13 +24,13 @@ namespace KremboControl.Utils
             return cmd;
         }
 
-        public static void flashPhoton(KremboClient krembo, string bin_file_path)
+        public static void flashPhoton(string photon_id, string bin_file_path)
         {
 
             Process cmd = startNewCmd();
 
             cmd.StandardInput.WriteLine(@"cd " + bin_file_path);
-            cmd.StandardInput.WriteLine("particle flash " + /*photon.id +*/ " firmware.bin");
+            cmd.StandardInput.WriteLine("particle flash " + photon_id + " firmware.bin");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
 
@@ -40,14 +40,6 @@ namespace KremboControl.Utils
             // string output = cmd.StandardOutput.ReadToEnd();
             //  Console.WriteLine("hello" + output);
 
-        }
-
-        public static void flashPhotons(List<KremboClient> photons_list, string bin_file_path)
-        {           
-            Parallel.ForEach(photons_list, photon =>
-            {
-                flashPhoton(photon, bin_file_path);
-            });
         }
 
         public static List<KremboClient> getOnlinePhotons()
