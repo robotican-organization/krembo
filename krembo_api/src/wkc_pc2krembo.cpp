@@ -15,6 +15,11 @@ void WKCPC2Krembo::fromBytes(byte bytes_arr[])
   //extract joystick axes
   joy_x = (uint8_t)bytes_arr[JOY_X_INDX];
   joy_y = (uint8_t)bytes_arr[JOY_Y_INDX];
+
+  led_red = (uint8_t)bytes_arr[LED_RED_INDX];
+  led_green = (uint8_t)bytes_arr[LED_GREEN_INDX];
+  led_blue = (uint8_t)bytes_arr[LED_BLUE_INDX];
+
   user_msg_size = (uint8_t)bytes_arr[USER_MSG_SIZE_INDX];
 }
 

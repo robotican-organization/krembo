@@ -9,9 +9,9 @@ using KremboControl.Utils;
 
 /***************************************************************************************************************
 * |----------------------------------------------N BYTES ARRAY-------------------------------------------------|
-* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |
-* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |
-* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|
+* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |  4  |  5  |  6  |
+* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB |
+* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
@@ -20,6 +20,9 @@ using KremboControl.Utils;
 * JX = JOY X = joystick x value
 * JY = JOY Y = joystick y value
 * MS = MESSAGE SIZE = user message size
+* LR = LED RED
+* LG = LEG GREEN
+* LB = LED BLUE
 **************************************************************************************************************/
 
 
@@ -27,7 +30,7 @@ namespace KremboControl.Network
 {
     public class WKCPC2Krembo
     {
-        public const int PC2KREMBO_MSG_SIZE = 4;
+        public const int PC2KREMBO_MSG_SIZE = 7;
 
         public const int FLAGS_INDX = 0;
                     public const int DATA_REQ_BIT = 0;
@@ -37,9 +40,15 @@ namespace KremboControl.Network
         public const int JOY_X_INDX = 1;
         public const int JOY_Y_INDX = 2;
         public const int USER_MSG_SIZE_INDX = 3;
+        public const int LED_RED_INDX = 4;
+        public const int LED_GREEN_INDX = 5;
+        public const int LED_BLUE_INDX = 6;
 
         public ushort linear_vel,
-                      angular_vel;
+                      angular_vel,
+                      led_red,
+                      led_green,
+                      led_blue;
 
         public bool data_req,
                     toggle_led,
@@ -60,6 +69,10 @@ namespace KremboControl.Network
 
             buff[JOY_X_INDX] = (byte)linear_vel;
             buff[JOY_Y_INDX] = (byte)angular_vel;
+            buff[LED_RED_INDX] = (byte)led_red;
+            buff[LED_BLUE_INDX] = (byte)led_blue;
+            buff[LED_GREEN_INDX] = (byte)led_green;
+
             buff[USER_MSG_SIZE_INDX] = (byte)user_msg.Length;
 
             for (int i=PC2KREMBO_MSG_SIZE;
@@ -76,14 +89,5 @@ namespace KremboControl.Network
             data_byte ^= (byte)((-bit_val ^ data_byte) & (1 << bit_indx));
         }
 
-        public void FillBaseMsg(ushort linear_vel, ushort angular_vel)
-        {
-            data_req = true;
-            toggle_led = false;
-            joy_control = true;
-            user_msg = "";
-            this.linear_vel = linear_vel;
-            this.angular_vel = angular_vel;
-        }
     }
 }

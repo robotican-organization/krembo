@@ -5,9 +5,9 @@
 
 /***************************************************************************************************************
 * |----------------------------------------------N BYTES ARRAY-------------------------------------------------|
-* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |  3 - 3+MS  |
-* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |    MSC     |
-* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|MS MSC bytes|
+* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |  4  |  5  |  6  |
+* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB |
+* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
@@ -16,11 +16,13 @@
 * JX = JOY X = joystick x value
 * JY = JOY Y = joystick y value
 * MS = MESSAGE SIZE = user message size
-* MSC = MESSAGE CONTENT = user message content
+* LR = LED RED
+* LG = LEG GREEN
+* LB = LED BLUE
 **************************************************************************************************************/
 
 
-#define PC2KREMBO_MSG_SIZE 4 //size bytes arr
+#define PC2KREMBO_MSG_SIZE 7 //size bytes arr
 
 #define FLAGS_INDX 0
         #define DATA_REQ_BIT 0 //master askes photon to send sensors data
@@ -29,6 +31,9 @@
 #define JOY_X_INDX 1
 #define JOY_Y_INDX 2
 #define USER_MSG_SIZE_INDX 3
+#define LED_RED_INDX 4
+#define LED_GREEN_INDX 5
+#define LED_BLUE_INDX 6
 
 class WKCPC2Krembo
 {
@@ -38,7 +43,11 @@ public:
 
   uint8_t joy_x,
           joy_y,
-          user_msg_size;
+          user_msg_size,
+          led_red,
+          led_green,
+          led_blue;
+
   bool data_req,
        toggle_led,
        joy_control;
