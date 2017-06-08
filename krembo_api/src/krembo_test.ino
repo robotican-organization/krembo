@@ -1,13 +1,14 @@
 #include "krembo.h"
-
 //declare only one Krembo instance in your code !!!
 Krembo krembo;
 
 void testRGBSensors()
 {
   Serial.println("------------TESTING RGB SENSORS------------");
-  Serial.println("TEST 1: sensor 1");
+  Serial.println("TEST 1: sensor NORTH");
   krembo.RGBA_N.print();
+  Serial.println("TEST 2: sensor NORTH-EAST");
+  krembo.RGBA_NE.print();
 }
 
 void testIMU()
@@ -67,5 +68,7 @@ void setup()
 void loop()
 {
   //krembo.loop();
-  testIMU();
+  //testIMU();
+  testRGBSensors();
+  delay(500);
 }

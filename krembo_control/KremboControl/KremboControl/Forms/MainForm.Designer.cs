@@ -37,6 +37,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.controller_grbx = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.blue_lbl = new System.Windows.Forms.Label();
+            this.green_lbl = new System.Windows.Forms.Label();
+            this.red_lbl = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,9 +59,13 @@
             this.compass1 = new Simple_HUD.Compass();
             this.color_dialog = new System.Windows.Forms.ColorDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.red_lbl = new System.Windows.Forms.Label();
-            this.green_lbl = new System.Windows.Forms.Label();
-            this.blue_lbl = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.choose_bin_btn = new System.Windows.Forms.Button();
+            this.flash_btn = new System.Windows.Forms.Button();
+            this.bin_path_lbl = new System.Windows.Forms.Label();
+            this.select_all_btn = new System.Windows.Forms.Button();
             this.controller_grbx.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -67,6 +74,7 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // bat_chrg_lvl_lbl
@@ -147,6 +155,7 @@
             // 
             // controller_grbx
             // 
+            this.controller_grbx.Controls.Add(this.groupBox4);
             this.controller_grbx.Controls.Add(this.groupBox2);
             this.controller_grbx.Controls.Add(this.groupBox1);
             this.controller_grbx.Controls.Add(this.ping_btn);
@@ -155,7 +164,7 @@
             this.controller_grbx.Margin = new System.Windows.Forms.Padding(2);
             this.controller_grbx.Name = "controller_grbx";
             this.controller_grbx.Padding = new System.Windows.Forms.Padding(2);
-            this.controller_grbx.Size = new System.Drawing.Size(536, 474);
+            this.controller_grbx.Size = new System.Drawing.Size(801, 474);
             this.controller_grbx.TabIndex = 18;
             this.controller_grbx.TabStop = false;
             this.controller_grbx.Text = "Controller";
@@ -175,6 +184,42 @@
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Led";
+            // 
+            // blue_lbl
+            // 
+            this.blue_lbl.AutoSize = true;
+            this.blue_lbl.BackColor = System.Drawing.Color.DodgerBlue;
+            this.blue_lbl.Location = new System.Drawing.Point(222, 24);
+            this.blue_lbl.MinimumSize = new System.Drawing.Size(30, 20);
+            this.blue_lbl.Name = "blue_lbl";
+            this.blue_lbl.Size = new System.Drawing.Size(30, 20);
+            this.blue_lbl.TabIndex = 9;
+            this.blue_lbl.Text = "0";
+            this.blue_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // green_lbl
+            // 
+            this.green_lbl.AutoSize = true;
+            this.green_lbl.BackColor = System.Drawing.Color.Lime;
+            this.green_lbl.Location = new System.Drawing.Point(182, 24);
+            this.green_lbl.MinimumSize = new System.Drawing.Size(30, 20);
+            this.green_lbl.Name = "green_lbl";
+            this.green_lbl.Size = new System.Drawing.Size(30, 20);
+            this.green_lbl.TabIndex = 8;
+            this.green_lbl.Text = "0";
+            this.green_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // red_lbl
+            // 
+            this.red_lbl.AutoSize = true;
+            this.red_lbl.BackColor = System.Drawing.Color.Red;
+            this.red_lbl.Location = new System.Drawing.Point(141, 24);
+            this.red_lbl.MinimumSize = new System.Drawing.Size(30, 20);
+            this.red_lbl.Name = "red_lbl";
+            this.red_lbl.Size = new System.Drawing.Size(30, 20);
+            this.red_lbl.TabIndex = 7;
+            this.red_lbl.Text = "0";
+            this.red_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radioButton2
             // 
@@ -361,48 +406,89 @@
             this.groupBox3.Controls.Add(this.bat_lvl_lbl);
             this.groupBox3.Controls.Add(this.bat_chrg_lvl_lbl);
             this.groupBox3.Controls.Add(this.krembo_pic);
-            this.groupBox3.Location = new System.Drawing.Point(571, 38);
+            this.groupBox3.Location = new System.Drawing.Point(863, 38);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(528, 418);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Data";
             // 
-            // red_lbl
+            // groupBox4
             // 
-            this.red_lbl.AutoSize = true;
-            this.red_lbl.BackColor = System.Drawing.Color.Red;
-            this.red_lbl.Location = new System.Drawing.Point(141, 24);
-            this.red_lbl.MinimumSize = new System.Drawing.Size(30, 20);
-            this.red_lbl.Name = "red_lbl";
-            this.red_lbl.Size = new System.Drawing.Size(30, 20);
-            this.red_lbl.TabIndex = 7;
-            this.red_lbl.Text = "0";
-            this.red_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox4.Controls.Add(this.select_all_btn);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.choose_bin_btn);
+            this.groupBox4.Controls.Add(this.flash_btn);
+            this.groupBox4.Controls.Add(this.bin_path_lbl);
+            this.groupBox4.Location = new System.Drawing.Point(504, 18);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(265, 279);
+            this.groupBox4.TabIndex = 23;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Flash";
             // 
-            // green_lbl
+            // label4
             // 
-            this.green_lbl.AutoSize = true;
-            this.green_lbl.BackColor = System.Drawing.Color.Lime;
-            this.green_lbl.Location = new System.Drawing.Point(182, 24);
-            this.green_lbl.MinimumSize = new System.Drawing.Size(30, 20);
-            this.green_lbl.Name = "green_lbl";
-            this.green_lbl.Size = new System.Drawing.Size(30, 20);
-            this.green_lbl.TabIndex = 8;
-            this.green_lbl.Text = "0";
-            this.green_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(149, 167);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(27, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "N/A";
             // 
-            // blue_lbl
+            // label5
             // 
-            this.blue_lbl.AutoSize = true;
-            this.blue_lbl.BackColor = System.Drawing.Color.DodgerBlue;
-            this.blue_lbl.Location = new System.Drawing.Point(222, 24);
-            this.blue_lbl.MinimumSize = new System.Drawing.Size(30, 20);
-            this.blue_lbl.Name = "blue_lbl";
-            this.blue_lbl.Size = new System.Drawing.Size(30, 20);
-            this.blue_lbl.TabIndex = 9;
-            this.blue_lbl.Text = "0";
-            this.blue_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(94, 167);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Status:";
+            // 
+            // choose_bin_btn
+            // 
+            this.choose_bin_btn.Location = new System.Drawing.Point(18, 27);
+            this.choose_bin_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.choose_bin_btn.Name = "choose_bin_btn";
+            this.choose_bin_btn.Size = new System.Drawing.Size(87, 54);
+            this.choose_bin_btn.TabIndex = 7;
+            this.choose_bin_btn.Text = "Choose Bin File";
+            this.choose_bin_btn.UseVisualStyleBackColor = true;
+            this.choose_bin_btn.Click += new System.EventHandler(this.choose_bin_btn_Click);
+            // 
+            // flash_btn
+            // 
+            this.flash_btn.Location = new System.Drawing.Point(18, 100);
+            this.flash_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.flash_btn.Name = "flash_btn";
+            this.flash_btn.Size = new System.Drawing.Size(241, 46);
+            this.flash_btn.TabIndex = 6;
+            this.flash_btn.Text = "Flash";
+            this.flash_btn.UseVisualStyleBackColor = true;
+            this.flash_btn.Click += new System.EventHandler(this.flash_btn_Click);
+            // 
+            // bin_path_lbl
+            // 
+            this.bin_path_lbl.AutoSize = true;
+            this.bin_path_lbl.Location = new System.Drawing.Point(126, 47);
+            this.bin_path_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bin_path_lbl.Name = "bin_path_lbl";
+            this.bin_path_lbl.Size = new System.Drawing.Size(28, 13);
+            this.bin_path_lbl.TabIndex = 8;
+            this.bin_path_lbl.Text = "path";
+            // 
+            // select_all_btn
+            // 
+            this.select_all_btn.Location = new System.Drawing.Point(44, 211);
+            this.select_all_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.select_all_btn.Name = "select_all_btn";
+            this.select_all_btn.Size = new System.Drawing.Size(171, 31);
+            this.select_all_btn.TabIndex = 11;
+            this.select_all_btn.Text = "Select All";
+            this.select_all_btn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -430,6 +516,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -467,6 +555,13 @@
         private System.Windows.Forms.Label blue_lbl;
         private System.Windows.Forms.Label green_lbl;
         private System.Windows.Forms.Label red_lbl;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button choose_bin_btn;
+        private System.Windows.Forms.Button flash_btn;
+        private System.Windows.Forms.Label bin_path_lbl;
+        private System.Windows.Forms.Button select_all_btn;
     }
 }
 

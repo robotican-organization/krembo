@@ -161,5 +161,31 @@ namespace KremboControl
                 choose_color_btn.BackColor = color_dialog.Color;
             }
         }
+
+        private void choose_bin_btn_Click(object sender, EventArgs e)
+        {
+            string bin_file_path = FileTools.chooseFilePath("Binary Files (*.bin)|*.bin");
+            bin_path_lbl.Text = bin_file_path;
+            flash_btn.Enabled = true;
+        }
+
+        private void flash_btn_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(bin_path_lbl.Text))
+            {
+                flash_btn.Enabled = false;
+
+                //TODO: do flash work - flash selected photons
+
+                flash_btn.Enabled = true;
+            }
+            else
+            {
+                MsgBxLogger.errorMsg("Flash Error",
+                                    "Bin file at: " + bin_path_lbl.Text + " doesn't exist");
+                bin_path_lbl.Text = "";
+                flash_btn.Enabled = false;
+            }
+        }
     }
 }
