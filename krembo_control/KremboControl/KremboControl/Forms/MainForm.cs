@@ -31,7 +31,7 @@ namespace KremboControl
             
             server_ = new TCPServer();
             server_.subscribeToMsgs(onClientNewMsgCB);
-            server_.asyncListenAt(new NetAddr("10.0.0.21", 8000));
+            server_.asyncListenAt(new NetAddr("10.0.0.5", 8000));
         }
 
      
