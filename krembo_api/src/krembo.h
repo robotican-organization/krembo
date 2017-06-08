@@ -10,6 +10,7 @@
 #include "wkc_krembo2pc.h"
 #include "wkc_pc2krembo.h"
 #include "bluesky_timer.h"
+#include "imu_sensor.h"
 
 /*TODO:
 1. add connection between photons
@@ -26,7 +27,7 @@
 13. change rgba_sensor to color_sensor
 14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
-#define MASTER_IP "10.0.0.21"
+#define MASTER_IP "10.0.0.5"
 #define MASTER_PORT 8000
 #define SEND_DATA_INTERVAL 1000 //ms
 
@@ -57,7 +58,7 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   //RGBASensor rgba3;
   Battery Bat;
   RGBLed Led;
-
+  IMUSensor IMU;
   Krembo();
   void loop();
   String getParticleID() { return System.deviceID(); }

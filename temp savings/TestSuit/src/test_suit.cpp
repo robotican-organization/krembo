@@ -81,10 +81,11 @@ void TestSuit::testAllTogether()
 {
   //testEngns();
   krembo_.RGBA_N.print();
+  krembo_.IMU.print();
   //krembo_.rgba2.print();
   //krembo_.rgba3.print(); //not implementd
   //krembo_.led.write(255, 255, 255);
   //krembo_.bat.print();
-  delay(500);
-  //krembo_.printIMU();
+  //delay(500);
+
 }

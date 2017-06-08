@@ -150,5 +150,16 @@ namespace KremboControl
             angular_vel_sbar.Value = 0;
             angular_vel_lbl.Text = "0 %";
         }
+
+        private void choose_color_btn_Click(object sender, EventArgs e)
+        {
+            if (color_dialog.ShowDialog() == DialogResult.OK)
+            {
+                red_lbl.Text = color_dialog.Color.R.ToString();
+                green_lbl.Text = color_dialog.Color.G.ToString();
+                blue_lbl.Text = color_dialog.Color.B.ToString();
+                choose_color_btn.BackColor = color_dialog.Color;
+            }
+        }
     }
 }
