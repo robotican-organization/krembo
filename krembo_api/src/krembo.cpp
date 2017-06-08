@@ -12,6 +12,10 @@ Krembo::Krembo()
   RGBA_E.init(uint8_t(RGBAAddr::E));
   RGBA_SE.init(uint8_t(RGBAAddr::SE));
   RGBA_S.init(uint8_t(RGBAAddr::S));
+  RGBA_SW.init(uint8_t(RGBAAddr::SW));
+  RGBA_W.init(uint8_t(RGBAAddr::W));
+  RGBA_NW.init(uint8_t(RGBAAddr::NW));
+
   id_was_sent_ = false;
   master_asks_for_data_ = false;
 }

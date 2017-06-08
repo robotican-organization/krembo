@@ -63,6 +63,9 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   RGBASensor RGBA_E;
   RGBASensor RGBA_SE;
   RGBASensor RGBA_S;
+  RGBASensor RGBA_SW;
+  RGBASensor RGBA_W;
+  RGBASensor RGBA_NW;
 
   MobileBase Base;
   Battery Bat;

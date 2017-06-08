@@ -11,10 +11,16 @@ void testRGBSensors()
   krembo.RGBA_NE.print();
   Serial.println("\nTEST 3: sensor EAST");
   krembo.RGBA_E.print();
-  Serial.println("\nTEST 3: sensor SOUTH-EAST");
+  Serial.println("\nTEST 4: sensor SOUTH-EAST");
   krembo.RGBA_SE.print();
-  Serial.println("\nTEST 3: sensor SOUTH");
+  Serial.println("\nTEST 5: sensor SOUTH");
   krembo.RGBA_S.print();
+  Serial.println("\nTEST 6: sensor SOUTH-WEST");
+  krembo.RGBA_SW.print();
+  Serial.println("\nTEST 7: sensor WEST");
+  krembo.RGBA_W.print();
+  Serial.println("\nTEST 8: sensor NORTH-WEST");
+  krembo.RGBA_NW.print();
 }
 
 void testIMU()
