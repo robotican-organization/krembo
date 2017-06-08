@@ -64,6 +64,8 @@
             this.flash_btn = new System.Windows.Forms.Button();
             this.bin_path_lbl = new System.Windows.Forms.Label();
             this.select_all_btn = new System.Windows.Forms.Button();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.controller_grbx.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -397,6 +399,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.radioButton3);
+            this.groupBox4.Controls.Add(this.radioButton4);
             this.groupBox4.Controls.Add(this.select_all_btn);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label5);
@@ -405,7 +409,7 @@
             this.groupBox4.Controls.Add(this.bin_path_lbl);
             this.groupBox4.Location = new System.Drawing.Point(504, 18);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(265, 279);
+            this.groupBox4.Size = new System.Drawing.Size(265, 387);
             this.groupBox4.TabIndex = 23;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Flash";
@@ -413,7 +417,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(149, 167);
+            this.label4.Location = new System.Drawing.Point(154, 257);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
@@ -423,7 +427,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(94, 167);
+            this.label5.Location = new System.Drawing.Point(99, 257);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
@@ -432,10 +436,10 @@
             // 
             // choose_bin_btn
             // 
-            this.choose_bin_btn.Location = new System.Drawing.Point(18, 27);
+            this.choose_bin_btn.Location = new System.Drawing.Point(23, 117);
             this.choose_bin_btn.Margin = new System.Windows.Forms.Padding(2);
             this.choose_bin_btn.Name = "choose_bin_btn";
-            this.choose_bin_btn.Size = new System.Drawing.Size(87, 54);
+            this.choose_bin_btn.Size = new System.Drawing.Size(61, 54);
             this.choose_bin_btn.TabIndex = 7;
             this.choose_bin_btn.Text = "Choose Bin File";
             this.choose_bin_btn.UseVisualStyleBackColor = true;
@@ -443,10 +447,10 @@
             // 
             // flash_btn
             // 
-            this.flash_btn.Location = new System.Drawing.Point(18, 100);
+            this.flash_btn.Location = new System.Drawing.Point(23, 190);
             this.flash_btn.Margin = new System.Windows.Forms.Padding(2);
             this.flash_btn.Name = "flash_btn";
-            this.flash_btn.Size = new System.Drawing.Size(241, 46);
+            this.flash_btn.Size = new System.Drawing.Size(158, 36);
             this.flash_btn.TabIndex = 6;
             this.flash_btn.Text = "Flash";
             this.flash_btn.UseVisualStyleBackColor = true;
@@ -455,7 +459,7 @@
             // bin_path_lbl
             // 
             this.bin_path_lbl.AutoSize = true;
-            this.bin_path_lbl.Location = new System.Drawing.Point(126, 47);
+            this.bin_path_lbl.Location = new System.Drawing.Point(99, 138);
             this.bin_path_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bin_path_lbl.Name = "bin_path_lbl";
             this.bin_path_lbl.Size = new System.Drawing.Size(28, 13);
@@ -464,13 +468,35 @@
             // 
             // select_all_btn
             // 
-            this.select_all_btn.Location = new System.Drawing.Point(44, 211);
+            this.select_all_btn.Location = new System.Drawing.Point(49, 301);
             this.select_all_btn.Margin = new System.Windows.Forms.Padding(2);
             this.select_all_btn.Name = "select_all_btn";
             this.select_all_btn.Size = new System.Drawing.Size(171, 31);
             this.select_all_btn.TabIndex = 11;
             this.select_all_btn.Text = "Select All";
             this.select_all_btn.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Checked = true;
+            this.radioButton3.Location = new System.Drawing.Point(23, 42);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(66, 17);
+            this.radioButton3.TabIndex = 13;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Disabled";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(23, 66);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(64, 17);
+            this.radioButton4.TabIndex = 12;
+            this.radioButton4.Text = "Enabled";
+            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -542,6 +568,8 @@
         private System.Windows.Forms.Button flash_btn;
         private System.Windows.Forms.Label bin_path_lbl;
         private System.Windows.Forms.Button select_all_btn;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton4;
     }
 }
 
