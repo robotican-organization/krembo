@@ -19,6 +19,8 @@ Krembo::Krembo()
 
   id_was_sent_ = false;
   master_asks_for_data_ = false;
+  skip_led_gui_cmds_ = false;
+  skip_base_gui_cmds_ = false;
 }
 
 void Krembo::loop()
@@ -93,10 +95,30 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
     master_asks_for_data_ = false;
 
   if (wkc_msg.toggle_led)
-    Led.write(0, 0, 255); //blue //TODO: add ability to send RGB to Bat in protocol
+  {
+    Led.write(wkc_msg.led_red,
+              wkc_msg.led_green,
+              wkc_msg.led_blue);
+    skip_led_gui_cmds_ = false;
+  }
+  else if (!skip_led_gui_cmds_)
+  {
+    skip_led_gui_cmds_ = true;
+    Led.write(0, 0, 0);
+  }
 
   if (wkc_msg.joy_control)
+  {
     Base.driveJoyCmd(wkc_msg.joy_x, wkc_msg.joy_y);
+    skip_base_gui_cmds_ = false;
+  }
+  else if (!skip_base_gui_cmds_)
+  {
+    //Base.driveJoyCmd(128,128);
+    Base.stop();
+    skip_base_gui_cmds_ = true;
+  }
+
   if (wkc_msg.user_msg_size > 0) //get user message
   {
     byte user_msg_buff[wkc_msg.user_msg_size];
@@ -105,6 +127,7 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
     {
       Serial.print((char)user_msg_buff[i]); //TODO: delete msg printing after done testing
     }
+    Serial.println();
     //TODO: do something with user_msg_buff - contains user msg
   }
 }

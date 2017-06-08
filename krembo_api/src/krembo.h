@@ -48,7 +48,9 @@ class Krembo
 private:
 
   bool id_was_sent_,
-       master_asks_for_data_;
+       master_asks_for_data_,
+       skip_led_gui_cmds_,
+       skip_base_gui_cmds_;
   COMLayer com_;
   void sendWKC();
   void rcveWKC();

@@ -54,7 +54,7 @@ namespace KremboControl.Network
                     toggle_led,
                     joy_control;
 
-        public string user_msg;
+        public string user_msg = "";
 
         public byte[] toBytes()
         {

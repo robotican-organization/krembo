@@ -31,6 +31,9 @@ void WKCPC2Krembo::print()
   Serial.printf("joy_control?: %d\n", joy_control);
   Serial.printf("joy_x: %d\n", joy_x);
   Serial.printf("joy_y: %d\n", joy_y);
+  Serial.printf("led_red: %d\n", led_red);
+  Serial.printf("led_green: %d\n", led_green);
+  Serial.printf("led_blue: %d\n", led_blue);
   Serial.printf("user_msg_size: %d\n", user_msg_size);
   Serial.println("-------------------------------------------");
 }
