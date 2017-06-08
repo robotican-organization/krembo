@@ -100,10 +100,6 @@ namespace KremboControl
 
         }
 
-        private void flashToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (new FlashForm()).Show();
-        }
 
         private void connected_photons_lstbx_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -7,8 +7,14 @@ void testRGBSensors()
   Serial.println("------------TESTING RGB SENSORS------------");
   Serial.println("TEST 1: sensor NORTH");
   krembo.RGBA_N.print();
-  Serial.println("TEST 2: sensor NORTH-EAST");
+  Serial.println("\nTEST 2: sensor NORTH-EAST");
   krembo.RGBA_NE.print();
+  Serial.println("\nTEST 3: sensor EAST");
+  krembo.RGBA_E.print();
+  Serial.println("\nTEST 3: sensor SOUTH-EAST");
+  krembo.RGBA_SE.print();
+  Serial.println("\nTEST 3: sensor SOUTH");
+  krembo.RGBA_S.print();
 }
 
 void testIMU()
@@ -70,5 +76,5 @@ void loop()
   //krembo.loop();
   //testIMU();
   testRGBSensors();
-  delay(500);
+  delay(1000);
 }

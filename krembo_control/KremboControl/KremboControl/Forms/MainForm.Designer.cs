@@ -52,8 +52,6 @@
             this.linear_vel_sbar = new System.Windows.Forms.TrackBar();
             this.linear_vel_lbl = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.kremboToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.flashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.krembo_pic = new System.Windows.Forms.PictureBox();
             this.compass1 = new Simple_HUD.Compass();
@@ -347,7 +345,6 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kremboToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -355,21 +352,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1426, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // kremboToolStripMenuItem
-            // 
-            this.kremboToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.flashToolStripMenuItem});
-            this.kremboToolStripMenuItem.Name = "kremboToolStripMenuItem";
-            this.kremboToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.kremboToolStripMenuItem.Text = "Krembo";
-            // 
-            // flashToolStripMenuItem
-            // 
-            this.flashToolStripMenuItem.Name = "flashToolStripMenuItem";
-            this.flashToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.flashToolStripMenuItem.Text = "Flash ...";
-            this.flashToolStripMenuItem.Click += new System.EventHandler(this.flashToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -534,8 +516,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox controller_grbx;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem kremboToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem flashToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label linear_vel_lbl;
         private System.Windows.Forms.TrackBar angular_vel_sbar;

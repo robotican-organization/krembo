@@ -34,8 +34,13 @@
 enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {
   N = 0,
-  NE = 1
-  //RGBA_SENSOR3 = 2
+  NE = 1,
+  E = 2,
+  SE = 3,
+  S = 4,
+  SW = 5,
+  W = 6,
+  NW = 7
 };
 
 class Krembo
@@ -52,10 +57,14 @@ private:
 
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
 
-  MobileBase Base;
+
   RGBASensor RGBA_N;
-  //RGBASensor RGBA_NE;
-  //RGBASensor rgba3;
+  RGBASensor RGBA_NE;
+  RGBASensor RGBA_E;
+  RGBASensor RGBA_SE;
+  RGBASensor RGBA_S;
+
+  MobileBase Base;
   Battery Bat;
   RGBLed Led;
   IMUSensor IMU;

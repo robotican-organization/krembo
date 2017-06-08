@@ -8,6 +8,10 @@ Krembo::Krembo()
   //rgba & imu sensors can only be init after wire.begin
   IMU.init();
   RGBA_N.init(uint8_t(RGBAAddr::N));
+  RGBA_NE.init(uint8_t(RGBAAddr::NE));
+  RGBA_E.init(uint8_t(RGBAAddr::E));
+  RGBA_SE.init(uint8_t(RGBAAddr::SE));
+  RGBA_S.init(uint8_t(RGBAAddr::S));
   id_was_sent_ = false;
   master_asks_for_data_ = false;
 }
