@@ -4,10 +4,10 @@
 void IMUSensor::init()
 {
   // Set up the interrupt pin, its set as active high, push-pull
-  pinMode(intPin, INPUT);
-  digitalWrite(intPin, LOW);
-  pinMode(myLed, OUTPUT);
-  digitalWrite(myLed, HIGH);
+//  pinMode(intPin, INPUT);
+//  digitalWrite(intPin, LOW);
+  //pinMode(myLed, OUTPUT);
+  //digitalWrite(myLed, HIGH);
 
   // Read the WHO_AM_I register, this is a good test of communication
   byte c = imu_.readByte(MPU9250_ADDRESS, WHO_AM_I_MPU9250);
@@ -143,9 +143,9 @@ void IMUSensor::print()
 
   if (!AHRS)
   {
-    imu_.delt_t = millis() - imu_.count;
-    if (imu_.delt_t > 500)
-    {
+    //imu_.delt_t = millis() - imu_.count;
+    //if (imu_.delt_t > 500)
+    //{
       if(SerialDebug)
       {
         // Print acceleration values in milligs!
@@ -182,16 +182,16 @@ void IMUSensor::print()
 
 
       imu_.count = millis();
-    } // if (imu_.delt_t > 500)
+    //} // if (imu_.delt_t > 500)
   } // if (!AHRS)
   else
   {
     // Serial print and/or display at 0.5 s rate independent of data rates
-    imu_.delt_t = millis() - imu_.count;
+    //imu_.delt_t = millis() - imu_.count;
 
     // update LCD once per half-second independent of read rate
-    if (imu_.delt_t > 500)
-    {
+    //if (imu_.delt_t > 500)
+    //{
       if(SerialDebug)
       {
         Serial.print("ax = "); Serial.print((int)1000*imu_.ax);
@@ -264,6 +264,6 @@ void IMUSensor::print()
       imu_.count = millis();
       imu_.sumCount = 0;
       imu_.sum = 0;
-    } // if (imu_.delt_t > 500)
+    //} // if (imu_.delt_t > 500)
   } // if (AHRS)
 }

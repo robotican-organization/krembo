@@ -80,9 +80,10 @@ void setup()
 void loop()
 {
   //krembo.loop();
-  testIMU();
+  //testIMU();
   //testRGBSensors();
   //delay(1000);
+  testRGBLeds();
 }
 
 

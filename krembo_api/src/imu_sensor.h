@@ -17,8 +17,8 @@
 class IMUSensor
 {
 private:
-  int intPin = 12;
-  int myLed = 13;
+  //int intPin = 12;
+  //int myLed = 13;
   MPU9250 imu_;
   void getReadyForRead();
 public:
