@@ -5,6 +5,7 @@ Krembo::Krembo()
 {
   //init I2C
   Wire.begin();
+  Serial.begin(38400);
 
   //rgba & imu sensors can only be init after wire.begin
   IMU.init();
