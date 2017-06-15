@@ -8,7 +8,8 @@ Krembo::Krembo()
   Serial.begin(38400);
 
   //rgba & imu sensors can only be init after wire.begin
-  IMU.init();
+  //IMU.init(); 
+
   RgbaFront.init(uint8_t(RGBAAddr::Front));
   RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
   RgbaRight.init(uint8_t(RGBAAddr::Right));

@@ -81,15 +81,15 @@ namespace KremboControl
             else
                 bumper_rear_lbl.BackColor = Color.Red;
 
-            if (krembo.WKC.BumpFront)
-                bumper_front_lbl.BackColor = Color.Lime;
+            if (krembo.WKC.BumpRight)
+                bumper_right_lbl.BackColor = Color.Lime;
             else
-                bumper_front_lbl.BackColor = Color.Red;
+                bumper_right_lbl.BackColor = Color.Red;
 
-            if (krembo.WKC.BumpFront)
-                bumper_front_lbl.BackColor = Color.Lime;
+            if (krembo.WKC.BumpLeft)
+                bumper_left_lbl.BackColor = Color.Lime;
             else
-                bumper_front_lbl.BackColor = Color.Red;
+                bumper_left_lbl.BackColor = Color.Red;
 
 
         }
@@ -261,6 +261,8 @@ namespace KremboControl
             if(base_on_rdbtn.Checked)
             {
                 //enable gui commands
+                wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
+                wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
                 wkc_msg_.joy_control = true;
 
                 reset_ang_vel_btn.Enabled = true;
@@ -271,20 +273,13 @@ namespace KremboControl
             else
             {
                 //stop base
-                //wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
-                //wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
                 wkc_msg_.joy_control = false;
-
-                //disable gui commands
-
-                //wkc_msg_.joy_control = false;
-                // SendMsgToSelectedKrembo();
                 reset_ang_vel_btn.Enabled = false;
                 reset_lin_vel_btn.Enabled = false;
-                linear_vel_sbar.Value = 0;
                 linear_vel_sbar.Enabled = false;
-                angular_vel_sbar.Value = 0;
                 angular_vel_sbar.Enabled = false;
+                angular_vel_sbar.Value = 0;
+                linear_vel_sbar.Value = 0;
             }
             SendMsgToSelectedKrembo();
         }
