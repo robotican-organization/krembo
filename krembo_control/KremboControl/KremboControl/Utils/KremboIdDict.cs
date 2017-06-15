@@ -38,6 +38,8 @@ namespace KremboControl.Utils
         {
             id_dict.Add("5c003a000a51353531343431", "Krembo 1");
             id_dict.Add("310031000851353531343431", "Krembo 2");
+            id_dict.Add("400059000f51353532343635", "Krembo 11");
+              
         }
 
         public string IdToName(string id)

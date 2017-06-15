@@ -11,6 +11,7 @@
 #include "wkc_pc2krembo.h"
 #include "bluesky_timer.h"
 #include "imu_sensor.h"
+#include "dac_bumpers.h"
 
 /*TODO:
 1. add connection between photons
@@ -33,14 +34,14 @@
 
 enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {
-  N = 0,
-  NE = 1,
-  E = 2,
-  SE = 3,
-  S = 4,
-  SW = 5,
-  W = 6,
-  NW = 7
+  Front = 0,
+  FrontRight = 1,
+  Right = 2,
+  RearRight = 3,
+  Rear = 4,
+  RearLeft = 5,
+  Left = 6,
+  FrontLeft = 7
 };
 
 class Krembo
@@ -60,16 +61,17 @@ private:
 public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
 
 
-  RGBASensor RGBA_N;
-  RGBASensor RGBA_NE;
-  RGBASensor RGBA_E;
-  RGBASensor RGBA_SE;
-  RGBASensor RGBA_S;
-  RGBASensor RGBA_SW;
-  RGBASensor RGBA_W;
-  RGBASensor RGBA_NW;
+  RGBASensor RgbaFront;
+  RGBASensor RgbaFrontRight;
+  RGBASensor RgbaRight;
+  RGBASensor RgbaRearRight;
+  RGBASensor RgbaRear;
+  RGBASensor RgbaRearLeft;
+  RGBASensor RgbaLeft;
+  RGBASensor RgbaFrontLeft;
 
   MobileBase Base;
+  DacBumpers Bumpers;
   Battery Bat;
   RGBLed Led;
   IMUSensor IMU;

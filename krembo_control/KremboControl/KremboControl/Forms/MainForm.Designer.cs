@@ -1,6 +1,6 @@
 ﻿namespace KremboControl
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,11 +36,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.controller_grbx = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.msg_txt = new System.Windows.Forms.RichTextBox();
+            this.send_txt_btn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.flash_off_rdbtn = new System.Windows.Forms.RadioButton();
             this.flash_on_rdbtn = new System.Windows.Forms.RadioButton();
             this.select_all_btn = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.flash_status_lbl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.choose_bin_btn = new System.Windows.Forms.Button();
             this.flash_btn = new System.Windows.Forms.Button();
@@ -65,25 +68,25 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.krembo_pic = new System.Windows.Forms.PictureBox();
-            this.compass1 = new Simple_HUD.Compass();
+            this.heading = new Simple_HUD.Compass();
             this.color_dialog = new System.Windows.Forms.ColorDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.bumper_front_lbl = new System.Windows.Forms.Label();
+            this.bumper_right_lbl = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.bumper_rear_lbl = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.bumper_left_lbl = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.rgba_north_lbl = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.send_txt_btn = new System.Windows.Forms.Button();
-            this.msg_txt = new System.Windows.Forms.RichTextBox();
+            this.data_off_rdbtn = new System.Windows.Forms.RadioButton();
+            this.data_on_rdbtn = new System.Windows.Forms.RadioButton();
             this.controller_grbx.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.led_grbx.SuspendLayout();
             this.base_grbx.SuspendLayout();
@@ -92,14 +95,13 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bat_chrg_lvl_lbl
             // 
             this.bat_chrg_lvl_lbl.AutoSize = true;
             this.bat_chrg_lvl_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bat_chrg_lvl_lbl.Location = new System.Drawing.Point(31, 393);
+            this.bat_chrg_lvl_lbl.Location = new System.Drawing.Point(31, 428);
             this.bat_chrg_lvl_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bat_chrg_lvl_lbl.Name = "bat_chrg_lvl_lbl";
             this.bat_chrg_lvl_lbl.Size = new System.Drawing.Size(93, 18);
@@ -112,7 +114,7 @@
             this.id_lbl.BackColor = System.Drawing.Color.Transparent;
             this.id_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.id_lbl.ForeColor = System.Drawing.Color.Black;
-            this.id_lbl.Location = new System.Drawing.Point(15, 22);
+            this.id_lbl.Location = new System.Drawing.Point(15, 57);
             this.id_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.id_lbl.Name = "id_lbl";
             this.id_lbl.Size = new System.Drawing.Size(24, 18);
@@ -123,7 +125,7 @@
             // 
             this.bat_lvl_lbl.AutoSize = true;
             this.bat_lvl_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bat_lvl_lbl.Location = new System.Drawing.Point(31, 362);
+            this.bat_lvl_lbl.Location = new System.Drawing.Point(31, 397);
             this.bat_lvl_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bat_lvl_lbl.Name = "bat_lvl_lbl";
             this.bat_lvl_lbl.Size = new System.Drawing.Size(72, 18);
@@ -133,10 +135,10 @@
             // ping_btn
             // 
             this.ping_btn.Enabled = false;
-            this.ping_btn.Location = new System.Drawing.Point(14, 378);
+            this.ping_btn.Location = new System.Drawing.Point(117, 379);
             this.ping_btn.Margin = new System.Windows.Forms.Padding(2);
             this.ping_btn.Name = "ping_btn";
-            this.ping_btn.Size = new System.Drawing.Size(78, 54);
+            this.ping_btn.Size = new System.Drawing.Size(69, 22);
             this.ping_btn.TabIndex = 5;
             this.ping_btn.Text = "Ping";
             this.ping_btn.UseVisualStyleBackColor = true;
@@ -176,6 +178,7 @@
             // 
             this.controller_grbx.Controls.Add(this.groupBox1);
             this.controller_grbx.Controls.Add(this.groupBox4);
+            this.controller_grbx.Controls.Add(this.select_all_btn);
             this.controller_grbx.Controls.Add(this.led_grbx);
             this.controller_grbx.Controls.Add(this.base_grbx);
             this.controller_grbx.Controls.Add(this.ping_btn);
@@ -189,12 +192,41 @@
             this.controller_grbx.TabStop = false;
             this.controller_grbx.Text = "Controller";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.msg_txt);
+            this.groupBox1.Controls.Add(this.send_txt_btn);
+            this.groupBox1.Location = new System.Drawing.Point(504, 283);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(265, 128);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Text Message";
+            // 
+            // msg_txt
+            // 
+            this.msg_txt.Location = new System.Drawing.Point(24, 25);
+            this.msg_txt.MaxLength = 255;
+            this.msg_txt.Name = "msg_txt";
+            this.msg_txt.Size = new System.Drawing.Size(215, 61);
+            this.msg_txt.TabIndex = 2;
+            this.msg_txt.Text = "";
+            // 
+            // send_txt_btn
+            // 
+            this.send_txt_btn.Location = new System.Drawing.Point(151, 95);
+            this.send_txt_btn.Name = "send_txt_btn";
+            this.send_txt_btn.Size = new System.Drawing.Size(88, 23);
+            this.send_txt_btn.TabIndex = 0;
+            this.send_txt_btn.Text = "Send";
+            this.send_txt_btn.UseVisualStyleBackColor = true;
+            this.send_txt_btn.Click += new System.EventHandler(this.send_txt_btn_Click);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.flash_off_rdbtn);
             this.groupBox4.Controls.Add(this.flash_on_rdbtn);
-            this.groupBox4.Controls.Add(this.select_all_btn);
-            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.flash_status_lbl);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.choose_bin_btn);
             this.groupBox4.Controls.Add(this.flash_btn);
@@ -209,12 +241,10 @@
             // flash_off_rdbtn
             // 
             this.flash_off_rdbtn.AutoSize = true;
-            this.flash_off_rdbtn.Checked = true;
             this.flash_off_rdbtn.Location = new System.Drawing.Point(73, 32);
             this.flash_off_rdbtn.Name = "flash_off_rdbtn";
             this.flash_off_rdbtn.Size = new System.Drawing.Size(39, 17);
             this.flash_off_rdbtn.TabIndex = 11;
-            this.flash_off_rdbtn.TabStop = true;
             this.flash_off_rdbtn.Text = "Off";
             this.flash_off_rdbtn.UseVisualStyleBackColor = true;
             this.flash_off_rdbtn.CheckedChanged += new System.EventHandler(this.flash_off_rdbtn_CheckedChanged);
@@ -222,7 +252,6 @@
             // flash_on_rdbtn
             // 
             this.flash_on_rdbtn.AutoSize = true;
-            this.flash_on_rdbtn.Enabled = false;
             this.flash_on_rdbtn.Location = new System.Drawing.Point(24, 32);
             this.flash_on_rdbtn.Name = "flash_on_rdbtn";
             this.flash_on_rdbtn.Size = new System.Drawing.Size(39, 17);
@@ -234,23 +263,23 @@
             // select_all_btn
             // 
             this.select_all_btn.Enabled = false;
-            this.select_all_btn.Location = new System.Drawing.Point(24, 208);
+            this.select_all_btn.Location = new System.Drawing.Point(14, 379);
             this.select_all_btn.Margin = new System.Windows.Forms.Padding(2);
             this.select_all_btn.Name = "select_all_btn";
-            this.select_all_btn.Size = new System.Drawing.Size(171, 31);
+            this.select_all_btn.Size = new System.Drawing.Size(69, 22);
             this.select_all_btn.TabIndex = 11;
             this.select_all_btn.Text = "Select All";
             this.select_all_btn.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // flash_status_lbl
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(87, 181);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "N/A";
+            this.flash_status_lbl.AutoSize = true;
+            this.flash_status_lbl.Location = new System.Drawing.Point(87, 181);
+            this.flash_status_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.flash_status_lbl.Name = "flash_status_lbl";
+            this.flash_status_lbl.Size = new System.Drawing.Size(27, 13);
+            this.flash_status_lbl.TabIndex = 10;
+            this.flash_status_lbl.Text = "N/A";
             // 
             // label5
             // 
@@ -265,10 +294,10 @@
             // choose_bin_btn
             // 
             this.choose_bin_btn.Enabled = false;
-            this.choose_bin_btn.Location = new System.Drawing.Point(23, 63);
+            this.choose_bin_btn.Location = new System.Drawing.Point(23, 62);
             this.choose_bin_btn.Margin = new System.Windows.Forms.Padding(2);
             this.choose_bin_btn.Name = "choose_bin_btn";
-            this.choose_bin_btn.Size = new System.Drawing.Size(61, 54);
+            this.choose_bin_btn.Size = new System.Drawing.Size(89, 29);
             this.choose_bin_btn.TabIndex = 7;
             this.choose_bin_btn.Text = "Choose Bin File";
             this.choose_bin_btn.UseVisualStyleBackColor = true;
@@ -277,10 +306,10 @@
             // flash_btn
             // 
             this.flash_btn.Enabled = false;
-            this.flash_btn.Location = new System.Drawing.Point(24, 128);
+            this.flash_btn.Location = new System.Drawing.Point(23, 103);
             this.flash_btn.Margin = new System.Windows.Forms.Padding(2);
             this.flash_btn.Name = "flash_btn";
-            this.flash_btn.Size = new System.Drawing.Size(158, 36);
+            this.flash_btn.Size = new System.Drawing.Size(88, 25);
             this.flash_btn.TabIndex = 6;
             this.flash_btn.Text = "Flash";
             this.flash_btn.UseVisualStyleBackColor = true;
@@ -289,12 +318,13 @@
             // bin_path_lbl
             // 
             this.bin_path_lbl.AutoSize = true;
-            this.bin_path_lbl.Location = new System.Drawing.Point(99, 67);
+            this.bin_path_lbl.Location = new System.Drawing.Point(121, 69);
             this.bin_path_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bin_path_lbl.Name = "bin_path_lbl";
-            this.bin_path_lbl.Size = new System.Drawing.Size(28, 13);
+            this.bin_path_lbl.Size = new System.Drawing.Size(27, 13);
             this.bin_path_lbl.TabIndex = 8;
-            this.bin_path_lbl.Text = "path";
+            this.bin_path_lbl.Text = "N/A";
+            this.bin_path_lbl.Click += new System.EventHandler(this.bin_path_lbl_Click);
             // 
             // led_grbx
             // 
@@ -430,8 +460,7 @@
             this.angular_vel_sbar.Enabled = false;
             this.angular_vel_sbar.Location = new System.Drawing.Point(18, 195);
             this.angular_vel_sbar.Margin = new System.Windows.Forms.Padding(2);
-            this.angular_vel_sbar.Maximum = 100;
-            this.angular_vel_sbar.Minimum = -100;
+            this.angular_vel_sbar.Minimum = -10;
             this.angular_vel_sbar.Name = "angular_vel_sbar";
             this.angular_vel_sbar.Size = new System.Drawing.Size(233, 45);
             this.angular_vel_sbar.SmallChange = 5;
@@ -489,8 +518,7 @@
             this.linear_vel_sbar.Enabled = false;
             this.linear_vel_sbar.Location = new System.Drawing.Point(18, 103);
             this.linear_vel_sbar.Margin = new System.Windows.Forms.Padding(2);
-            this.linear_vel_sbar.Maximum = 100;
-            this.linear_vel_sbar.Minimum = -100;
+            this.linear_vel_sbar.Minimum = -10;
             this.linear_vel_sbar.Name = "linear_vel_sbar";
             this.linear_vel_sbar.Size = new System.Drawing.Size(233, 45);
             this.linear_vel_sbar.SmallChange = 5;
@@ -529,7 +557,7 @@
             // 
             this.krembo_pic.Image = global::KremboControl.Properties.Resources.krembo_scheme;
             this.krembo_pic.InitialImage = null;
-            this.krembo_pic.Location = new System.Drawing.Point(12, 53);
+            this.krembo_pic.Location = new System.Drawing.Point(12, 88);
             this.krembo_pic.Margin = new System.Windows.Forms.Padding(2);
             this.krembo_pic.Name = "krembo_pic";
             this.krembo_pic.Size = new System.Drawing.Size(302, 380);
@@ -538,26 +566,28 @@
             this.krembo_pic.TabStop = false;
             this.krembo_pic.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // compass1
+            // heading
             // 
-            this.compass1.Heading = 0F;
-            this.compass1.Location = new System.Drawing.Point(353, 48);
-            this.compass1.Name = "compass1";
-            this.compass1.Size = new System.Drawing.Size(150, 150);
-            this.compass1.TabIndex = 20;
-            this.compass1.YawRate = 0F;
+            this.heading.Heading = 0F;
+            this.heading.Location = new System.Drawing.Point(353, 110);
+            this.heading.Name = "heading";
+            this.heading.Size = new System.Drawing.Size(150, 150);
+            this.heading.TabIndex = 20;
+            this.heading.YawRate = 0F;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.data_off_rdbtn);
+            this.groupBox3.Controls.Add(this.data_on_rdbtn);
+            this.groupBox3.Controls.Add(this.bumper_front_lbl);
+            this.groupBox3.Controls.Add(this.bumper_right_lbl);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.compass1);
+            this.groupBox3.Controls.Add(this.heading);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.bumper_rear_lbl);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.bumper_left_lbl);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label7);
@@ -568,38 +598,39 @@
             this.groupBox3.Controls.Add(this.krembo_pic);
             this.groupBox3.Location = new System.Drawing.Point(827, 38);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(544, 446);
+            this.groupBox3.Size = new System.Drawing.Size(544, 500);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Data";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
-            // label16
+            // bumper_front_lbl
             // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Lime;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(409, 27);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label16.MinimumSize = new System.Drawing.Size(35, 20);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(35, 20);
-            this.label16.TabIndex = 33;
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.bumper_front_lbl.AutoSize = true;
+            this.bumper_front_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_front_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_front_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_front_lbl.Location = new System.Drawing.Point(409, 89);
+            this.bumper_front_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_front_lbl.MinimumSize = new System.Drawing.Size(35, 20);
+            this.bumper_front_lbl.Name = "bumper_front_lbl";
+            this.bumper_front_lbl.Size = new System.Drawing.Size(35, 20);
+            this.bumper_front_lbl.TabIndex = 33;
+            this.bumper_front_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label15
+            // bumper_right_lbl
             // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Lime;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Black;
-            this.label15.Location = new System.Drawing.Point(505, 105);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.MinimumSize = new System.Drawing.Size(20, 35);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(20, 35);
-            this.label15.TabIndex = 32;
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.bumper_right_lbl.AutoSize = true;
+            this.bumper_right_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_right_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_right_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_right_lbl.Location = new System.Drawing.Point(505, 167);
+            this.bumper_right_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_right_lbl.MinimumSize = new System.Drawing.Size(20, 35);
+            this.bumper_right_lbl.Name = "bumper_right_lbl";
+            this.bumper_right_lbl.Size = new System.Drawing.Size(20, 35);
+            this.bumper_right_lbl.TabIndex = 32;
+            this.bumper_right_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
@@ -607,7 +638,7 @@
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(47, 154);
+            this.label13.Location = new System.Drawing.Point(47, 189);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.MinimumSize = new System.Drawing.Size(35, 0);
             this.label13.Name = "label13";
@@ -622,7 +653,7 @@
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(73, 106);
+            this.label12.Location = new System.Drawing.Point(73, 141);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.MinimumSize = new System.Drawing.Size(35, 0);
             this.label12.Name = "label12";
@@ -631,19 +662,19 @@
             this.label12.Text = "0";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // bumper_rear_lbl
             // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Lime;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(409, 199);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.MinimumSize = new System.Drawing.Size(35, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 20);
-            this.label6.TabIndex = 31;
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.bumper_rear_lbl.AutoSize = true;
+            this.bumper_rear_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_rear_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_rear_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_rear_lbl.Location = new System.Drawing.Point(409, 261);
+            this.bumper_rear_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_rear_lbl.MinimumSize = new System.Drawing.Size(35, 20);
+            this.bumper_rear_lbl.Name = "bumper_rear_lbl";
+            this.bumper_rear_lbl.Size = new System.Drawing.Size(35, 20);
+            this.bumper_rear_lbl.TabIndex = 31;
+            this.bumper_rear_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
@@ -651,7 +682,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(146, 81);
+            this.label11.Location = new System.Drawing.Point(146, 116);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.MinimumSize = new System.Drawing.Size(35, 0);
             this.label11.Name = "label11";
@@ -666,7 +697,7 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(218, 112);
+            this.label10.Location = new System.Drawing.Point(218, 147);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.MinimumSize = new System.Drawing.Size(35, 0);
             this.label10.Name = "label10";
@@ -675,19 +706,19 @@
             this.label10.Text = "0";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label14
+            // bumper_left_lbl
             // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Lime;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(330, 104);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.MinimumSize = new System.Drawing.Size(20, 35);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(20, 35);
-            this.label14.TabIndex = 30;
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.bumper_left_lbl.AutoSize = true;
+            this.bumper_left_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_left_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_left_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_left_lbl.Location = new System.Drawing.Point(330, 166);
+            this.bumper_left_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_left_lbl.MinimumSize = new System.Drawing.Size(20, 35);
+            this.bumper_left_lbl.Name = "bumper_left_lbl";
+            this.bumper_left_lbl.Size = new System.Drawing.Size(20, 35);
+            this.bumper_left_lbl.TabIndex = 30;
+            this.bumper_left_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
@@ -695,7 +726,7 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(242, 156);
+            this.label9.Location = new System.Drawing.Point(242, 191);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.MinimumSize = new System.Drawing.Size(35, 0);
             this.label9.Name = "label9";
@@ -710,7 +741,7 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(220, 203);
+            this.label8.Location = new System.Drawing.Point(220, 238);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.MinimumSize = new System.Drawing.Size(35, 0);
             this.label8.Name = "label8";
@@ -725,7 +756,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(148, 226);
+            this.label7.Location = new System.Drawing.Point(148, 261);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.MinimumSize = new System.Drawing.Size(35, 0);
             this.label7.Name = "label7";
@@ -740,7 +771,7 @@
             this.rgba_north_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_north_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rgba_north_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_north_lbl.Location = new System.Drawing.Point(73, 204);
+            this.rgba_north_lbl.Location = new System.Drawing.Point(73, 239);
             this.rgba_north_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_north_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_north_lbl.Name = "rgba_north_lbl";
@@ -749,35 +780,30 @@
             this.rgba_north_lbl.Text = "0";
             this.rgba_north_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox1
+            // data_off_rdbtn
             // 
-            this.groupBox1.Controls.Add(this.msg_txt);
-            this.groupBox1.Controls.Add(this.send_txt_btn);
-            this.groupBox1.Location = new System.Drawing.Point(504, 283);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 128);
-            this.groupBox1.TabIndex = 24;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Text Message";
+            this.data_off_rdbtn.AutoSize = true;
+            this.data_off_rdbtn.Checked = true;
+            this.data_off_rdbtn.Location = new System.Drawing.Point(67, 29);
+            this.data_off_rdbtn.Name = "data_off_rdbtn";
+            this.data_off_rdbtn.Size = new System.Drawing.Size(39, 17);
+            this.data_off_rdbtn.TabIndex = 35;
+            this.data_off_rdbtn.TabStop = true;
+            this.data_off_rdbtn.Text = "Off";
+            this.data_off_rdbtn.UseVisualStyleBackColor = true;
+            this.data_off_rdbtn.CheckedChanged += new System.EventHandler(this.data_off_rdbtn_CheckedChanged);
             // 
-            // send_txt_btn
+            // data_on_rdbtn
             // 
-            this.send_txt_btn.Location = new System.Drawing.Point(151, 95);
-            this.send_txt_btn.Name = "send_txt_btn";
-            this.send_txt_btn.Size = new System.Drawing.Size(88, 23);
-            this.send_txt_btn.TabIndex = 0;
-            this.send_txt_btn.Text = "Send";
-            this.send_txt_btn.UseVisualStyleBackColor = true;
-            this.send_txt_btn.Click += new System.EventHandler(this.send_txt_btn_Click);
-            // 
-            // msg_txt
-            // 
-            this.msg_txt.Location = new System.Drawing.Point(24, 25);
-            this.msg_txt.MaxLength = 255;
-            this.msg_txt.Name = "msg_txt";
-            this.msg_txt.Size = new System.Drawing.Size(215, 61);
-            this.msg_txt.TabIndex = 2;
-            this.msg_txt.Text = "";
+            this.data_on_rdbtn.AutoSize = true;
+            this.data_on_rdbtn.Enabled = false;
+            this.data_on_rdbtn.Location = new System.Drawing.Point(18, 29);
+            this.data_on_rdbtn.Name = "data_on_rdbtn";
+            this.data_on_rdbtn.Size = new System.Drawing.Size(39, 17);
+            this.data_on_rdbtn.TabIndex = 34;
+            this.data_on_rdbtn.Text = "On";
+            this.data_on_rdbtn.UseVisualStyleBackColor = true;
+            this.data_on_rdbtn.CheckedChanged += new System.EventHandler(this.data_on_rdbtn_CheckedChanged);
             // 
             // Form1
             // 
@@ -794,6 +820,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.controller_grbx.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.led_grbx.ResumeLayout(false);
@@ -807,7 +834,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -837,14 +863,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button choose_color_btn;
         private System.Windows.Forms.GroupBox base_grbx;
-        private Simple_HUD.Compass compass1;
+        private Simple_HUD.Compass heading;
         private System.Windows.Forms.ColorDialog color_dialog;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label blue_lbl;
         private System.Windows.Forms.Label green_lbl;
         private System.Windows.Forms.Label red_lbl;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label flash_status_lbl;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button choose_bin_btn;
         private System.Windows.Forms.Button flash_btn;
@@ -858,10 +884,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label rgba_north_lbl;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label bumper_front_lbl;
+        private System.Windows.Forms.Label bumper_right_lbl;
+        private System.Windows.Forms.Label bumper_rear_lbl;
+        private System.Windows.Forms.Label bumper_left_lbl;
         private System.Windows.Forms.RadioButton flash_off_rdbtn;
         private System.Windows.Forms.RadioButton flash_on_rdbtn;
         private System.Windows.Forms.RadioButton base_off_rdbtn;
@@ -869,6 +895,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox msg_txt;
         private System.Windows.Forms.Button send_txt_btn;
+        private System.Windows.Forms.RadioButton data_off_rdbtn;
+        private System.Windows.Forms.RadioButton data_on_rdbtn;
     }
 }
 

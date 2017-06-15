@@ -5,22 +5,22 @@ Krembo krembo;
 void testRGBSensors()
 {
   Serial.println("------------TESTING RGB SENSORS------------");
-  Serial.println("TEST 1: sensor NORTH");
-  krembo.RGBA_N.print();
-  Serial.println("\nTEST 2: sensor NORTH-EAST");
-  krembo.RGBA_NE.print();
-  Serial.println("\nTEST 3: sensor EAST");
-  krembo.RGBA_E.print();
-  Serial.println("\nTEST 4: sensor SOUTH-EAST");
-  krembo.RGBA_SE.print();
-  Serial.println("\nTEST 5: sensor SOUTH");
-  krembo.RGBA_S.print();
-  Serial.println("\nTEST 6: sensor SOUTH-WEST");
-  krembo.RGBA_SW.print();
-  Serial.println("\nTEST 7: sensor WEST");
-  krembo.RGBA_W.print();
-  Serial.println("\nTEST 8: sensor NORTH-WEST");
-  krembo.RGBA_NW.print();
+  Serial.println("TEST 1: sensor FRONT");
+  krembo.RgbaFront.print();
+  Serial.println("\nTEST 2: sensor FRONT-RIGHT");
+  krembo.RgbaFrontRight.print();
+  Serial.println("\nTEST 3: sensor RIGHT");
+  krembo.RgbaRight.print();
+  Serial.println("\nTEST 4: sensor REAR_RIGHT");
+  krembo.RgbaRearRight.print();
+  Serial.println("\nTEST 5: sensor REAR");
+  krembo.RgbaRear.print();
+  Serial.println("\nTEST 6: sensor REAR_LEFT");
+  krembo.RgbaRearLeft.print();
+  Serial.println("\nTEST 7: sensor LEFT");
+  krembo.RgbaLeft.print();
+  Serial.println("\nTEST 8: sensor FRONT_LEFT");
+  krembo.RgbaFrontLeft.print();
 }
 
 void testIMU()
@@ -79,11 +79,11 @@ void setup()
 
 void loop()
 {
-  //krembo.loop();
+  krembo.loop();
   //testIMU();
   //testRGBSensors();
   //delay(1000);
-  testRGBLeds();
+  //testRGBLeds();
 }
 
 
@@ -269,6 +269,7 @@ void loop()
         Serial.print("Z-mag field: "); Serial.print(myIMU.mz);
         Serial.println(" mG");
 
+
         myIMU.tempCount = myIMU.readTempData();  // Read the adc values
         // Temperature in degrees Centigrade
         myIMU.temperature = ((float) myIMU.tempCount) / 333.87 + 21.0;
@@ -305,6 +306,11 @@ void loop()
         Serial.print(" my = "); Serial.print( (int)myIMU.my );
         Serial.print(" mz = "); Serial.print( (int)myIMU.mz );
         Serial.println(" mG");
+
+        byte d = myIMU.readByte(AK8963_ADDRESS, WHO_AM_I_AK8963);
+        Serial.print("AK8963 "); Serial.print("I AM "); Serial.print(d, HEX);
+        Serial.print(" I should be "); Serial.println(0x48, HEX);
+
 
         Serial.print("q0 = "); Serial.print(*getQ());
         Serial.print(" qx = "); Serial.print(*(getQ() + 1));

@@ -9,14 +9,14 @@ Krembo::Krembo()
 
   //rgba & imu sensors can only be init after wire.begin
   IMU.init();
-  RGBA_N.init(uint8_t(RGBAAddr::N));
-  RGBA_NE.init(uint8_t(RGBAAddr::NE));
-  RGBA_E.init(uint8_t(RGBAAddr::E));
-  RGBA_SE.init(uint8_t(RGBAAddr::SE));
-  RGBA_S.init(uint8_t(RGBAAddr::S));
-  RGBA_SW.init(uint8_t(RGBAAddr::SW));
-  RGBA_W.init(uint8_t(RGBAAddr::W));
-  RGBA_NW.init(uint8_t(RGBAAddr::NW));
+  RgbaFront.init(uint8_t(RGBAAddr::Front));
+  RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
+  RgbaRight.init(uint8_t(RGBAAddr::Right));
+  RgbaRearRight.init(uint8_t(RGBAAddr::RearRight));
+  RgbaRear.init(uint8_t(RGBAAddr::Rear));
+  RgbaRearLeft.init(uint8_t(RGBAAddr::RearLeft));
+  RgbaLeft.init(uint8_t(RGBAAddr::Left));
+  RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));
 
   id_was_sent_ = false;
   master_asks_for_data_ = false;
@@ -65,6 +65,14 @@ void Krembo::sendWKC()
 {
   //build WKC msg
   WKCKrembo2PC wkc_msg;
+
+  BumpersRes bump_res = Bumpers.read();
+
+  wkc_msg.bump_front = bump_res.front;
+  wkc_msg.bump_rear = bump_res.rear;
+  wkc_msg.bump_right = bump_res.right;
+  wkc_msg.bump_left = bump_res.left;
+
   wkc_msg.bat_lvl = Bat.getBatLvl();
   wkc_msg.bat_chrg_lvl = Bat.getChargeLvl();
   wkc_msg.is_bat_chrgng = Bat.isCharging();

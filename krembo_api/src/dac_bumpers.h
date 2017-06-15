@@ -1,18 +1,28 @@
 #ifndef DAC_BUMPERS_H
 #define DAC_BUMPERS_H
 
+struct BumpersRes
+{
+  bool front,
+       rear,
+       right,
+       left;
+};
+
 class DacBumpers
 {
-private:
-  DacBumpers();
 public:
-  void print();
-  void printRawVals();
-  uint16_t getRawBumper();
-  void getRawBumpers();
-  bool isBumperPressed();
-  bool isAnyBumperPressed();
-  void getBumpers(bool [] bumpers);
+  BumpersRes read()
+  {
+    BumpersRes res;
+    //res.front =
+    //res.rear =
+    //res.right =
+    //res.left =
+    return res;
+  }
 };
+
+
 
 #endif

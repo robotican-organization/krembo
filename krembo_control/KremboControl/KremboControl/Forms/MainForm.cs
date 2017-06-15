@@ -14,14 +14,14 @@ using System.IO;
 
 namespace KremboControl
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         WKCPC2Krembo wkc_msg_ = new WKCPC2Krembo();
         BindingList<Krembo> krembos_list_ = new BindingList<Krembo>();
         TCPServer server_;
         bool flash_mode_ = false;
 
-        public Form1()
+        public MainForm()
         {
             //this.WindowState = FormWindowState.Maximized; //enable this for full screen
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace KremboControl
                 Krembo updated_krembo = new Krembo(wkc_msg);
                 foreach (Krembo krembo in krembos_list_)
                 {
-                    if (krembo.krembo_wkc.ID == wkc_msg.ID)
+                    if (krembo.WKC.ID == wkc_msg.ID)
                     {
                         //remove existing krembo (make place for updated one)
                         krembos_list_.Remove(krembo);
@@ -57,17 +57,41 @@ namespace KremboControl
                 }
                 krembos_list_.Add(updated_krembo);
                 if (connected_photons_lstbx.SelectedItem.Equals(updated_krembo))
-                    updateKremboImgLbls(updated_krembo);
+                    updateKremboData(updated_krembo);
                 else
                     connected_photons_lstbx.SelectedItem = updated_krembo; 
             });
         }
 
-        public void updateKremboImgLbls(Krembo krembo)
+        public void updateKremboData(Krembo krembo)
         {
-            id_lbl.Text = "ID: " + krembo.krembo_wkc.ID.ToString();
-            bat_lvl_lbl.Text = "Bat lvl: " + krembo.krembo_wkc.BatLvl.ToString();
-            bat_chrg_lvl_lbl.Text = "Chrg lvl: " + krembo.krembo_wkc.BatChrgLvl.ToString();
+            //read basic data
+            id_lbl.Text = "ID: " + krembo.WKC.ID.ToString();
+            bat_lvl_lbl.Text = "Bat lvl: " + krembo.WKC.BatLvl.ToString();
+            bat_chrg_lvl_lbl.Text = "Chrg lvl: " + krembo.WKC.BatChrgLvl.ToString();
+
+            //read bumpers values
+            if (krembo.WKC.BumpFront)
+                bumper_front_lbl.BackColor = Color.Lime;
+            else
+                bumper_front_lbl.BackColor = Color.Red;
+
+            if (krembo.WKC.BumpRear)
+                bumper_rear_lbl.BackColor = Color.Lime;
+            else
+                bumper_rear_lbl.BackColor = Color.Red;
+
+            if (krembo.WKC.BumpFront)
+                bumper_front_lbl.BackColor = Color.Lime;
+            else
+                bumper_front_lbl.BackColor = Color.Red;
+
+            if (krembo.WKC.BumpFront)
+                bumper_front_lbl.BackColor = Color.Lime;
+            else
+                bumper_front_lbl.BackColor = Color.Red;
+
+
         }
 
     
@@ -81,12 +105,12 @@ namespace KremboControl
             wkc_msg.user_msg = "hello krembo";
             wkc_msg.linear_vel = Krembo.NEUTRAL_BASE_VEL;
             wkc_msg.angular_vel = Krembo.NEUTRAL_BASE_VEL;
-            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).krembo_wkc.ID, wkc_msg); //client is chosen by connection socket (no need for id)
+            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).WKC.ID, wkc_msg); //client is chosen by connection socket (no need for id)
         }
 
         private void SendMsgToSelectedKrembo()
         {
-            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).krembo_wkc.ID, wkc_msg_); //client is chosen by connection socket (no need for id)
+            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).WKC.ID, wkc_msg_); //client is chosen by connection socket (no need for id)
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -108,32 +132,32 @@ namespace KremboControl
                 flash_on_rdbtn.Enabled = true;
                 base_on_rdbtn.Enabled = true;
                 ping_btn.Enabled = true;
-                updateKremboImgLbls((Krembo)connected_photons_lstbx.SelectedItem);
+                updateKremboData((Krembo)connected_photons_lstbx.SelectedItem);
             }         
         }
 
         private void linear_vel_sbar_Scroll(object sender, EventArgs e)
         {
-            wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value);
-            wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value);
+            wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value * 10);
+            wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value * 10);
             SendMsgToSelectedKrembo();
 
-            linear_vel_lbl.Text = linear_vel_sbar.Value.ToString() + " %";
+            linear_vel_lbl.Text = (Math.Abs(linear_vel_sbar.Value * 10)).ToString() + " %";
         }
 
         private void angular_vel_sbar_Scroll(object sender, EventArgs e)
         {
-            wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value);
-            wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value);
+            wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, linear_vel_sbar.Value * 10);
+            wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value * 10);
             SendMsgToSelectedKrembo();
 
-            angular_vel_lbl.Text = angular_vel_sbar.Value.ToString() + " %";
+            angular_vel_lbl.Text = (Math.Abs(angular_vel_sbar.Value * 10)).ToString() + " %";
         }
 
         private void reset_lin_vel_btn_Click(object sender, EventArgs e)
         {
             wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
-            wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value);
+            wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, angular_vel_sbar.Value * 10);
             SendMsgToSelectedKrembo();
 
             linear_vel_sbar.Value = 0;
@@ -177,25 +201,32 @@ namespace KremboControl
         {
             if (File.Exists(bin_path_lbl.Text))
             {
-                flash_btn.Enabled = false;
-
-                //TODO: do flash work - flash selected photons
-                var id_list = new List<string>();
-                foreach (Krembo krembo in krembos_list_)
-                    id_list.Add(KremboIdDict.Instance.IdToName(krembo.krembo_wkc.ID));
-                Parallel.ForEach(id_list, id =>
+                if (connected_photons_lstbx.SelectedItems.Count > 0)
                 {
-                    ParticleCLI.flashPhoton(id, bin_path_lbl.Text);
-                });
-
-                flash_btn.Enabled = true;
+                    flash_btn.Enabled = false;
+                    flash_status_lbl.Text = "Flashing...";
+                    flash_status_lbl.BackColor = Color.DarkOrange;
+                    //TODO: do flash work - flash selected photons
+                    var id_list = new List<string>();
+                    foreach (Krembo krembo in krembos_list_)
+                        id_list.Add(KremboIdDict.Instance.IdToName(krembo.WKC.ID));
+                    Parallel.ForEach(id_list, id =>
+                    {
+                        ParticleCLI.flashPhoton(id, bin_path_lbl.Text);
+                    });
+                    flash_status_lbl.Text = "Done...";
+                    flash_status_lbl.BackColor = Color.Lime;
+                    flash_btn.Enabled = true;
+                }
+                else
+                    MsgBxLogger.errorMsg("Flash Error",
+                                    "Please select krembos from the list before flashing");
             }
             else
             {
                 MsgBxLogger.errorMsg("Flash Error",
                                     "Bin file at: " + bin_path_lbl.Text + " doesn't exist");
-                bin_path_lbl.Text = "";
-                flash_btn.Enabled = false;
+                bin_path_lbl.Text = "N/A";
             }
         }
 
@@ -207,8 +238,6 @@ namespace KremboControl
                 wkc_msg_.led_red = ushort.Parse(red_lbl.Text);
                 wkc_msg_.led_green = ushort.Parse(green_lbl.Text);
                 wkc_msg_.led_blue = ushort.Parse(blue_lbl.Text);
-
-                SendMsgToSelectedKrembo();
                 choose_color_btn.Enabled = true;
             }
             else
@@ -218,10 +247,8 @@ namespace KremboControl
                 // wkc_msg_.led_blue = 0;
                 // SendMsgToSelectedKrembo();
                 wkc_msg_.toggle_led = false;
-                SendMsgToSelectedKrembo();
-                choose_color_btn.Enabled = false;
             }
-            
+            SendMsgToSelectedKrembo();
         }
 
         private void base_off_rdbtn_CheckedChanged(object sender, EventArgs e)
@@ -235,7 +262,6 @@ namespace KremboControl
             {
                 //enable gui commands
                 wkc_msg_.joy_control = true;
-                SendMsgToSelectedKrembo();
 
                 reset_ang_vel_btn.Enabled = true;
                 reset_lin_vel_btn.Enabled = true;
@@ -248,7 +274,6 @@ namespace KremboControl
                 //wkc_msg_.linear_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
                 //wkc_msg_.angular_vel = Krembo.ConvertToKremboVel(-100, 100, 0);
                 wkc_msg_.joy_control = false;
-                SendMsgToSelectedKrembo();
 
                 //disable gui commands
 
@@ -261,8 +286,7 @@ namespace KremboControl
                 angular_vel_sbar.Value = 0;
                 angular_vel_sbar.Enabled = false;
             }
-
-            
+            SendMsgToSelectedKrembo();
         }
 
         private void flash_on_rdbtn_CheckedChanged(object sender, EventArgs e)
@@ -270,6 +294,9 @@ namespace KremboControl
             if (flash_on_rdbtn.Checked)
             {
                 flash_mode_ = true;
+                flash_btn.Enabled = true;
+                choose_bin_btn.Enabled = true;
+                select_all_btn.Enabled = true;
                 led_grbx.Enabled = false;
                 base_grbx.Enabled = false;
                 ping_btn.Enabled = false;
@@ -278,6 +305,9 @@ namespace KremboControl
             else
             {
                 flash_mode_ = false;
+                flash_btn.Enabled = false;
+                choose_bin_btn.Enabled = false;
+                select_all_btn.Enabled = false;
                 led_grbx.Enabled = true;
                 base_grbx.Enabled = true;
                 ping_btn.Enabled = true;
@@ -304,6 +334,38 @@ namespace KremboControl
         }
 
         private void led_grbx_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void data_on_rdbtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (data_on_rdbtn.Checked)
+            { 
+                wkc_msg_.data_req = true; 
+            }
+            else
+            {
+                wkc_msg_.data_req = false;
+                bumper_front_lbl.BackColor = Color.DarkOrange;
+                bumper_rear_lbl.BackColor = Color.DarkOrange;
+                bumper_right_lbl.BackColor = Color.DarkOrange;
+                bumper_left_lbl.BackColor = Color.DarkOrange;
+            }
+            SendMsgToSelectedKrembo();
+        }
+
+        private void data_off_rdbtn_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bin_path_lbl_Click(object sender, EventArgs e)
         {
 
         }
