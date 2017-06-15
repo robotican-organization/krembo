@@ -91,6 +91,7 @@ namespace KremboControl
             else
                 bumper_left_lbl.BackColor = Color.Red;
 
+            OnSelectedPhoton();
 
         }
 
@@ -128,12 +129,16 @@ namespace KremboControl
         {
             if (!flash_mode_)
             {
-                led_on_rdbtn.Enabled = true;
-                flash_on_rdbtn.Enabled = true;
-                base_on_rdbtn.Enabled = true;
-                ping_btn.Enabled = true;
                 updateKremboData((Krembo)connected_photons_lstbx.SelectedItem);
             }         
+        }
+
+        public void OnSelectedPhoton()
+        {
+            led_on_rdbtn.Enabled = true;
+            flash_on_rdbtn.Enabled = true;
+            base_on_rdbtn.Enabled = true;
+            ping_btn.Enabled = true;
         }
 
         private void linear_vel_sbar_Scroll(object sender, EventArgs e)
