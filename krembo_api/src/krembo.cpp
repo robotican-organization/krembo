@@ -8,7 +8,7 @@ Krembo::Krembo()
   Serial.begin(38400);
 
   //rgba & imu sensors can only be init after wire.begin
-  //IMU.init(); 
+  //IMU.init();
 
   RgbaFront.init(uint8_t(RGBAAddr::Front));
   RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
@@ -27,16 +27,6 @@ Krembo::Krembo()
 
 void Krembo::loop()
 {
-/*  String id = System.deviceID();
-  byte id_bytes[24];
-  id.getBytes(id_bytes, ID_SIZE+1);
-  for(int i=0; i < 24; i++)
-  {
-    Serial.print((char)id_bytes[i]);
-  }
-  Serial.println();*/
-
-
   if (!com_.isConnected())
   {
     com_.connect(MASTER_IP, MASTER_PORT);
@@ -69,16 +59,18 @@ void Krembo::sendWKC()
 
   BumpersRes bump_res = Bumpers.read();
 
-  wkc_msg.bump_front = bump_res.front;
-  wkc_msg.bump_rear = bump_res.rear;
-  wkc_msg.bump_right = bump_res.right;
-  wkc_msg.bump_left = bump_res.left;
+  wkc_msg.bumps.front = bump_res.front;
+  wkc_msg.bumps.rear = bump_res.rear;
+  wkc_msg.bumps.right = bump_res.right;
+  wkc_msg.bumps.left = bump_res.left;
 
   wkc_msg.bat_lvl = Bat.getBatLvl();
   wkc_msg.bat_chrg_lvl = Bat.getChargeLvl();
   wkc_msg.is_bat_chrgng = Bat.isCharging();
   wkc_msg.is_bat_full = Bat.isFull();
+
   byte buff[wkc_msg.size()];
+
   wkc_msg.toBytes(buff);
   com_.write(buff, wkc_msg.size());
 }

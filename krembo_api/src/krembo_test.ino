@@ -26,7 +26,7 @@ void testRGBSensors()
 void testIMU()
 {
   //Serial.println("------------TESTING IMU SENSORS------------");
-  krembo.IMU.print();
+  //krembo.IMU.print();
 }
 
 void testRGBLeds()
@@ -80,6 +80,7 @@ void setup()
 void loop()
 {
   krembo.loop();
+  //krembo.Bumpers.print();
   //testIMU();
   //testRGBSensors();
   //delay(1000);

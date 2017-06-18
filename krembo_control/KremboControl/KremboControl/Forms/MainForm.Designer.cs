@@ -42,12 +42,12 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.flash_off_rdbtn = new System.Windows.Forms.RadioButton();
             this.flash_on_rdbtn = new System.Windows.Forms.RadioButton();
-            this.select_all_btn = new System.Windows.Forms.Button();
             this.flash_status_lbl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.choose_bin_btn = new System.Windows.Forms.Button();
             this.flash_btn = new System.Windows.Forms.Button();
             this.bin_path_lbl = new System.Windows.Forms.Label();
+            this.select_all_btn = new System.Windows.Forms.Button();
             this.led_grbx = new System.Windows.Forms.GroupBox();
             this.blue_lbl = new System.Windows.Forms.Label();
             this.green_lbl = new System.Windows.Forms.Label();
@@ -71,6 +71,8 @@
             this.heading = new Simple_HUD.Compass();
             this.color_dialog = new System.Windows.Forms.ColorDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.data_off_rdbtn = new System.Windows.Forms.RadioButton();
+            this.data_on_rdbtn = new System.Windows.Forms.RadioButton();
             this.bumper_front_lbl = new System.Windows.Forms.Label();
             this.bumper_right_lbl = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -83,8 +85,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.rgba_north_lbl = new System.Windows.Forms.Label();
-            this.data_off_rdbtn = new System.Windows.Forms.RadioButton();
-            this.data_on_rdbtn = new System.Windows.Forms.RadioButton();
             this.controller_grbx.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -260,17 +260,6 @@
             this.flash_on_rdbtn.UseVisualStyleBackColor = true;
             this.flash_on_rdbtn.CheckedChanged += new System.EventHandler(this.flash_on_rdbtn_CheckedChanged);
             // 
-            // select_all_btn
-            // 
-            this.select_all_btn.Enabled = false;
-            this.select_all_btn.Location = new System.Drawing.Point(14, 379);
-            this.select_all_btn.Margin = new System.Windows.Forms.Padding(2);
-            this.select_all_btn.Name = "select_all_btn";
-            this.select_all_btn.Size = new System.Drawing.Size(69, 22);
-            this.select_all_btn.TabIndex = 11;
-            this.select_all_btn.Text = "Select All";
-            this.select_all_btn.UseVisualStyleBackColor = true;
-            // 
             // flash_status_lbl
             // 
             this.flash_status_lbl.AutoSize = true;
@@ -325,6 +314,17 @@
             this.bin_path_lbl.TabIndex = 8;
             this.bin_path_lbl.Text = "N/A";
             this.bin_path_lbl.Click += new System.EventHandler(this.bin_path_lbl_Click);
+            // 
+            // select_all_btn
+            // 
+            this.select_all_btn.Enabled = false;
+            this.select_all_btn.Location = new System.Drawing.Point(14, 379);
+            this.select_all_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.select_all_btn.Name = "select_all_btn";
+            this.select_all_btn.Size = new System.Drawing.Size(69, 22);
+            this.select_all_btn.TabIndex = 11;
+            this.select_all_btn.Text = "Select All";
+            this.select_all_btn.UseVisualStyleBackColor = true;
             // 
             // led_grbx
             // 
@@ -604,6 +604,30 @@
             this.groupBox3.Text = "Data";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // data_off_rdbtn
+            // 
+            this.data_off_rdbtn.AutoSize = true;
+            this.data_off_rdbtn.Checked = true;
+            this.data_off_rdbtn.Location = new System.Drawing.Point(67, 29);
+            this.data_off_rdbtn.Name = "data_off_rdbtn";
+            this.data_off_rdbtn.Size = new System.Drawing.Size(39, 17);
+            this.data_off_rdbtn.TabIndex = 35;
+            this.data_off_rdbtn.TabStop = true;
+            this.data_off_rdbtn.Text = "Off";
+            this.data_off_rdbtn.UseVisualStyleBackColor = true;
+            this.data_off_rdbtn.CheckedChanged += new System.EventHandler(this.data_off_rdbtn_CheckedChanged);
+            // 
+            // data_on_rdbtn
+            // 
+            this.data_on_rdbtn.AutoSize = true;
+            this.data_on_rdbtn.Location = new System.Drawing.Point(18, 29);
+            this.data_on_rdbtn.Name = "data_on_rdbtn";
+            this.data_on_rdbtn.Size = new System.Drawing.Size(39, 17);
+            this.data_on_rdbtn.TabIndex = 34;
+            this.data_on_rdbtn.Text = "On";
+            this.data_on_rdbtn.UseVisualStyleBackColor = true;
+            this.data_on_rdbtn.CheckedChanged += new System.EventHandler(this.data_on_rdbtn_CheckedChanged);
+            // 
             // bumper_front_lbl
             // 
             this.bumper_front_lbl.AutoSize = true;
@@ -780,32 +804,7 @@
             this.rgba_north_lbl.Text = "0";
             this.rgba_north_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // data_off_rdbtn
-            // 
-            this.data_off_rdbtn.AutoSize = true;
-            this.data_off_rdbtn.Checked = true;
-            this.data_off_rdbtn.Location = new System.Drawing.Point(67, 29);
-            this.data_off_rdbtn.Name = "data_off_rdbtn";
-            this.data_off_rdbtn.Size = new System.Drawing.Size(39, 17);
-            this.data_off_rdbtn.TabIndex = 35;
-            this.data_off_rdbtn.TabStop = true;
-            this.data_off_rdbtn.Text = "Off";
-            this.data_off_rdbtn.UseVisualStyleBackColor = true;
-            this.data_off_rdbtn.CheckedChanged += new System.EventHandler(this.data_off_rdbtn_CheckedChanged);
-            // 
-            // data_on_rdbtn
-            // 
-            this.data_on_rdbtn.AutoSize = true;
-            this.data_on_rdbtn.Enabled = false;
-            this.data_on_rdbtn.Location = new System.Drawing.Point(18, 29);
-            this.data_on_rdbtn.Name = "data_on_rdbtn";
-            this.data_on_rdbtn.Size = new System.Drawing.Size(39, 17);
-            this.data_on_rdbtn.TabIndex = 34;
-            this.data_on_rdbtn.Text = "On";
-            this.data_on_rdbtn.UseVisualStyleBackColor = true;
-            this.data_on_rdbtn.CheckedChanged += new System.EventHandler(this.data_on_rdbtn_CheckedChanged);
-            // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -816,7 +815,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.controller_grbx.ResumeLayout(false);

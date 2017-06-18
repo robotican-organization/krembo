@@ -10,8 +10,8 @@
 #include "wkc_krembo2pc.h"
 #include "wkc_pc2krembo.h"
 #include "bluesky_timer.h"
-#include "imu_sensor.h"
 #include "dac_bumpers.h"
+//#include "imu_sensor.h"
 
 /*TODO:
 1. add connection between photons
@@ -30,7 +30,7 @@
 */
 #define MASTER_IP "10.0.0.5"
 #define MASTER_PORT 8000
-#define SEND_DATA_INTERVAL 1000 //ms
+#define SEND_DATA_INTERVAL 100 //ms
 
 enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {
@@ -58,8 +58,7 @@ private:
   void handleWKCFromPC(WKCPC2Krembo wkc_msg);
   BlueSkyTimer send_data_timer_;
 
-public: //TODO: try to use objects instead of methods. make sure object are doing encapsulation. see public com object for example
-
+public:
 
   RGBASensor RgbaFront;
   RGBASensor RgbaFrontRight;
@@ -74,7 +73,7 @@ public: //TODO: try to use objects instead of methods. make sure object are doin
   DacBumpers Bumpers;
   Battery Bat;
   RGBLed Led;
-  IMUSensor IMU;
+  //IMUSensor IMU;
   Krembo();
   void loop();
   String getParticleID() { return System.deviceID(); }

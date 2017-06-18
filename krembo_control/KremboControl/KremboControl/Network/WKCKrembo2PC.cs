@@ -19,6 +19,7 @@ using System.Threading.Tasks;
  * BC = Battery Charging = flage indicates whether battery is being charged
  * BF = Battery Full = flage indicates whether battery is Full
  * FB = Front Bumper = flag indicates whether bumper was pressed
+ * RIB = Right Bumper = flag indicates whether bumper was pressed
  * REB = Rear Bumper = flag indicates whether bumper was pressed
  * RB = Right Bumper = flag indicates whether bumper was pressed
  * LB = Left Bumper = flag indicates whether bumper was pressed

@@ -3,6 +3,7 @@
 
 #include "application.h"
 #include "bit_converter.h"
+#include "dac_bumpers.h"
 //package from krembo to pc
 //WKC - wireless krembo communication protocol
 
@@ -17,6 +18,7 @@
  * BC = Battery Charging = flage indicates whether battery is being charged
  * BF = Battery Full = flage indicates whether battery is Full
  * FB = Front Bumper = flag indicates whether bumper was pressed
+ * RIB = Right Bumper = flag indicates whether bumper was pressed
  * REB = Rear Bumper = flag indicates whether bumper was pressed
  * RB = Right Bumper = flag indicates whether bumper was pressed
  * LB = Left Bumper = flag indicates whether bumper was pressed
@@ -48,12 +50,11 @@ public:
   uint8_t bat_lvl,
           bat_chrg_lvl;
 
-  bool is_bat_chrgng,
-       is_bat_full,
-       bump_front,
-       bump_rear,
-       bump_right,
-       bump_left;
+  bool is_bat_chrgng = false,
+       is_bat_full = false;
+
+  BumpersRes bumps;
+
   void toBytes(byte bytes_arr[]);
   uint16_t size();
 };
