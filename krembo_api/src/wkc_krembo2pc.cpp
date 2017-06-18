@@ -34,9 +34,6 @@ void WKCKrembo2PC::toBytes(byte bytes_arr[])
                             bumps.left,
                             BUMP_LEFT_BIT);
 
-  //for (int i=0; i<8; i++)
-  //  Serial.print(BitConverter::getBitInByte(flags_byte, i));
-
   bytes_arr[FLAGS_INDX] = flags_byte;
   bytes_arr[BAT_LVL_INDX] = bat_lvl;
   bytes_arr[BAT_CHRG_LVL_INDX] = bat_chrg_lvl;

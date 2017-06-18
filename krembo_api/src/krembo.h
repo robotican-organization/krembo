@@ -30,7 +30,7 @@
 */
 #define MASTER_IP "10.0.0.5"
 #define MASTER_PORT 8000
-#define SEND_DATA_INTERVAL 100 //ms
+#define SEND_DATA_INTERVAL 1000 //ms
 
 enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {

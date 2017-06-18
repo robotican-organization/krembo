@@ -325,6 +325,7 @@
             this.select_all_btn.TabIndex = 11;
             this.select_all_btn.Text = "Select All";
             this.select_all_btn.UseVisualStyleBackColor = true;
+            this.select_all_btn.Click += new System.EventHandler(this.select_all_btn_Click);
             // 
             // led_grbx
             // 

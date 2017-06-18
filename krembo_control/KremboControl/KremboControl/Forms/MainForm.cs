@@ -11,6 +11,7 @@ using KremboControl.Utils;
 using KremboControl.Network;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 
 namespace KremboControl
 {
@@ -45,21 +46,29 @@ namespace KremboControl
             Invoke((MethodInvoker)delegate
             {
                 Krembo updated_krembo = new Krembo(wkc_msg);
+                //bool exist = false;
+                //Krembo existed_krembo;
                 foreach (Krembo krembo in krembos_list_)
                 {
                     if (krembo.WKC.ID == wkc_msg.ID)
                     {
                         //remove existing krembo (make place for updated one)
                         krembos_list_.Remove(krembo);
+                        //krembos_list_.Insert(krembos_list_.IndexOf(krembo), updated_krembo);
+                        //existed_krembo = krembo;
+                        //if (connected_photons_lstbx.SelectedItem.Equals(krembo))
+                        //    updateKremboData(updated_krembo);
+                       // exist = true;
                         break;
                     }
                     
                 }
-                krembos_list_.Add(updated_krembo);
-                if (connected_photons_lstbx.SelectedItem.Equals(updated_krembo))
+                //if (!exist)
+                    krembos_list_.Add(updated_krembo);
+               // if (connected_photons_lstbx.SelectedItem.Equals(updated_krembo))
                     updateKremboData(updated_krembo);
-                else
-                    connected_photons_lstbx.SelectedItem = updated_krembo; 
+                //else
+                //    connected_photons_lstbx.SelectedItem = updated_krembo; 
             });
         }
 
@@ -233,7 +242,13 @@ namespace KremboControl
                                     "Bin file at: " + bin_path_lbl.Text + " doesn't exist");
                 bin_path_lbl.Text = "N/A";
             }
+
+
+
+            
         }
+
+      
 
         private void led_on_btn_CheckedChanged(object sender, EventArgs e)
         {
@@ -368,6 +383,15 @@ namespace KremboControl
         private void bin_path_lbl_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void select_all_btn_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < connected_photons_lstbx.Items.Count; i++)
+            {
+                connected_photons_lstbx.SetSelected(i, true);
+            }
+            
         }
     }
 }

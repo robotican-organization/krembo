@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KremboControl.Network;
+using System.IO;
 
 namespace KremboControl.Utils
 {
@@ -17,7 +18,7 @@ namespace KremboControl.Utils
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
             cmd.StartInfo.RedirectStandardError = true;
-            cmd.StartInfo.CreateNoWindow = true;
+           // cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
 
             cmd.Start();
@@ -27,18 +28,31 @@ namespace KremboControl.Utils
         public static void flashPhoton(string photon_id, string bin_file_path)
         {
 
-            Process cmd = startNewCmd();
+            /*Process cmd = startNewCmd();
 
             cmd.StandardInput.WriteLine(@"cd " + bin_file_path);
-            cmd.StandardInput.WriteLine("particle flash " + photon_id + " firmware.bin");
+            string file_name = Path.GetFileName(bin_file_path);
+            cmd.StandardInput.WriteLine("particle flash " + photon_id + " " + Path.GetFileName(bin_file_path));
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+
+            cmd.BeginOutputReadLine();
+            cmd.BeginErrorReadLine(); 
+            cmd.WaitForExit();
+             string output = cmd.StandardOutput.ReadToEnd();
+              Console.WriteLine("hello" + output);*/
+            Process cmd = startNewCmd();
+
+            //cmd.StandardInput.WriteLine(@"cd ");
+            cmd.StandardInput.WriteLine("particle flash " + photon_id + " " + @bin_file_path);
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
 
             cmd.BeginOutputReadLine();
             cmd.BeginErrorReadLine();
             cmd.WaitForExit();
-            // string output = cmd.StandardOutput.ReadToEnd();
-            //  Console.WriteLine("hello" + output);
+            //string output = cmd.StandardOutput.ReadToEnd();
+            //Console.WriteLine("hello" + output);
 
         }
 
