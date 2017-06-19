@@ -74,6 +74,7 @@ RGBAResult RGBASensor::read()
 |@Goal: print rgba sensor values: ambient, red, green, blue, proximity
 |@Comment: invoke read() before print() for updated values printing
 ********************************************************************/
+
 void RGBASensor::print()
 {
   RGBAResult read_res = read();

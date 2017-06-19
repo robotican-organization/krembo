@@ -58,16 +58,18 @@ private:
   void handleWKCFromPC(WKCPC2Krembo wkc_msg);
   BlueSkyTimer send_data_timer_;
 
+
+
 public:
 
   RGBASensor RgbaFront;
-  RGBASensor RgbaFrontRight;
+  /*RGBASensor RgbaRear;
   RGBASensor RgbaRight;
-  RGBASensor RgbaRearRight;
-  RGBASensor RgbaRear;
-  RGBASensor RgbaRearLeft;
   RGBASensor RgbaLeft;
+  RGBASensor RgbaFrontRight;
   RGBASensor RgbaFrontLeft;
+  RGBASensor RgbaRearRight;
+  RGBASensor RgbaRearLeft;*/
 
   MobileBase Base;
   DacBumpers Bumpers;

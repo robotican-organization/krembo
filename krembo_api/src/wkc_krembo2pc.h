@@ -4,28 +4,50 @@
 #include "application.h"
 #include "bit_converter.h"
 #include "dac_bumpers.h"
+#include "rgba_sensor.h"
+
+
 //package from krembo to pc
 //WKC - wireless krembo communication protocol
 
 /**************************************************************************
- * |--------------------- N BYTES ARRAY ------------------|
- * |       0 (8 BITS FLAGS)        |   1    |   2   |3-27 |
- * |   |   |FB |REB|LB |RIB|BC |BF |   BL   |  BCL% | ID  |
- * |0-1|0-1|0-1|0-1|0-1|0-1|0-1|0-1| 0-100  | 0-100 |0-255|
- * |------------------------------------------------------|
- * ID = 24 bytes of Photon string id in bytes
- *
+ * |----------------------------------------- N BYTES ARRAY ----------------------------------------------|
+ * |       0 (8 BITS FLAGS)        |   1    |   2   | 3-6 |7-10 |11-14|15-18|19-21|22-25|26-29|30-33|34-58|
+ * |   |   |FB |REB|LB |RIB|BC |BF |   BL   |  BCL% |RGBF |RGBRE|RGBRI|RGBL |RGBFR|RGBFL|RGBRR|RGBRL| ID  |
+ * |0-1|0-1|0-1|0-1|0-1|0-1|0-1|0-1| 0-100  | 0-100 |0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
+ * |------------------------------------------------------------------------------------------------------|
+
+ ************FLAGS**********
  * BC = Battery Charging = flage indicates whether battery is being charged
  * BF = Battery Full = flage indicates whether battery is Full
- * FB = Front Bumper = flag indicates whether bumper was pressed
- * RIB = Right Bumper = flag indicates whether bumper was pressed
- * REB = Rear Bumper = flag indicates whether bumper was pressed
- * RB = Right Bumper = flag indicates whether bumper was pressed
- * LB = Left Bumper = flag indicates whether bumper was pressed
+
+ ************BUMPERS FLAGS**********
+ * Each bumper flag indicates whether bumper was pressed
+ * FB = Front Bumper
+ * RIB = Right Bumper
+ * REB = Rear Bumper
+ * RB = Right Bumper
+ * LB = Left Bumper
+
+ ************RGBA SENSORS**********
+ * Each Rgba sensor is represented with 4 bytes (1 for proximity and 3 for rgb)
+ * RGBF - front rgba
+ * RGBRE - rear rgba
+ * RGBRI - right rgba
+ * RGBL - left rgba
+ * RGBFR - front right rgba
+ * RGBFL - front left rgba
+ * RGBRR - rear right rgba
+ * RGBRL - rear left rgba
+
+ ************BATTERY DATA**********
  * BL = Battery Level %
  * BCL = Battery Charging Level % = current level from charger
+
+ * ID = 24 bytes of Photon string id in bytes
  **************************************************************************/
 
+//flags indexes
 #define FLAGS_INDX 0
   #define BAT_FULL_BIT 0
   #define BAT_CHARGING_BIT 1
@@ -33,12 +55,32 @@
   #define BUMP_LEFT_BIT 3
   #define BUMP_REAR_BIT 4
   #define BUMP_FRONT_BIT 5
+
+//battery indexes
 #define BAT_LVL_INDX 1
 #define BAT_CHRG_LVL_INDX 2
-#define ID_START_INDX 3
+
+//rgba offset indexes
+#define RGBA_PROX_OFFSET 0
+#define RGBA_RED_OFFSET 1
+#define RGBA_GREEN_OFFSET 2
+#define RGBA_BLUE_OFFSET 3
+
+//rgba start indexes
+#define RGBA_FRONT_START_INDX 3
+#define RGBA_REAR_START_INDX 7
+#define RGBA_RIGHT_START_INDX 11
+#define RGBA_LEFT_START_INDX 15
+#define RGBA_FRONT_RIGHT_START_INDX 19
+#define RGBA_FRONT_LEFT_START_INDX 22
+#define RGBA_REAR_RIGHT_START_INDX 26
+#define RGBA_REAR_LEFT_START_INDX 30
+
+//id indexes
+#define ID_START_INDX 34
 #define ID_SIZE 24 //size of photon hardware id
 
-#define KREMBO2PC_MSG_SIZE 3 + ID_SIZE //size bytes arr
+#define MSG_SIZE 34 + ID_SIZE //size bytes arr
 
 
 class WKCKrembo2PC
@@ -52,6 +94,15 @@ public:
 
   bool is_bat_chrgng = false,
        is_bat_full = false;
+
+  RGBAResult rgba_front;
+  RGBAResult rgba_rear;
+  RGBAResult rgba_right;
+  RGBAResult rgba_left;
+  RGBAResult rgba_front_right;
+  RGBAResult rgba_front_left;
+  RGBAResult rgba_rear_right;
+  RGBAResult rgba_rear_left;
 
   BumpersRes bumps;
 

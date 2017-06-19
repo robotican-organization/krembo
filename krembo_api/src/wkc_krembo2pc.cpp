@@ -9,6 +9,8 @@ WKCKrembo2PC::WKCKrembo2PC()
 void WKCKrembo2PC::toBytes(byte bytes_arr[])
 {
   byte flags_byte = 0;
+
+  //battery flags
   BitConverter::setBitInByte(flags_byte,
                              is_bat_full,
                              BAT_FULL_BIT);
@@ -17,7 +19,7 @@ void WKCKrembo2PC::toBytes(byte bytes_arr[])
                             is_bat_chrgng,
                             BAT_CHARGING_BIT);
 
-  //bumpers bit
+  //bumpers flags
   BitConverter::setBitInByte(flags_byte,
                              bumps.front,
                              BUMP_FRONT_BIT);
@@ -38,6 +40,48 @@ void WKCKrembo2PC::toBytes(byte bytes_arr[])
   bytes_arr[BAT_LVL_INDX] = bat_lvl;
   bytes_arr[BAT_CHRG_LVL_INDX] = bat_chrg_lvl;
 
+  //rgba sensors
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_PROX_OFFSET] = rgba_front.Distance;
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_RED_OFFSET] = rgba_front.Red;
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_GREEN_OFFSET] = rgba_front.Green;
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_BLUE_OFFSET] = rgba_front.Blue;
+
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_PROX_OFFSET] = rgba_rear.Distance;
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_RED_OFFSET] = rgba_rear.Red;
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_GREEN_OFFSET] = rgba_rear.Green;
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_BLUE_OFFSET] = rgba_rear.Blue;
+
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_right.Distance;
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_RED_OFFSET] = rgba_right.Red;
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = rgba_right.Green;
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = rgba_right.Blue;
+
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_left.Distance;
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_RED_OFFSET] = rgba_left.Red;
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_GREEN_OFFSET] = rgba_left.Green;
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_BLUE_OFFSET] = rgba_left.Blue;
+
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_front_right.Distance;
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_RED_OFFSET] = rgba_front_right.Red;
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = rgba_front_right.Green;
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = rgba_front_right.Blue;
+
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_front_left.Distance;
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_RED_OFFSET] = rgba_front_left.Red;
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_GREEN_OFFSET] = rgba_front_left.Green;
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_BLUE_OFFSET] = rgba_front_left.Blue;
+
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_rear_right.Distance;
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_RED_OFFSET] = rgba_rear_right.Red;
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = rgba_rear_right.Green;
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = rgba_rear_right.Blue;
+
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_rear_left.Distance;
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_RED_OFFSET] = rgba_rear_left.Red;
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_GREEN_OFFSET] = rgba_rear_left.Green;
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_BLUE_OFFSET] = rgba_rear_left.Blue;
+
+
   byte id_bytes[ID_SIZE];
   //particle apigetbyte() function is buggy,
   //therefore adding one is needed to insure
@@ -51,5 +95,5 @@ void WKCKrembo2PC::toBytes(byte bytes_arr[])
 
 uint16_t WKCKrembo2PC::size()
 {
-  return KREMBO2PC_MSG_SIZE;
+  return MSG_SIZE;
 }

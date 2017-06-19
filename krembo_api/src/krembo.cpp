@@ -11,13 +11,13 @@ Krembo::Krembo()
   //IMU.init();
 
   RgbaFront.init(uint8_t(RGBAAddr::Front));
-  RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
+  /*RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
   RgbaRight.init(uint8_t(RGBAAddr::Right));
   RgbaRearRight.init(uint8_t(RGBAAddr::RearRight));
   RgbaRear.init(uint8_t(RGBAAddr::Rear));
   RgbaRearLeft.init(uint8_t(RGBAAddr::RearLeft));
   RgbaLeft.init(uint8_t(RGBAAddr::Left));
-  RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));
+  RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));*/
 
   id_was_sent_ = false;
   master_asks_for_data_ = false;
@@ -54,25 +54,55 @@ void Krembo::loop()
 
 void Krembo::sendWKC()
 {
+
   //build WKC msg
   WKCKrembo2PC wkc_msg;
 
-  BumpersRes bump_res = Bumpers.read();
+  //rgba sensors
+  wkc_msg.rgba_front = RgbaFront.read();
 
-  wkc_msg.bumps.front = bump_res.front;
-  wkc_msg.bumps.rear = bump_res.rear;
-  wkc_msg.bumps.right = bump_res.right;
-  wkc_msg.bumps.left = bump_res.left;
+
+
+/*
+  wkc_msg.bumps = Bumpers.read();
+
+
+
+
+  wkc_msg.rgba_rear = RgbaRear.read();
+  wkc_msg.rgba_right = RgbaRight.read();
+  wkc_msg.rgba_left = RgbaLeft.read();
+  wkc_msg.rgba_front_right = RgbaFrontRight.read();
+  wkc_msg.rgba_front_left = RgbaFrontLeft.read();
+  wkc_msg.rgba_rear_right = RgbaRearRight.read();
+  wkc_msg.rgba_rear_left = RgbaRearLeft.read();
 
   wkc_msg.bat_lvl = Bat.getBatLvl();
   wkc_msg.bat_chrg_lvl = Bat.getChargeLvl();
   wkc_msg.is_bat_chrgng = Bat.isCharging();
   wkc_msg.is_bat_full = Bat.isFull();
-
+*/
   byte buff[wkc_msg.size()];
 
+  //Serial.println(System.freeMemory());
+
   wkc_msg.toBytes(buff);
+
+  Serial.println("buff: ");
+  for (int i=0; i<wkc_msg.size(); i++)
+  {
+    Serial.print(buff[i]);
+    Serial.print(", ");
+  }
+  Serial.println();
+
+
   com_.write(buff, wkc_msg.size());
+
+  Serial.println(wkc_msg.size());
+
+  Serial.println("after2");
+
 }
 
 void Krembo::rcveWKC()

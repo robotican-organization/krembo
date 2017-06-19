@@ -79,6 +79,13 @@ namespace KremboControl
             bat_lvl_lbl.Text = "Bat lvl: " + krembo.WKC.BatLvl.ToString();
             bat_chrg_lvl_lbl.Text = "Chrg lvl: " + krembo.WKC.BatChrgLvl.ToString();
 
+            //read rgba data
+            rgba_front_lbl.Text = krembo.WKC.RgbaFront.Distance.ToString();
+            rgba_front_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaFront.Red,
+                                                      krembo.WKC.RgbaFront.Green,
+                                                      krembo.WKC.RgbaFront.Blue); 
+
+
             //read bumpers values
             if (krembo.WKC.BumpFront)
                 bumper_front_lbl.BackColor = Color.Lime;

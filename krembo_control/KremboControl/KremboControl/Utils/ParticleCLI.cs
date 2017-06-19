@@ -18,7 +18,7 @@ namespace KremboControl.Utils
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
             cmd.StartInfo.RedirectStandardError = true;
-           // cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
 
             cmd.Start();

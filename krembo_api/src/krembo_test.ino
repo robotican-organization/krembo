@@ -4,7 +4,7 @@ Krembo krembo;
 
 void testRGBSensors()
 {
-  Serial.println("------------TESTING RGB SENSORS------------");
+/*  Serial.println("------------TESTING RGB SENSORS------------");
   Serial.println("TEST 1: sensor FRONT");
   krembo.RgbaFront.print();
   Serial.println("\nTEST 2: sensor FRONT-RIGHT");
@@ -20,7 +20,7 @@ void testRGBSensors()
   Serial.println("\nTEST 7: sensor LEFT");
   krembo.RgbaLeft.print();
   Serial.println("\nTEST 8: sensor FRONT_LEFT");
-  krembo.RgbaFrontLeft.print();
+  krembo.RgbaFrontLeft.print();*/
 }
 
 void testIMU()
