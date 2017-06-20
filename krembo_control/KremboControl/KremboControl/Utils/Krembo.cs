@@ -23,11 +23,9 @@ namespace KremboControl.Utils
             return KremboIdDict.Instance.IdToName(WKC.ID);
         }
 
-        public static ushort ConvertToKremboVel(int min, int max, int val)
+        public static ushort MapBaseToByteVel(float min, float max, float val)
         {
-            int old_range = (max - min);
-            int new_range = (MAX_BASE_VEL - MIN_BASE_VEL);
-            return (ushort)((((val - min) * new_range) / old_range) + MIN_BASE_VEL);
+            return (ushort)((val - min) / (max - min) * (MAX_BASE_VEL - MIN_BASE_VEL) + MIN_BASE_VEL);
         }
     }
 }

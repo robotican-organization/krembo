@@ -11,13 +11,14 @@ Krembo::Krembo()
   //IMU.init();
 
   RgbaFront.init(uint8_t(RGBAAddr::Front));
-  /*RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
+  RgbaRear.init(uint8_t(RGBAAddr::Rear));
+
+  RgbaFrontRight.init(uint8_t(RGBAAddr::FrontRight));
   RgbaRight.init(uint8_t(RGBAAddr::Right));
   RgbaRearRight.init(uint8_t(RGBAAddr::RearRight));
-  RgbaRear.init(uint8_t(RGBAAddr::Rear));
   RgbaRearLeft.init(uint8_t(RGBAAddr::RearLeft));
   RgbaLeft.init(uint8_t(RGBAAddr::Left));
-  RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));*/
+  RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));
 
   id_was_sent_ = false;
   master_asks_for_data_ = false;
@@ -36,12 +37,18 @@ void Krembo::loop()
   {
     if (!id_was_sent_) //send id only once after connection
     {
-      sendWKC();
       id_was_sent_ = true;
+      //sendWKC();
+
+      //Serial.println(System.freeMemory());
+      WKCKrembo2PC wkc_msg = createWKC();
+      sendWKC(wkc_msg);
     }
     else if (master_asks_for_data_ && send_data_timer_.finished())
     {
-      sendWKC();
+      //sendWKC();
+      WKCKrembo2PC wkc_msg = createWKC();
+      sendWKC(wkc_msg);
       send_data_timer_.startOver();
     }
 
@@ -52,23 +59,23 @@ void Krembo::loop()
   }
 }
 
-void Krembo::sendWKC()
+void Krembo::sendWKC(WKCKrembo2PC& wkc_msg)
 {
+  byte buff[wkc_msg.size()];
+  wkc_msg.toBytes(buff);
 
+  com_.write(buff, wkc_msg.size());
+
+  Serial.println(wkc_msg.size());
+}
+
+WKCKrembo2PC Krembo::createWKC()
+{
   //build WKC msg
   WKCKrembo2PC wkc_msg;
 
   //rgba sensors
   wkc_msg.rgba_front = RgbaFront.read();
-
-
-
-/*
-  wkc_msg.bumps = Bumpers.read();
-
-
-
-
   wkc_msg.rgba_rear = RgbaRear.read();
   wkc_msg.rgba_right = RgbaRight.read();
   wkc_msg.rgba_left = RgbaLeft.read();
@@ -77,32 +84,14 @@ void Krembo::sendWKC()
   wkc_msg.rgba_rear_right = RgbaRearRight.read();
   wkc_msg.rgba_rear_left = RgbaRearLeft.read();
 
+  wkc_msg.bumps = Bumpers.read();
+
   wkc_msg.bat_lvl = Bat.getBatLvl();
   wkc_msg.bat_chrg_lvl = Bat.getChargeLvl();
   wkc_msg.is_bat_chrgng = Bat.isCharging();
   wkc_msg.is_bat_full = Bat.isFull();
-*/
-  byte buff[wkc_msg.size()];
 
-  //Serial.println(System.freeMemory());
-
-  wkc_msg.toBytes(buff);
-
-  Serial.println("buff: ");
-  for (int i=0; i<wkc_msg.size(); i++)
-  {
-    Serial.print(buff[i]);
-    Serial.print(", ");
-  }
-  Serial.println();
-
-
-  com_.write(buff, wkc_msg.size());
-
-  Serial.println(wkc_msg.size());
-
-  Serial.println("after2");
-
+  return wkc_msg;
 }
 
 void Krembo::rcveWKC()
@@ -141,7 +130,7 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
 
   if (wkc_msg.joy_control)
   {
-    Base.driveJoyCmd(wkc_msg.joy_x, wkc_msg.joy_y);
+    Base.drive(wkc_msg.joy_x, wkc_msg.joy_y);
     skip_base_gui_cmds_ = false;
   }
   else if (!skip_base_gui_cmds_)
@@ -149,6 +138,12 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
     //Base.driveJoyCmd(128,128);
     Base.stop();
     skip_base_gui_cmds_ = true;
+  }
+
+  if (wkc_msg.base_offset)
+  {
+    EEPROM.put(BASE_RIGHT_OFFSET_ADDR, wkc_msg.base_right_offset);
+    EEPROM.put(BASE_LEFT_OFFSET_ADDR, wkc_msg.base_left_offset);
   }
 
   if (wkc_msg.user_msg_size > 0) //get user message

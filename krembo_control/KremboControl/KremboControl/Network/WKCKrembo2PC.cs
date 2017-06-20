@@ -85,9 +85,9 @@ namespace KremboControl.Network
         public const int ID_SIZE = 24; //size of photon hardware id
 
         public const int MSG_SIZE = 34 + ID_SIZE; //size bytes arr
-    
 
-        public String ID { get; private set; }
+        public bool Disconnected = false; //if this is set to true by tcp server, message is used to notify that photon has disconnected
+        public String ID;
         public UInt16 BatLvl { get; private set; }
         public UInt16 BatChrgLvl { get; private set; }
         public bool IsBatCharging,

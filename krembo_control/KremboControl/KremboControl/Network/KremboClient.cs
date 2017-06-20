@@ -1,14 +1,12 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net;
 using System.Net.Sockets;
-using System.Windows.Forms;
-using KremboControl.Utils;
+using System.Timers;
+using System.Net.NetworkInformation;
+using System.Linq;
 
 namespace KremboControl.Network
 {
@@ -21,6 +19,7 @@ namespace KremboControl.Network
         byte[] bytes_in_;
         int num_of_bytes_rcved_;
         Task listen_task_ = new Task(() => { });
+        System.Timers.Timer alive_timer_ = new System.Timers.Timer(1000);
         public bool alive = true;
         public string ID { get; private set; }
 
@@ -30,6 +29,8 @@ namespace KremboControl.Network
             client_ = client;
             server_ = server;
             bytes_in_ = new byte[WKCKrembo2PC.MSG_SIZE];
+            alive_timer_.Elapsed += OnCheckAliveTimer;
+            alive_timer_.Start(); 
             asyncListen();
         }
 
@@ -71,65 +72,75 @@ namespace KremboControl.Network
             
         }
 
+        private void OnCheckAliveTimer(Object source, ElapsedEventArgs e)
+        {
+            
+            
+            if (IsConnected)
+            {
+                // Connection is OK
+            }
+            else
+            {
+                WKCKrembo2PC wkc_msg = new WKCKrembo2PC();
+                wkc_msg.ID = ID;
+                wkc_msg.Disconnected = true;
+                server_.onMsgRcvdCallBack(wkc_msg);
+            }
+
+            
+            //client_.Close();
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                try
+                {
+                    if (client_ != null && client_.Client != null && client_.Client.Connected)
+                    {
+                        /* pear to the documentation on Poll:
+                         * When passing SelectMode.SelectRead as a parameter to the Poll method it will return 
+                         * -either- true if Socket.Listen(Int32) has been called and a connection is pending;
+                         * -or- true if data is available for reading; 
+                         * -or- true if the connection has been closed, reset, or terminated; 
+                         * otherwise, returns false
+                         */
+
+                        // Detect if client disconnected
+                        if (client_.Client.Poll(0, SelectMode.SelectRead))
+                        {
+                            byte[] buff = new byte[1];
+                            if (client_.Client.Receive(buff, SocketFlags.Peek) == 0)
+                            {
+                                // Client disconnected
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
         public void close()
         {
             client_.Close();
         }
-
-      
-
-        private void handleNewMsg(/*CamMessage cam_msg*/)
-        {
-            /*
-            if (known_client_ && cam_id != cam_msg.id)
-                return; //error. existing camera trying to change its id/faulty message
-            //real msg values
-            cam_id = cam_msg.id;
-            cam_content = cam_msg.content;
-            cam_type = cam_msg.type;
-
-            //human read msg values for lables use
-            human_cam_id = cam_msg.id;
-            //determine cam type
-            switch (cam_msg.type)
-            {
-                case (char)CamMessage.CamType.COMPLEX:
-                    human_cam_type = "Complex";
-                    break;
-                case (char)CamMessage.CamType.SIMPLE:
-                    human_cam_type = "Simple";
-                    break;
-                default:
-                    human_cam_type = "Error";
-                    break;
-            }
-            //determine cam state
-            switch (cam_msg.content)
-            {
-                case (char)CamMessage.CamState.INITIAL_ID:
-                    known_client_ = true;
-                    main_form_.Invoke((MethodInvoker)delegate
-                    {
-                        main_form_.updateCamsConLog(human_cam_id, human_cam_type, true);
-                    });
-                    return;
-                case (char)CamMessage.CamState.NOT_RECORDING:
-                    human_cam_state = "Nuetral";
-                    break;
-                case (char)CamMessage.CamState.RECORDING:
-                    human_cam_state = "Recording";
-                    break;
-                default:
-                    human_cam_state = "Error";
-                    break;
-            }
-
-            main_form_.Invoke((MethodInvoker)delegate
-            {
-                //main_form_.updateCamsLog(human_cam_id, human_cam_type, human_cam_state);
-                main_form_.updateCamsStateLog(human_cam_id, human_cam_type, human_cam_state);
-            });
-            */
-        }
+   
     }
 }

@@ -9,20 +9,24 @@ using KremboControl.Utils;
 
 /***************************************************************************************************************
 * |----------------------------------------------N BYTES ARRAY-------------------------------------------------|
-* Index |  0 (8 BITS FLAGS) |  1  |  2  |  3  |  4  |  5  |  6  |
-* Data  | | | | |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB |
-* Values|       |0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|
+* Index |  0 (8 BITS FLAGS)   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+* Data  | | | |BO |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB | BRO | BLO |
+* Values|     |0-1|0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
 * DR = DATA REQUEST = master asks for sensors/Krembo state data
 * TL = TOGGLE LED = master asks to turn on/off led
+* BO = BASE OFFSET = indicates whether to set wheels speed offset (calibration)
+* 
 * JX = JOY X = joystick x value
 * JY = JOY Y = joystick y value
 * MS = MESSAGE SIZE = user message size
 * LR = LED RED
 * LG = LEG GREEN
 * LB = LED BLUE
+* BRO = BASE RIGHT OFFSET 
+* BLO = BASE LEFT OFFSET 
 **************************************************************************************************************/
 
 
@@ -30,12 +34,13 @@ namespace KremboControl.Network
 {
     public class WKCPC2Krembo
     {
-        public const int PC2KREMBO_MSG_SIZE = 7;
+        public const int PC2KREMBO_MSG_SIZE = 9;
 
         public const int FLAGS_INDX = 0;
                     public const int DATA_REQ_BIT = 0;
                     public const int TOGGLE_LED_BIT = 1;
                     public const int JOY_CTRL_BIT = 2;
+                    public const int BASE_OFFSET_BIT = 3;
 
         public const int JOY_X_INDX = 1;
         public const int JOY_Y_INDX = 2;
@@ -43,16 +48,21 @@ namespace KremboControl.Network
         public const int LED_RED_INDX = 4;
         public const int LED_GREEN_INDX = 5;
         public const int LED_BLUE_INDX = 6;
+        public const int BASE_RIGHT_OFFSET = 7;
+        public const int BASE_LEFT_OFFSET = 8;
 
         public ushort linear_vel,
                       angular_vel,
                       led_red,
                       led_green,
-                      led_blue;
+                      led_blue,
+                      base_right_offset,
+                      base_left_offset;
 
         public bool data_req,
                     toggle_led,
-                    joy_control;
+                    joy_control,
+                    base_offset;
 
         public string user_msg = "";
 

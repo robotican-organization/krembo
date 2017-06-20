@@ -11,6 +11,8 @@ void WKCPC2Krembo::fromBytes(byte bytes_arr[])
                                           TOGGLE_LED_BIT);
   joy_control = BitConverter::getBitInByte(bytes_arr[FLAGS_INDX],
                                            JOY_CTRL_BIT);
+  base_offset = BitConverter::getBitInByte(bytes_arr[FLAGS_INDX],
+                                           BASE_OFFSET_BIT);
 
   //extract joystick axes
   joy_x = (uint8_t)bytes_arr[JOY_X_INDX];
@@ -19,6 +21,9 @@ void WKCPC2Krembo::fromBytes(byte bytes_arr[])
   led_red = (uint8_t)bytes_arr[LED_RED_INDX];
   led_green = (uint8_t)bytes_arr[LED_GREEN_INDX];
   led_blue = (uint8_t)bytes_arr[LED_BLUE_INDX];
+
+  base_right_offset = (uint8_t)bytes_arr[BASE_RIGHT_OFFSET];
+  base_left_offset = (uint8_t)bytes_arr[BASE_LEFT_OFFSET];
 
   user_msg_size = (uint8_t)bytes_arr[USER_MSG_SIZE_INDX];
 }

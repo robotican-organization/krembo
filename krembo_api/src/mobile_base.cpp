@@ -46,19 +46,21 @@ void MobileBase::setMotorDirection(Motor motor, Direction direction)
   }
 }
 
-void MobileBase::driveJoyCmd(uint8_t joy_x, uint8_t joy_y)
+int8_t MobileBase::mapByteToBaseVal(uint8_t val)
+{
+  return val / 255. * 200 - 100;
+}
+
+bool MobileBase::drive(int8_t linear, int8_t angular)
 {
   //convert x and y to linear and angular speeds
-  int8_t linear_spd = map(joy_x, 0, 255, -100, 100);
-  int8_t angular_spd = map(joy_y, 0, 255, -100, 100);
+  int8_t linear_spd = mapByteToBaseVal(linear);
+  int8_t angular_spd = mapByteToBaseVal(angular);
+
   Serial.printf("linear_spd: %d\n", linear_spd);
   Serial.printf("angular_spd: %d\n", angular_spd);
 
-  drive(linear_spd, angular_spd);
-}
 
-bool MobileBase::drive(int8_t linear_spd, int8_t angular_spd)
-{
   digitalWrite(MOTOR_STBY_LEG, HIGH);
   if ((linear_spd < -100 || linear_spd > 100) ||
       (angular_spd < -100 || angular_spd > 100))

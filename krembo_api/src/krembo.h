@@ -30,7 +30,7 @@
 */
 #define MASTER_IP "10.0.0.5"
 #define MASTER_PORT 8000
-#define SEND_DATA_INTERVAL 1000 //ms
+#define SEND_DATA_INTERVAL 400 //ms
 
 enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {
@@ -53,23 +53,26 @@ private:
        skip_led_gui_cmds_,
        skip_base_gui_cmds_;
   COMLayer com_;
-  void sendWKC();
-  void rcveWKC();
-  void handleWKCFromPC(WKCPC2Krembo wkc_msg);
   BlueSkyTimer send_data_timer_;
+
+
+  WKCKrembo2PC createWKC();
+  void rcveWKC();
+  void sendWKC(WKCKrembo2PC& wkc_msg);
+  void handleWKCFromPC(WKCPC2Krembo wkc_msg);
 
 
 
 public:
 
   RGBASensor RgbaFront;
-  /*RGBASensor RgbaRear;
+  RGBASensor RgbaRear;
   RGBASensor RgbaRight;
   RGBASensor RgbaLeft;
   RGBASensor RgbaFrontRight;
   RGBASensor RgbaFrontLeft;
   RGBASensor RgbaRearRight;
-  RGBASensor RgbaRearLeft;*/
+  RGBASensor RgbaRearLeft;
 
   MobileBase Base;
   DacBumpers Bumpers;
