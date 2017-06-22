@@ -2,24 +2,24 @@
 #define DAC_BUMPERS_H
 
 #define BUMPERS_LEG A0
-#define ERR_MARGIN 50
+#define ERR_MARGIN 20
 
 #define NO_BUMP 0
-#define LEFT 2050
-#define RIGHT 484
-#define RIGHT_LEFT 2534
-#define REAR 1012
-#define REAR_LEFT 3062
-#define REAR_RIGHT 1496
-#define REAR_LEFT_RIGHT 3546
-#define FRONT 387
-#define FRONT_LEFT 2437
-#define FRONT_RIGHT 871
-#define FRONT_RIGHT_LEFT 2921
-#define FRONT_REAR 1399
-#define FRONT_REAR_LEFT 3449
-#define FRONT_REAR_RIGHT 1883
-#define FRONT_REAR_RIGHT_LEFT 3933
+#define LEFT 403
+#define RIGHT 85
+#define RIGHT_LEFT 480
+#define REAR 1183
+#define REAR_LEFT 1567
+#define REAR_RIGHT 1253
+#define REAR_LEFT_RIGHT 1630
+#define FRONT 2145
+#define FRONT_LEFT 2520
+#define FRONT_RIGHT 2203
+#define FRONT_RIGHT_LEFT 2570
+#define FRONT_REAR 3279
+#define FRONT_REAR_LEFT 3630
+#define FRONT_REAR_RIGHT 3322
+#define FRONT_REAR_RIGHT_LEFT 3667
 
 /****************
 front, rear, right, left

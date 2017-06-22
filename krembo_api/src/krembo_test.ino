@@ -79,8 +79,8 @@ void setup()
 
 void loop()
 {
-  krembo.loop();
-  //krembo.Bumpers.print();
+  //krembo.loop();
+  krembo.Bumpers.print();
   //testIMU();
   //testRGBSensors();
   //delay(1000);

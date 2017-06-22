@@ -28,7 +28,7 @@
 13. change rgba_sensor to color_sensor
 14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
-#define MASTER_IP "10.0.0.5"
+#define MASTER_IP "10.0.0.11"
 #define MASTER_PORT 8000
 #define SEND_DATA_INTERVAL 400 //ms
 
