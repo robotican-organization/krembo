@@ -66,11 +66,14 @@ namespace KremboControl
                     
                 }
                 if (!exist)
-                    krembos_list_.Add(updated_krembo);
-                if (!wkc_msg.Disconnected)
                 {
-                    //krembos_list_.Add(updated_krembo);
+                    krembos_list_.Add(updated_krembo);
+                }
+
+                if (!wkc_msg.Disconnected && ((Krembo)(connected_photons_lstbx.SelectedItem)).WKC.ID == updated_krembo.WKC.ID)
+                {
                     updateKremboData(updated_krembo);
+                    //krembos_list_.Add(updated_krembo);
                 }
             });
         }
