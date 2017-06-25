@@ -12,34 +12,59 @@ using KremboControl.Network;
 using System.Net;
 using System.IO;
 using System.Diagnostics;
+using System.Net.Sockets;
 
 namespace KremboControl
 {
     public partial class MainForm : Form
     {
-        WKCPC2Krembo wkc_msg_ = new WKCPC2Krembo();
-        //List<Krembo> krembos_list_ = new List<Krembo>();
         BindingList<Krembo> krembos_list_ = new BindingList<Krembo>();
         TCPServer server_;
         bool flash_mode_ = false;
 
         public MainForm()
         {
-            //this.WindowState = FormWindowState.Maximized; //enable this for full screen
             InitializeComponent();
-
+            this.KeyDown += new KeyEventHandler(OnKeyPress);
             connected_photons_lstbx.DataSource = krembos_list_;
             
             server_ = new TCPServer();
             server_.subscribeToMsgs(onClientNewMsgCB);
-            server_.asyncListenAt(new NetAddr("10.0.0.11", 8000));
+            TryConnect();
         }
 
-     
+        private void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            if (base_on_rdbtn.Checked)
+            {
+                switch (e.KeyCode)
+                {
+                    case (Keys)Krembo.MOVE_FORWARD_KEY:
+                        if (linear_vel_sbar.Value + 10 < 100)
+                            SendBaseCmd(linear_vel_sbar.Value + 10, angular_vel_sbar.Value);
+                        break;
+                    case (Keys)Krembo.MOVE_BACKWARD_KEY:
+                        if (linear_vel_sbar.Value - 10 > -100)
+                            SendBaseCmd(linear_vel_sbar.Value - 10, angular_vel_sbar.Value);
+                        break;
+                    case (Keys)Krembo.MOVE_RIGHT_KEY:
+                        if (angular_vel_sbar.Value + 10 < 100)
+                            SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value + 10);
+                        break;
+                    case (Keys)Krembo.MOVE_LEFT_KEY:
+                        if (angular_vel_sbar.Value - 10 > -100)
+                            SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value + 10);
+                        break;
+                }
+               
+            }
+           
+
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //ParticleCLI.getOnlinePhotons();
         }
 
         private void onClientNewMsgCB(WKCKrembo2PC wkc_msg)
@@ -50,106 +75,113 @@ namespace KremboControl
                 bool exist = false;
                 foreach (Krembo krembo in krembos_list_)
                 {
-                    if (krembo.WKC.ID == wkc_msg.ID)
+                    if (krembo.WkcIn.ID == wkc_msg.ID)
                     {
-                        //remove existing krembo (make place for updated one)
-                        //krembos_list_.Remove(krembo);
-                        krembos_list_.ElementAt<Krembo>(krembos_list_.IndexOf(krembo)).WKC = krembo.WKC;
-
-                        //krembos_list_.Insert(krembos_list_.IndexOf(krembo), updated_krembo);
-                        //existed_krembo = krembo;
-                        //if (connected_photons_lstbx.SelectedItem.Equals(krembo))
-                        //    updateKremboData(updated_krembo);
+                        krembos_list_.ElementAt<Krembo>(krembos_list_.IndexOf(krembo)).WkcIn = krembo.WkcIn;
                         exist = true;
                         break;
                     }
                     
                 }
                 if (!exist)
-                {
                     krembos_list_.Add(updated_krembo);
-                }
 
-                if (!wkc_msg.Disconnected && ((Krembo)(connected_photons_lstbx.SelectedItem)).WKC.ID == updated_krembo.WKC.ID)
+                if (!wkc_msg.Disconnected && 
+                    (GetSelectedKrembo().WkcIn.ID == updated_krembo.WkcIn.ID))
                 {
-                    updateKremboData(updated_krembo);
-                    //krembos_list_.Add(updated_krembo);
+                    UpdateGUI(updated_krembo);
                 }
             });
         }
+        
+        //get selected krembo in list
+        private Krembo GetSelectedKrembo()
+        {
+            return ((Krembo)(connected_photons_lstbx.SelectedItem));
+        }
 
-        public void updateKremboData(Krembo krembo)
+
+        public void UpdateGUI(Krembo krembo)
         {
             //read basic data
-            id_lbl.Text = "ID: " + krembo.WKC.ID.ToString();
-            bat_lvl_lbl.Text = "Bat lvl: " + krembo.WKC.BatLvl.ToString();
-            bat_chrg_lvl_lbl.Text = "Chrg lvl: " + krembo.WKC.BatChrgLvl.ToString();
-
-            //read rgba data
-            rgba_front_lbl.Text = krembo.WKC.RgbaFront.Distance.ToString();
-            rgba_front_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaFront.Red,
-                                                      krembo.WKC.RgbaFront.Green,
-                                                      krembo.WKC.RgbaFront.Blue);
-
-            rgba_rear_lbl.Text = krembo.WKC.RgbaRear.Distance.ToString();
-            rgba_rear_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaRear.Red,
-                                                      krembo.WKC.RgbaRear.Green,
-                                                      krembo.WKC.RgbaRear.Blue);
-
-            rgba_right_lbl.Text = krembo.WKC.RgbaRight.Distance.ToString();
-            rgba_right_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaRight.Red,
-                                                      krembo.WKC.RgbaRight.Green,
-                                                      krembo.WKC.RgbaRight.Blue);
-
-            rgba_left_lbl.Text = krembo.WKC.RgbaLeft.Distance.ToString();
-            rgba_left_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaLeft.Red,
-                                                      krembo.WKC.RgbaLeft.Green,
-                                                      krembo.WKC.RgbaLeft.Blue);
-
-            rgba_front_right_lbl.Text = krembo.WKC.RgbaFrontRight.Distance.ToString();
-            rgba_front_right_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaFrontRight.Red,
-                                                      krembo.WKC.RgbaFrontRight.Green,
-                                                      krembo.WKC.RgbaFrontRight.Blue);
-
-            rgba_front_left_lbl.Text = krembo.WKC.RgbaFrontLeft.Distance.ToString();
-            rgba_front_left_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaFrontLeft.Red,
-                                                      krembo.WKC.RgbaFrontLeft.Green,
-                                                      krembo.WKC.RgbaFrontLeft.Blue);
-
-            rgba_rear_right_lbl.Text = krembo.WKC.RgbaRearRight.Distance.ToString();
-            rgba_rear_right_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaRearRight.Red,
-                                                      krembo.WKC.RgbaRearRight.Green,
-                                                      krembo.WKC.RgbaRearRight.Blue);
-
-            rgba_rear_left_lbl.Text = krembo.WKC.RgbaRearLeft.Distance.ToString();
-            rgba_rear_left_lbl.BackColor = Color.FromArgb(krembo.WKC.RgbaRearLeft.Red,
-                                                      krembo.WKC.RgbaRearLeft.Green,
-                                                      krembo.WKC.RgbaRearLeft.Blue);
+            if (krembo != null)
+            {
+                //update GUI controls to current krembo state
+                base_on_rdbtn.Checked = krembo.WkcOut.joy_control;
+                base_off_rdbtn.Checked = !krembo.WkcOut.joy_control;
+                //TODO: CONTINUE HERE----------------------------------------------------------------------------------------
 
 
-            //read bumpers values
-            if (krembo.WKC.BumpFront)
-                bumper_front_lbl.BackColor = Color.Lime;
-            else
-                bumper_front_lbl.BackColor = Color.Red;
+                //update GUI lables with recent data
+                id_lbl.Text = "ID: " + krembo.WkcIn.ID.ToString();
+                bat_lvl_lbl.Text = "Bat lvl: " + krembo.WkcIn.BatLvl.ToString() + "%";
+                bat_chrg_lvl_lbl.Text = "Chrg lvl: " + krembo.WkcIn.BatChrgLvl.ToString() + "%";
 
-            if (krembo.WKC.BumpRear)
-                bumper_rear_lbl.BackColor = Color.Lime;
-            else
-                bumper_rear_lbl.BackColor = Color.Red;
+                //read rgba data
+                rgba_front_lbl.Text = krembo.WkcIn.RgbaFront.Distance.ToString();
+                rgba_front_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaFront.Red,
+                                                          krembo.WkcIn.RgbaFront.Green,
+                                                          krembo.WkcIn.RgbaFront.Blue);
 
-            if (krembo.WKC.BumpRight)
-                bumper_right_lbl.BackColor = Color.Lime;
-            else
-                bumper_right_lbl.BackColor = Color.Red;
+                rgba_rear_lbl.Text = krembo.WkcIn.RgbaRear.Distance.ToString();
+                rgba_rear_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaRear.Red,
+                                                          krembo.WkcIn.RgbaRear.Green,
+                                                          krembo.WkcIn.RgbaRear.Blue);
 
-            if (krembo.WKC.BumpLeft)
-                bumper_left_lbl.BackColor = Color.Lime;
-            else
-                bumper_left_lbl.BackColor = Color.Red;
+                rgba_right_lbl.Text = krembo.WkcIn.RgbaRight.Distance.ToString();
+                rgba_right_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaRight.Red,
+                                                          krembo.WkcIn.RgbaRight.Green,
+                                                          krembo.WkcIn.RgbaRight.Blue);
 
-            OnSelectedPhoton();
+                rgba_left_lbl.Text = krembo.WkcIn.RgbaLeft.Distance.ToString();
+                rgba_left_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaLeft.Red,
+                                                          krembo.WkcIn.RgbaLeft.Green,
+                                                          krembo.WkcIn.RgbaLeft.Blue);
 
+                rgba_front_right_lbl.Text = krembo.WkcIn.RgbaFrontRight.Distance.ToString();
+                rgba_front_right_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaFrontRight.Red,
+                                                          krembo.WkcIn.RgbaFrontRight.Green,
+                                                          krembo.WkcIn.RgbaFrontRight.Blue);
+
+                rgba_front_left_lbl.Text = krembo.WkcIn.RgbaFrontLeft.Distance.ToString();
+                rgba_front_left_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaFrontLeft.Red,
+                                                          krembo.WkcIn.RgbaFrontLeft.Green,
+                                                          krembo.WkcIn.RgbaFrontLeft.Blue);
+
+                rgba_rear_right_lbl.Text = krembo.WkcIn.RgbaRearRight.Distance.ToString();
+                rgba_rear_right_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaRearRight.Red,
+                                                          krembo.WkcIn.RgbaRearRight.Green,
+                                                          krembo.WkcIn.RgbaRearRight.Blue);
+
+                rgba_rear_left_lbl.Text = krembo.WkcIn.RgbaRearLeft.Distance.ToString();
+                rgba_rear_left_lbl.BackColor = Color.FromArgb(krembo.WkcIn.RgbaRearLeft.Red,
+                                                          krembo.WkcIn.RgbaRearLeft.Green,
+                                                          krembo.WkcIn.RgbaRearLeft.Blue);
+
+
+                //read bumpers values
+                if (krembo.WkcIn.BumpFront)
+                    bumper_front_lbl.BackColor = Color.Lime;
+                else
+                    bumper_front_lbl.BackColor = Color.Red;
+
+                if (krembo.WkcIn.BumpRear)
+                    bumper_rear_lbl.BackColor = Color.Lime;
+                else
+                    bumper_rear_lbl.BackColor = Color.Red;
+
+                if (krembo.WkcIn.BumpRight)
+                    bumper_right_lbl.BackColor = Color.Lime;
+                else
+                    bumper_right_lbl.BackColor = Color.Red;
+
+                if (krembo.WkcIn.BumpLeft)
+                    bumper_left_lbl.BackColor = Color.Lime;
+                else
+                    bumper_left_lbl.BackColor = Color.Red;
+
+                OnSelectedPhoton();
+            }
         }
 
     
@@ -163,12 +195,13 @@ namespace KremboControl
             wkc_msg.user_msg = "hello krembo";
             wkc_msg.linear_vel = Krembo.NEUTRAL_BASE_VEL;
             wkc_msg.angular_vel = Krembo.NEUTRAL_BASE_VEL;
-            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).WKC.ID, wkc_msg); //client is chosen by connection socket (no need for id)
+            server_.sendToKrembo(GetSelectedKrembo().WkcIn.ID, wkc_msg); //client is chosen by connection socket (no need for id)
         }
 
         private void SendMsgToSelectedKrembo()
         {
-            server_.sendToKrembo(((Krembo)(connected_photons_lstbx.SelectedItem)).WKC.ID, wkc_msg_); //client is chosen by connection socket (no need for id)
+            server_.sendToKrembo(GetSelectedKrembo().WkcIn.ID, 
+                                 GetSelectedKrembo().WkcOut); //client is chosen by connection socket (no need for id)
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -186,7 +219,7 @@ namespace KremboControl
         {
             if (!flash_mode_)
             {
-                updateKremboData((Krembo)connected_photons_lstbx.SelectedItem);
+                 UpdateGUI(GetSelectedKrembo());
             }         
         }
 
@@ -200,26 +233,31 @@ namespace KremboControl
 
         private void linear_vel_sbar_Scroll(object sender, EventArgs e)
         {
-            wkc_msg_.linear_vel = Krembo.MapBaseToByteVel(-100, 100, linear_vel_sbar.Value * 10);
-            wkc_msg_.angular_vel = Krembo.MapBaseToByteVel(-100, 100, angular_vel_sbar.Value * 10);
-            SendMsgToSelectedKrembo();
+            SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value);
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value">Natural number b/w -100 and 100</param>
+        public void SendBaseCmd(int linear_val, int angular_val)
+        {
+            GetSelectedKrembo().WkcOut.linear_vel = Krembo.MapBaseToByteVel(-100, 100, linear_val * 10);
+            GetSelectedKrembo().WkcOut.angular_vel = Krembo.MapBaseToByteVel(-100, 100, angular_val * 10);
+            angular_vel_lbl.Text = (Math.Abs(angular_vel_sbar.Value * 10)).ToString() + " %";
             linear_vel_lbl.Text = (Math.Abs(linear_vel_sbar.Value * 10)).ToString() + " %";
+            SendMsgToSelectedKrembo();
         }
 
         private void angular_vel_sbar_Scroll(object sender, EventArgs e)
         {
-            wkc_msg_.linear_vel = Krembo.MapBaseToByteVel(-100, 100, linear_vel_sbar.Value * 10);
-            wkc_msg_.angular_vel = Krembo.MapBaseToByteVel(-100, 100, angular_vel_sbar.Value * 10);
-            SendMsgToSelectedKrembo();
-
-            angular_vel_lbl.Text = (Math.Abs(angular_vel_sbar.Value * 10)).ToString() + " %";
+            SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value);
         }
 
         private void reset_lin_vel_btn_Click(object sender, EventArgs e)
         {
-            wkc_msg_.linear_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
-            wkc_msg_.angular_vel = Krembo.MapBaseToByteVel(-100, 100, angular_vel_sbar.Value * 10);
+            GetSelectedKrembo().WkcOut.linear_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
+            GetSelectedKrembo().WkcOut.angular_vel = Krembo.MapBaseToByteVel(-100, 100, angular_vel_sbar.Value * 10);
             SendMsgToSelectedKrembo();
 
             linear_vel_sbar.Value = 0;
@@ -228,8 +266,8 @@ namespace KremboControl
 
         private void reset_ang_vel_btn_Click(object sender, EventArgs e)
         {
-            wkc_msg_.linear_vel = Krembo.MapBaseToByteVel(-100, 100, linear_vel_sbar.Value);
-            wkc_msg_.angular_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
+            GetSelectedKrembo().WkcOut.linear_vel = Krembo.MapBaseToByteVel(-100, 100, linear_vel_sbar.Value);
+            GetSelectedKrembo().WkcOut.angular_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
             SendMsgToSelectedKrembo();
 
             angular_vel_sbar.Value = 0;
@@ -245,9 +283,9 @@ namespace KremboControl
                 blue_lbl.Text = color_dialog.Color.B.ToString();
                 choose_color_btn.BackColor = color_dialog.Color;
 
-                wkc_msg_.led_red = ushort.Parse(red_lbl.Text);
-                wkc_msg_.led_green = ushort.Parse(green_lbl.Text);
-                wkc_msg_.led_blue = ushort.Parse(blue_lbl.Text);
+                GetSelectedKrembo().WkcOut.led_red = ushort.Parse(red_lbl.Text);
+                GetSelectedKrembo().WkcOut.led_green = ushort.Parse(green_lbl.Text);
+                GetSelectedKrembo().WkcOut.led_blue = ushort.Parse(blue_lbl.Text);
                 SendMsgToSelectedKrembo();
             }
         }
@@ -271,7 +309,7 @@ namespace KremboControl
                     //TODO: do flash work - flash selected photons
                     var id_list = new List<string>();
                     foreach (Krembo krembo in krembos_list_)
-                        id_list.Add(KremboIdDict.Instance.IdToName(krembo.WKC.ID));
+                        id_list.Add(KremboIdDict.Instance.IdToName(krembo.WkcIn.ID));
                     Parallel.ForEach(id_list, id =>
                     {
                         ParticleCLI.flashPhoton(id, bin_path_lbl.Text);
@@ -302,10 +340,10 @@ namespace KremboControl
         {
             if(led_on_rdbtn.Checked)
             {
-                wkc_msg_.toggle_led = true;
-                wkc_msg_.led_red = ushort.Parse(red_lbl.Text);
-                wkc_msg_.led_green = ushort.Parse(green_lbl.Text);
-                wkc_msg_.led_blue = ushort.Parse(blue_lbl.Text);
+                GetSelectedKrembo().WkcOut.toggle_led = true;
+                GetSelectedKrembo().WkcOut.led_red = ushort.Parse(red_lbl.Text);
+                GetSelectedKrembo().WkcOut.led_green = ushort.Parse(green_lbl.Text);
+                GetSelectedKrembo().WkcOut.led_blue = ushort.Parse(blue_lbl.Text);
                 choose_color_btn.Enabled = true;
             }
             else
@@ -314,7 +352,7 @@ namespace KremboControl
                 // wkc_msg_.led_green = 0;
                 // wkc_msg_.led_blue = 0;
                 // SendMsgToSelectedKrembo();
-                wkc_msg_.toggle_led = false;
+                GetSelectedKrembo().WkcOut.toggle_led = false;
             }
             SendMsgToSelectedKrembo();
         }
@@ -329,10 +367,10 @@ namespace KremboControl
             if(base_on_rdbtn.Checked)
             {
                 //enable gui commands
-                wkc_msg_.linear_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
-                wkc_msg_.angular_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
-                wkc_msg_.joy_control = true;
+                GetSelectedKrembo().WkcOut.linear_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
+                GetSelectedKrembo().WkcOut.angular_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
 
+                GetSelectedKrembo().WkcOut.joy_control = true;
                 reset_ang_vel_btn.Enabled = true;
                 reset_lin_vel_btn.Enabled = true;
                 linear_vel_sbar.Enabled = true;
@@ -341,7 +379,7 @@ namespace KremboControl
             else
             {
                 //stop base
-                wkc_msg_.joy_control = false;
+                GetSelectedKrembo().WkcOut.joy_control = false;
                 reset_ang_vel_btn.Enabled = false;
                 reset_lin_vel_btn.Enabled = false;
                 linear_vel_sbar.Enabled = false;
@@ -386,9 +424,9 @@ namespace KremboControl
 
         private void send_txt_btn_Click(object sender, EventArgs e)
         {
-            wkc_msg_.user_msg = msg_txt.Text;
+            GetSelectedKrembo().WkcOut.user_msg = msg_txt.Text;
             SendMsgToSelectedKrembo();
-            wkc_msg_.user_msg = "";
+            GetSelectedKrembo().WkcOut.user_msg = "";
         }
 
         private void led_off_rdbtn_CheckedChanged(object sender, EventArgs e)
@@ -409,12 +447,12 @@ namespace KremboControl
         private void data_on_rdbtn_CheckedChanged(object sender, EventArgs e)
         {
             if (data_on_rdbtn.Checked)
-            { 
-                wkc_msg_.data_req = true;
+            {
+                GetSelectedKrembo().WkcOut.data_req = true;
             }
             else
             {
-                wkc_msg_.data_req = false;
+                GetSelectedKrembo().WkcOut.data_req = false;
                 bumper_front_lbl.BackColor = Color.DarkOrange;
                 bumper_rear_lbl.BackColor = Color.DarkOrange;
                 bumper_right_lbl.BackColor = Color.DarkOrange;
@@ -444,18 +482,62 @@ namespace KremboControl
 
         private void set_base_calib_btn_Click(object sender, EventArgs e)
         {
-            wkc_msg_.base_offset = true;
-            wkc_msg_.base_left_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_left_offset_txt.Value);
-            wkc_msg_.base_right_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_right_offset_txt.Value);
-            wkc_msg_.linear_vel += wkc_msg_.base_left_offset;
-            wkc_msg_.angular_vel += wkc_msg_.base_right_offset;
+            GetSelectedKrembo().WkcOut.base_offset = true;
+            GetSelectedKrembo().WkcOut.base_left_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_left_offset_txt.Value);
+            GetSelectedKrembo().WkcOut.base_right_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_right_offset_txt.Value);
+            GetSelectedKrembo().WkcOut.linear_vel += GetSelectedKrembo().WkcOut.base_left_offset;
+            GetSelectedKrembo().WkcOut.angular_vel += GetSelectedKrembo().WkcOut.base_right_offset;
             SendMsgToSelectedKrembo();
-            wkc_msg_.base_offset = false;
+            GetSelectedKrembo().WkcOut.base_offset = false;
         }
 
         private void base_grbx_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void retry_btn_Click(object sender, EventArgs e)
+        {
+            TryConnect();
+        }
+
+        private void TryConnect()
+        {
+            string local_ip = GetMyIP();
+            if (local_ip != null)
+            {
+                local_ip_lbl.Text = local_ip;
+                local_ip_lbl.ForeColor = Color.Green;
+                server_.asyncListenAt(new NetAddr(GetMyIP(), Krembo.PORT));
+                retry_btn.Enabled = false;
+            }
+            else
+            {
+                local_ip_lbl.Text = "Not Connected";
+                local_ip_lbl.ForeColor = Color.Red;
+                MsgBxLogger.errorMsg("Internet Connection",
+                                     "Internet connection is not available. Please connect and try again.");
+            }
+        }
+
+        private string GetMyIP()
+        {
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                return null;
+            string local_ip = null;
+            try
+            {
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    local_ip = endPoint.Address.ToString();
+                }
+            }
+            catch (SocketException exc)
+            {
+            }
+            return local_ip;
         }
     }
 }

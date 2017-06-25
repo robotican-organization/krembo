@@ -109,7 +109,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\bumper_directions.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\krembo_scheme.jpg" />
   </ItemGroup>
