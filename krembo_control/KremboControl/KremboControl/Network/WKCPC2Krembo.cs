@@ -75,6 +75,7 @@ namespace KremboControl.Network
             setBitInByte(ref flags_byte, Convert.ToByte(data_req), DATA_REQ_BIT);
             setBitInByte(ref flags_byte, Convert.ToByte(toggle_led), TOGGLE_LED_BIT);
             setBitInByte(ref flags_byte, Convert.ToByte(joy_control), JOY_CTRL_BIT);
+            setBitInByte(ref flags_byte, Convert.ToByte(base_offset), BASE_OFFSET_BIT);
             buff[FLAGS_INDX] = flags_byte;
 
             buff[JOY_X_INDX] = (byte)linear_vel;
@@ -82,6 +83,10 @@ namespace KremboControl.Network
             buff[LED_RED_INDX] = (byte)led_red;
             buff[LED_BLUE_INDX] = (byte)led_blue;
             buff[LED_GREEN_INDX] = (byte)led_green;
+
+            buff[BASE_RIGHT_OFFSET] = (byte)base_right_offset;
+            buff[BASE_LEFT_OFFSET] = (byte)base_left_offset;
+
 
             buff[USER_MSG_SIZE_INDX] = (byte)user_msg.Length;
 

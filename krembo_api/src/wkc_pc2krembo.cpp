@@ -34,8 +34,11 @@ void WKCPC2Krembo::print()
   Serial.printf("data_req?: %d\n", data_req);
   Serial.printf("toggle_led?: %d\n", toggle_led);
   Serial.printf("joy_control?: %d\n", joy_control);
+  Serial.printf("base_offset?: %d\n", base_offset);
   Serial.printf("joy_x: %d\n", joy_x);
   Serial.printf("joy_y: %d\n", joy_y);
+  Serial.printf("base_right_offset: %d\n", base_right_offset);
+  Serial.printf("base_left_offset: %d\n", base_left_offset);
   Serial.printf("led_red: %d\n", led_red);
   Serial.printf("led_green: %d\n", led_green);
   Serial.printf("led_blue: %d\n", led_blue);

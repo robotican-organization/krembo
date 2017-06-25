@@ -2,7 +2,7 @@
 #define DAC_BUMPERS_H
 
 #define BUMPERS_LEG A0
-#define ERR_MARGIN 20
+#define TOLERANCE 20
 
 #define NO_BUMP 0
 #define LEFT 403
@@ -79,84 +79,84 @@ public:
     BumpersRes res;
     uint16_t read_val = analogRead(BUMPERS_LEG);
 
-    if (read_val > (LEFT - ERR_MARGIN) &&
-             read_val < (LEFT + ERR_MARGIN))
+    if (read_val > (LEFT - TOLERANCE) &&
+             read_val < (LEFT + TOLERANCE))
              res.left = true;
-    else if (read_val > (RIGHT - ERR_MARGIN) &&
-             read_val < (RIGHT + ERR_MARGIN))
+    else if (read_val > (RIGHT - TOLERANCE) &&
+             read_val < (RIGHT + TOLERANCE))
              res.right = true;
-    else if (read_val > (RIGHT_LEFT - ERR_MARGIN) &&
-             read_val < (RIGHT_LEFT + ERR_MARGIN))
+    else if (read_val > (RIGHT_LEFT - TOLERANCE) &&
+             read_val < (RIGHT_LEFT + TOLERANCE))
              {
                res.right = true;
                res.left = true;
              }
-    else if (read_val > (REAR - ERR_MARGIN) &&
-            read_val < (REAR + ERR_MARGIN))
+    else if (read_val > (REAR - TOLERANCE) &&
+            read_val < (REAR + TOLERANCE))
             res.rear = true;
-    else if (read_val > (REAR_LEFT - ERR_MARGIN) &&
-             read_val < (REAR_LEFT + ERR_MARGIN))
+    else if (read_val > (REAR_LEFT - TOLERANCE) &&
+             read_val < (REAR_LEFT + TOLERANCE))
              {
                res.rear = true;
                res.left = true;
              }
-    else if (read_val > (REAR_RIGHT - ERR_MARGIN) &&
-            read_val < (REAR_RIGHT + ERR_MARGIN))
+    else if (read_val > (REAR_RIGHT - TOLERANCE) &&
+            read_val < (REAR_RIGHT + TOLERANCE))
             {
               res.rear = true;
               res.right = true;
             }
-    else if (read_val > (REAR_LEFT_RIGHT - ERR_MARGIN) &&
-             read_val < (REAR_LEFT_RIGHT + ERR_MARGIN))
+    else if (read_val > (REAR_LEFT_RIGHT - TOLERANCE) &&
+             read_val < (REAR_LEFT_RIGHT + TOLERANCE))
              {
                res.rear = true;
                res.left = true;
                res.right = true;
              }
-    else if (read_val > (FRONT - ERR_MARGIN) &&
-            read_val < (FRONT + ERR_MARGIN))
+    else if (read_val > (FRONT - TOLERANCE) &&
+            read_val < (FRONT + TOLERANCE))
             res.front = true;
-    else if (read_val > (FRONT_LEFT - ERR_MARGIN) &&
-             read_val < (FRONT_LEFT + ERR_MARGIN))
+    else if (read_val > (FRONT_LEFT - TOLERANCE) &&
+             read_val < (FRONT_LEFT + TOLERANCE))
              {
                res.front = true;
                res.left = true;
              }
-    else if (read_val > (FRONT_RIGHT - ERR_MARGIN) &&
-            read_val < (FRONT_RIGHT + ERR_MARGIN))
+    else if (read_val > (FRONT_RIGHT - TOLERANCE) &&
+            read_val < (FRONT_RIGHT + TOLERANCE))
             {
               res.front = true;
               res.right = true;
             }
-    else if (read_val > (FRONT_RIGHT_LEFT - ERR_MARGIN) &&
-             read_val < (FRONT_RIGHT_LEFT + ERR_MARGIN))
+    else if (read_val > (FRONT_RIGHT_LEFT - TOLERANCE) &&
+             read_val < (FRONT_RIGHT_LEFT + TOLERANCE))
              {
                res.front = true;
                res.right = true;
                res.left = true;
              }
-    else if (read_val > (FRONT_REAR - ERR_MARGIN) &&
-            read_val < (FRONT_REAR + ERR_MARGIN))
+    else if (read_val > (FRONT_REAR - TOLERANCE) &&
+            read_val < (FRONT_REAR + TOLERANCE))
             {
               res.front = true;
               res.rear = true;
             }
-    else if (read_val > (FRONT_REAR_LEFT - ERR_MARGIN) &&
-             read_val < (FRONT_REAR_LEFT + ERR_MARGIN))
+    else if (read_val > (FRONT_REAR_LEFT - TOLERANCE) &&
+             read_val < (FRONT_REAR_LEFT + TOLERANCE))
              {
                res.front = true;
                res.rear = true;
                res.left = true;
              }
-    else if (read_val > (FRONT_REAR_RIGHT - ERR_MARGIN) &&
-            read_val < (FRONT_REAR_RIGHT + ERR_MARGIN))
+    else if (read_val > (FRONT_REAR_RIGHT - TOLERANCE) &&
+            read_val < (FRONT_REAR_RIGHT + TOLERANCE))
             {
               res.front = true;
               res.rear = true;
               res.right = true;
             }
-    else if (read_val > (FRONT_REAR_RIGHT_LEFT - ERR_MARGIN) &&
-             read_val < (FRONT_REAR_RIGHT_LEFT + ERR_MARGIN))
+    else if (read_val > (FRONT_REAR_RIGHT_LEFT - TOLERANCE) &&
+             read_val < (FRONT_REAR_RIGHT_LEFT + TOLERANCE))
              {
                res.front = true;
                res.rear = true;

@@ -54,12 +54,18 @@ int8_t MobileBase::mapByteToBaseVal(uint8_t val)
 bool MobileBase::drive(int8_t linear, int8_t angular)
 {
   //convert x and y to linear and angular speeds
+
   int8_t linear_spd = mapByteToBaseVal(linear);
   int8_t angular_spd = mapByteToBaseVal(angular);
 
   Serial.printf("linear_spd: %d\n", linear_spd);
   Serial.printf("angular_spd: %d\n", angular_spd);
 
+  int8_t right_offset = mapByteToBaseVal(EEPROM.read(BASE_RIGHT_OFFSET_ADDR));
+  int8_t left_offset = mapByteToBaseVal(EEPROM.read(BASE_LEFT_OFFSET_ADDR));
+
+  Serial.printf("right_offset: %d\n", right_offset);
+  Serial.printf("left_offset: %d\n", left_offset);
 
   digitalWrite(MOTOR_STBY_LEG, HIGH);
   if ((linear_spd < -100 || linear_spd > 100) ||
@@ -72,8 +78,8 @@ bool MobileBase::drive(int8_t linear, int8_t angular)
   //Serial.print("linear_scale: "); Serial.println(linear_scale);
   //Serial.print("angular_scale: "); Serial.println(angular_scale);
 
-  int left_cmd = linear_scale - angular_scale;
-  int right_cmd = linear_scale + angular_scale;
+  int left_cmd = linear_scale - angular_scale + left_offset;
+  int right_cmd = linear_scale + angular_scale + right_offset;
 
   //Serial.print("left cmd: "); Serial.println(left_cmd);
   //Serial.print("right cmd: "); Serial.println(right_cmd);

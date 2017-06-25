@@ -18,6 +18,7 @@ namespace KremboControl
     public partial class MainForm : Form
     {
         WKCPC2Krembo wkc_msg_ = new WKCPC2Krembo();
+        //List<Krembo> krembos_list_ = new List<Krembo>();
         BindingList<Krembo> krembos_list_ = new BindingList<Krembo>();
         TCPServer server_;
         bool flash_mode_ = false;
@@ -46,26 +47,29 @@ namespace KremboControl
             Invoke((MethodInvoker)delegate
             {
                 Krembo updated_krembo = new Krembo(wkc_msg);
-                //bool exist = false;
-                //Krembo existed_krembo;
+                bool exist = false;
                 foreach (Krembo krembo in krembos_list_)
                 {
                     if (krembo.WKC.ID == wkc_msg.ID)
                     {
                         //remove existing krembo (make place for updated one)
-                        krembos_list_.Remove(krembo);
+                        //krembos_list_.Remove(krembo);
+                        krembos_list_.ElementAt<Krembo>(krembos_list_.IndexOf(krembo)).WKC = krembo.WKC;
+
                         //krembos_list_.Insert(krembos_list_.IndexOf(krembo), updated_krembo);
                         //existed_krembo = krembo;
                         //if (connected_photons_lstbx.SelectedItem.Equals(krembo))
                         //    updateKremboData(updated_krembo);
-                       // exist = true;
+                        exist = true;
                         break;
                     }
                     
                 }
+                if (!exist)
+                    krembos_list_.Add(updated_krembo);
                 if (!wkc_msg.Disconnected)
                 {
-                    krembos_list_.Add(updated_krembo);
+                    //krembos_list_.Add(updated_krembo);
                     updateKremboData(updated_krembo);
                 }
             });
@@ -440,8 +444,15 @@ namespace KremboControl
             wkc_msg_.base_offset = true;
             wkc_msg_.base_left_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_left_offset_txt.Value);
             wkc_msg_.base_right_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_right_offset_txt.Value);
+            wkc_msg_.linear_vel += wkc_msg_.base_left_offset;
+            wkc_msg_.angular_vel += wkc_msg_.base_right_offset;
             SendMsgToSelectedKrembo();
             wkc_msg_.base_offset = false;
+        }
+
+        private void base_grbx_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,15 +1,19 @@
 
 #include "krembo.h"
 
-Krembo::Krembo()
+void Krembo::setup()
 {
+  Serial.begin(38400);
+
+  Particle.subscribe("spark/", &Krembo::saveMyName, this);
+  Particle.publish("spark/device/name");
+
   //init I2C
   Wire.begin();
-  Serial.begin(38400);
+
 
   //rgba & imu sensors can only be init after wire.begin
   //IMU.init();
-
   RgbaFront.init(uint8_t(RGBAAddr::Front));
   RgbaRear.init(uint8_t(RGBAAddr::Rear));
 
@@ -20,6 +24,7 @@ Krembo::Krembo()
   RgbaLeft.init(uint8_t(RGBAAddr::Left));
   RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));
 
+
   id_was_sent_ = false;
   master_asks_for_data_ = false;
   skip_led_gui_cmds_ = false;
@@ -28,6 +33,8 @@ Krembo::Krembo()
 
 void Krembo::loop()
 {
+  Serial.println("my name: " + my_name_);
+
   if (!com_.isConnected())
   {
     com_.connect(MASTER_IP, MASTER_PORT);
@@ -59,14 +66,17 @@ void Krembo::loop()
   }
 }
 
+void Krembo::saveMyName(const char *topic, const char *data)
+{
+  Serial.println("received " + String(topic) + ": " + String(data));
+  my_name_ = String(data);
+}
+
 void Krembo::sendWKC(WKCKrembo2PC& wkc_msg)
 {
   byte buff[wkc_msg.size()];
   wkc_msg.toBytes(buff);
-
   com_.write(buff, wkc_msg.size());
-
-  Serial.println(wkc_msg.size());
 }
 
 WKCKrembo2PC Krembo::createWKC()
@@ -142,8 +152,8 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
 
   if (wkc_msg.base_offset)
   {
-    EEPROM.put(BASE_RIGHT_OFFSET_ADDR, wkc_msg.base_right_offset);
-    EEPROM.put(BASE_LEFT_OFFSET_ADDR, wkc_msg.base_left_offset);
+    EEPROM.write(BASE_RIGHT_OFFSET_ADDR, wkc_msg.base_right_offset);
+    EEPROM.write(BASE_LEFT_OFFSET_ADDR, wkc_msg.base_left_offset);
   }
 
   if (wkc_msg.user_msg_size > 0) //get user message

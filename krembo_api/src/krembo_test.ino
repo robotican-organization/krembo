@@ -71,16 +71,29 @@ void testEngns()
   Serial.println("TEST 6: driving left slow");
   krembo.Base.drive(70, -30);
 }
+/*
+String name;
+void handler(const char *topic, const char *data) {
+    Serial.println("received " + String(topic) + ": " + String(data));
+    name = String(data);
+}
+*/
+void setup() {
+    /*Serial.begin(115200);
+    for(int i=0;i<5;i++) {
+        Serial.println("waiting... " + String(5 - i));
+        delay(1000);
+    }
 
-void setup()
-{
-
+    Particle.subscribe("spark/", handler);
+    Particle.publish("spark/device/name");*/
+    krembo.setup();
 }
 
 void loop()
 {
-  //krembo.loop();
-  krembo.Bumpers.print();
+  krembo.loop();
+  //krembo.Bumpers.print();
   //testIMU();
   //testRGBSensors();
   //delay(1000);

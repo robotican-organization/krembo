@@ -30,7 +30,7 @@
 */
 #define MASTER_IP "10.0.0.11"
 #define MASTER_PORT 8000
-#define SEND_DATA_INTERVAL 400 //ms
+#define SEND_DATA_INTERVAL 100 //ms
 
 enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
 {
@@ -54,14 +54,14 @@ private:
        skip_base_gui_cmds_;
   COMLayer com_;
   BlueSkyTimer send_data_timer_;
+  String my_name_;
 
 
   WKCKrembo2PC createWKC();
   void rcveWKC();
   void sendWKC(WKCKrembo2PC& wkc_msg);
   void handleWKCFromPC(WKCPC2Krembo wkc_msg);
-
-
+  void saveMyName(const char *topic, const char *data);
 
 public:
 
@@ -79,10 +79,10 @@ public:
   Battery Bat;
   RGBLed Led;
   //IMUSensor IMU;
-  Krembo();
+  void setup();
   void loop();
-  String getParticleID() { return System.deviceID(); }
-
+  String getID() { return System.deviceID(); }
+  String getName() { return  my_name_; }
 };
 
 #endif //KREMBO_H

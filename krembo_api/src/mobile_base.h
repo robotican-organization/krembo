@@ -3,8 +3,8 @@
 
 #include "application.h"
 
-#define LEFT_MOTOR_DIR_LEG1 D4
-#define LEFT_MOTOR_DIR_LEG2 D5
+#define LEFT_MOTOR_DIR_LEG1 D5
+#define LEFT_MOTOR_DIR_LEG2 D4
 #define LEFT_MOTOR_PWM_LEG D2
 #define RIGHT_MOTOR_DIR_LEG1 A2
 #define RIGHT_MOTOR_DIR_LEG2 A3

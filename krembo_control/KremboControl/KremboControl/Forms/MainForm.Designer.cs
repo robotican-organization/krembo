@@ -57,6 +57,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.choose_color_btn = new System.Windows.Forms.Button();
             this.base_grbx = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.base_right_offset_txt = new System.Windows.Forms.NumericUpDown();
+            this.base_left_offset_txt = new System.Windows.Forms.NumericUpDown();
+            this.set_base_calib_btn = new System.Windows.Forms.Button();
             this.base_off_rdbtn = new System.Windows.Forms.RadioButton();
             this.angular_vel_sbar = new System.Windows.Forms.TrackBar();
             this.reset_ang_vel_btn = new System.Windows.Forms.Button();
@@ -85,25 +91,19 @@
             this.rgba_left_lbl = new System.Windows.Forms.Label();
             this.rgba_front_left_lbl = new System.Windows.Forms.Label();
             this.rgba_front_lbl = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.set_base_calib_btn = new System.Windows.Forms.Button();
-            this.base_left_offset_txt = new System.Windows.Forms.NumericUpDown();
-            this.base_right_offset_txt = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.controller_grbx.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.led_grbx.SuspendLayout();
             this.base_grbx.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.base_right_offset_txt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.base_left_offset_txt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.angular_vel_sbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.linear_vel_sbar)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.base_left_offset_txt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.base_right_offset_txt)).BeginInit();
             this.SuspendLayout();
             // 
             // bat_chrg_lvl_lbl
@@ -452,6 +452,85 @@
             this.base_grbx.TabIndex = 21;
             this.base_grbx.TabStop = false;
             this.base_grbx.Text = "Base";
+            this.base_grbx.Enter += new System.EventHandler(this.base_grbx_Enter);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.base_right_offset_txt);
+            this.groupBox2.Controls.Add(this.base_left_offset_txt);
+            this.groupBox2.Controls.Add(this.set_base_calib_btn);
+            this.groupBox2.Location = new System.Drawing.Point(18, 245);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(231, 106);
+            this.groupBox2.TabIndex = 24;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Calibration";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(139, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Right";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(56, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(25, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Left";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // base_right_offset_txt
+            // 
+            this.base_right_offset_txt.Location = new System.Drawing.Point(129, 39);
+            this.base_right_offset_txt.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.base_right_offset_txt.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.base_right_offset_txt.Name = "base_right_offset_txt";
+            this.base_right_offset_txt.Size = new System.Drawing.Size(55, 20);
+            this.base_right_offset_txt.TabIndex = 3;
+            // 
+            // base_left_offset_txt
+            // 
+            this.base_left_offset_txt.Location = new System.Drawing.Point(46, 39);
+            this.base_left_offset_txt.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.base_left_offset_txt.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
+            this.base_left_offset_txt.Name = "base_left_offset_txt";
+            this.base_left_offset_txt.Size = new System.Drawing.Size(55, 20);
+            this.base_left_offset_txt.TabIndex = 2;
+            // 
+            // set_base_calib_btn
+            // 
+            this.set_base_calib_btn.Location = new System.Drawing.Point(76, 71);
+            this.set_base_calib_btn.Name = "set_base_calib_btn";
+            this.set_base_calib_btn.Size = new System.Drawing.Size(77, 23);
+            this.set_base_calib_btn.TabIndex = 1;
+            this.set_base_calib_btn.Text = "Set";
+            this.set_base_calib_btn.UseVisualStyleBackColor = true;
+            this.set_base_calib_btn.Click += new System.EventHandler(this.set_base_calib_btn_Click);
             // 
             // base_off_rdbtn
             // 
@@ -815,84 +894,6 @@
             this.rgba_front_lbl.Text = "0";
             this.rgba_front_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.base_right_offset_txt);
-            this.groupBox2.Controls.Add(this.base_left_offset_txt);
-            this.groupBox2.Controls.Add(this.set_base_calib_btn);
-            this.groupBox2.Location = new System.Drawing.Point(18, 245);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(231, 106);
-            this.groupBox2.TabIndex = 24;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Calibration";
-            // 
-            // set_base_calib_btn
-            // 
-            this.set_base_calib_btn.Location = new System.Drawing.Point(76, 71);
-            this.set_base_calib_btn.Name = "set_base_calib_btn";
-            this.set_base_calib_btn.Size = new System.Drawing.Size(77, 23);
-            this.set_base_calib_btn.TabIndex = 1;
-            this.set_base_calib_btn.Text = "Set";
-            this.set_base_calib_btn.UseVisualStyleBackColor = true;
-            this.set_base_calib_btn.Click += new System.EventHandler(this.set_base_calib_btn_Click);
-            // 
-            // base_left_offset_txt
-            // 
-            this.base_left_offset_txt.Location = new System.Drawing.Point(46, 39);
-            this.base_left_offset_txt.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.base_left_offset_txt.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            -2147483648});
-            this.base_left_offset_txt.Name = "base_left_offset_txt";
-            this.base_left_offset_txt.Size = new System.Drawing.Size(55, 20);
-            this.base_left_offset_txt.TabIndex = 2;
-            // 
-            // base_right_offset_txt
-            // 
-            this.base_right_offset_txt.Location = new System.Drawing.Point(129, 39);
-            this.base_right_offset_txt.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.base_right_offset_txt.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            -2147483648});
-            this.base_right_offset_txt.Name = "base_right_offset_txt";
-            this.base_right_offset_txt.Size = new System.Drawing.Size(55, 20);
-            this.base_right_offset_txt.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 23);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(25, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Left";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(139, 23);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Right";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -915,6 +916,10 @@
             this.led_grbx.PerformLayout();
             this.base_grbx.ResumeLayout(false);
             this.base_grbx.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.base_right_offset_txt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.base_left_offset_txt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.angular_vel_sbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.linear_vel_sbar)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -922,10 +927,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.base_left_offset_txt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.base_right_offset_txt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
