@@ -26,7 +26,7 @@ void Krembo::setup()
 
 
   id_was_sent_ = false;
-  master_asks_for_data_ = false;
+  master_asks_for_data_ = true; //default is to send data right away
   skip_led_gui_cmds_ = false;
   skip_base_gui_cmds_ = false;
   bump_calib_mode_ = false;

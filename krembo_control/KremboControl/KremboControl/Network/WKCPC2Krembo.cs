@@ -53,15 +53,15 @@ namespace KremboControl.Network
         public const int BASE_RIGHT_OFFSET = 7;
         public const int BASE_LEFT_OFFSET = 8;
 
-        public ushort linear_vel,
-                      angular_vel,
+        public ushort linear_vel = Krembo.NEUTRAL_BYTE_VEL,
+                      angular_vel = Krembo.NEUTRAL_BYTE_VEL,
                       led_red,
                       led_green,
                       led_blue,
                       base_right_offset,
                       base_left_offset;
 
-        public bool data_req,
+        public bool data_req = true, //default is to send data right away
                     toggle_led,
                     joy_control,
                     base_offset,
