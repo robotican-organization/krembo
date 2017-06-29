@@ -62,7 +62,7 @@ RGBAResult RGBASensor::read()
     result.IsReadOk = false;
     result.ErrCode = 3;
   }
-  if(!apds_.readProximity(result.Distance))
+  if(!apds_.readProximity(result.Proximity))
   {
     result.IsReadOk = false;
     result.ErrCode = 4;
@@ -85,7 +85,7 @@ void RGBASensor::print()
     Serial.print(" | Red: ");   Serial.print(read_res.Red);
     Serial.print(" | Green: ");   Serial.print(read_res.Green);
     Serial.print(" | Blue: ");  Serial.print(read_res.Blue);
-    Serial.print(" | Proximity: ");  Serial.println(read_res.Distance);
+    Serial.print(" | Proximity: ");  Serial.println(read_res.Proximity);
   }
   else
     Serial.println("[RGBSensor]: Error reading from sensor");

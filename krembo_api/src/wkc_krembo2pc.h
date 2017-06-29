@@ -82,6 +82,7 @@
 
 #define MSG_SIZE 34 + ID_SIZE //size bytes arr
 
+#define RGBA16TO8(val) (uint8_t)(val / 37889.0 * 255.0)
 
 class WKCKrembo2PC
 {

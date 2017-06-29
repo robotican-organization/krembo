@@ -78,9 +78,14 @@ bool MobileBase::drive(int8_t linear, int8_t angular)
   //Serial.print("linear_scale: "); Serial.println(linear_scale);
   //Serial.print("angular_scale: "); Serial.println(angular_scale);
 
-  int left_cmd = linear_scale - angular_scale + left_offset;
-  int right_cmd = linear_scale + angular_scale + right_offset;
+  int left_cmd = linear_scale - angular_scale;
+  int right_cmd = linear_scale + angular_scale;
 
+  //if not stop command, add offsets
+  if (left_cmd != 0)
+    left_cmd += left_offset;
+  if (right_cmd != 0)
+    right_cmd += right_offset;
   //Serial.print("left cmd: "); Serial.println(left_cmd);
   //Serial.print("right cmd: "); Serial.println(right_cmd);
 

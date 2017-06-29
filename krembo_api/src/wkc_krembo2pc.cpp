@@ -41,45 +41,45 @@ void WKCKrembo2PC::toBytes(byte bytes_arr[])
   bytes_arr[BAT_CHRG_LVL_INDX] = bat_chrg_lvl;
 
   //rgba sensors
-  bytes_arr[RGBA_FRONT_START_INDX + RGBA_PROX_OFFSET] = rgba_front.Distance;
-  bytes_arr[RGBA_FRONT_START_INDX + RGBA_RED_OFFSET] = rgba_front.Red;
-  bytes_arr[RGBA_FRONT_START_INDX + RGBA_GREEN_OFFSET] = rgba_front.Green;
-  bytes_arr[RGBA_FRONT_START_INDX + RGBA_BLUE_OFFSET] = rgba_front.Blue;
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_PROX_OFFSET] = rgba_front.Proximity;
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_front.Red);
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_front.Green);
+  bytes_arr[RGBA_FRONT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_front.Blue);
 
-  bytes_arr[RGBA_REAR_START_INDX + RGBA_PROX_OFFSET] = rgba_rear.Distance;
-  bytes_arr[RGBA_REAR_START_INDX + RGBA_RED_OFFSET] = rgba_rear.Red;
-  bytes_arr[RGBA_REAR_START_INDX + RGBA_GREEN_OFFSET] = rgba_rear.Green;
-  bytes_arr[RGBA_REAR_START_INDX + RGBA_BLUE_OFFSET] = rgba_rear.Blue;
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_PROX_OFFSET] = rgba_rear.Proximity;
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_rear.Red);
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_rear.Green);
+  bytes_arr[RGBA_REAR_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_rear.Blue);
 
-  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_right.Distance;
-  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_RED_OFFSET] = rgba_right.Red;
-  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = rgba_right.Green;
-  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = rgba_right.Blue;
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_right.Proximity;
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_right.Red);
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_right.Green);
+  bytes_arr[RGBA_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_right.Blue);
 
-  bytes_arr[RGBA_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_left.Distance;
-  bytes_arr[RGBA_LEFT_START_INDX + RGBA_RED_OFFSET] = rgba_left.Red;
-  bytes_arr[RGBA_LEFT_START_INDX + RGBA_GREEN_OFFSET] = rgba_left.Green;
-  bytes_arr[RGBA_LEFT_START_INDX + RGBA_BLUE_OFFSET] = rgba_left.Blue;
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_left.Proximity;
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_left.Red);
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_left.Green);
+  bytes_arr[RGBA_LEFT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_left.Blue);
 
-  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_front_right.Distance;
-  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_RED_OFFSET] = rgba_front_right.Red;
-  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = rgba_front_right.Green;
-  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = rgba_front_right.Blue;
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_front_right.Proximity;
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_front_right.Red);
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_front_right.Green);
+  bytes_arr[RGBA_FRONT_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_front_right.Blue);
 
-  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_front_left.Distance;
-  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_RED_OFFSET] = rgba_front_left.Red;
-  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_GREEN_OFFSET] = rgba_front_left.Green;
-  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_BLUE_OFFSET] = rgba_front_left.Blue;
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_front_left.Proximity;
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_front_left.Red);
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_front_left.Green);
+  bytes_arr[RGBA_FRONT_LEFT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_front_left.Blue);
 
-  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_rear_right.Distance;
-  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_RED_OFFSET] = rgba_rear_right.Red;
-  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = rgba_rear_right.Green;
-  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = rgba_rear_right.Blue;
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_PROX_OFFSET] = rgba_rear_right.Proximity;
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_rear_right.Red);
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_rear_right.Green);
+  bytes_arr[RGBA_REAR_RIGHT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_rear_right.Blue);
 
-  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_rear_left.Distance;
-  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_RED_OFFSET] = rgba_rear_left.Red;
-  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_GREEN_OFFSET] = rgba_rear_left.Green;
-  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_BLUE_OFFSET] = rgba_rear_left.Blue;
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_PROX_OFFSET] = rgba_rear_left.Proximity;
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_RED_OFFSET] = RGBA16TO8(rgba_rear_left.Red);
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_GREEN_OFFSET] = RGBA16TO8(rgba_rear_left.Green);
+  bytes_arr[RGBA_REAR_LEFT_START_INDX + RGBA_BLUE_OFFSET] = RGBA16TO8(rgba_rear_left.Blue);
 
 
   byte id_bytes[ID_SIZE];

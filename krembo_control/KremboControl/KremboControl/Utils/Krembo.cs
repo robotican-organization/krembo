@@ -13,10 +13,6 @@ namespace KremboControl.Utils
         public const int NEUTRAL_BASE_VEL = 127;
         public const int MIN_BASE_VEL = 0;
         public const int PORT = 8000;
-        public const int MOVE_LEFT_KEY = 37;
-        public const int MOVE_RIGHT_KEY = 39;
-        public const int MOVE_FORWARD_KEY = 38;
-        public const int MOVE_BACKWARD_KEY = 40;
         public WKCKrembo2PC WkcIn;
         public WKCPC2Krembo WkcOut = new WKCPC2Krembo();
         

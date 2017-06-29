@@ -12,7 +12,7 @@ struct RGBAResult
   uint16_t Red;
   uint16_t Green;
   uint16_t Blue;
-  uint8_t Distance;
+  uint8_t Proximity;
   uint8_t ErrCode;
   bool IsReadOk;
 };
@@ -33,7 +33,6 @@ public:
   void init(uint8_t addr);
   RGBAResult read();
   void print();
-
 };
 
 

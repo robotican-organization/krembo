@@ -1,2 +1,0 @@
-particle compile photon MyProject/ --saveTo MyProject.bin
-

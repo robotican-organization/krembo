@@ -29,45 +29,15 @@ namespace KremboControl
             connected_photons_lstbx.DataSource = krembos_list_;
             
             server_ = new TCPServer();
-            server_.subscribeToMsgs(onClientNewMsgCB);
+            server_.subscribeToMsgs(OnNewKremboMsg);
             TryConnect();
         }
-
-        private void OnKeyPress(object sender, KeyEventArgs e)
-        {
-            if (base_on_rdbtn.Checked)
-            {
-                switch (e.KeyCode)
-                {
-                    case (Keys)Krembo.MOVE_FORWARD_KEY:
-                        if (linear_vel_sbar.Value + 10 < 100)
-                            SendBaseCmd(linear_vel_sbar.Value + 10, angular_vel_sbar.Value);
-                        break;
-                    case (Keys)Krembo.MOVE_BACKWARD_KEY:
-                        if (linear_vel_sbar.Value - 10 > -100)
-                            SendBaseCmd(linear_vel_sbar.Value - 10, angular_vel_sbar.Value);
-                        break;
-                    case (Keys)Krembo.MOVE_RIGHT_KEY:
-                        if (angular_vel_sbar.Value + 10 < 100)
-                            SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value + 10);
-                        break;
-                    case (Keys)Krembo.MOVE_LEFT_KEY:
-                        if (angular_vel_sbar.Value - 10 > -100)
-                            SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value + 10);
-                        break;
-                }
-               
-            }
-           
-
-        }
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
         }
 
-        private void onClientNewMsgCB(WKCKrembo2PC wkc_msg)
+        private void OnNewKremboMsg(WKCKrembo2PC wkc_msg)
         {
             Invoke((MethodInvoker)delegate
             {
@@ -89,7 +59,7 @@ namespace KremboControl
                 if (!wkc_msg.Disconnected && 
                     (GetSelectedKrembo().WkcIn.ID == updated_krembo.WkcIn.ID))
                 {
-                    UpdateGUI(updated_krembo);
+                    UpdateGUIData(updated_krembo);
                 }
             });
         }
@@ -101,17 +71,12 @@ namespace KremboControl
         }
 
 
-        public void UpdateGUI(Krembo krembo)
+        public void UpdateGUIData(Krembo krembo)
         {
             //read basic data
             if (krembo != null)
             {
-                //update GUI controls to current krembo state
-                base_on_rdbtn.Checked = krembo.WkcOut.joy_control;
-                base_off_rdbtn.Checked = !krembo.WkcOut.joy_control;
-                //TODO: CONTINUE HERE----------------------------------------------------------------------------------------
-
-
+               
                 //update GUI lables with recent data
                 id_lbl.Text = "ID: " + krembo.WkcIn.ID.ToString();
                 bat_lvl_lbl.Text = "Bat lvl: " + krembo.WkcIn.BatLvl.ToString() + "%";
@@ -219,8 +184,18 @@ namespace KremboControl
         {
             if (!flash_mode_)
             {
-                 UpdateGUI(GetSelectedKrembo());
+                UpdateGUIState();
+                UpdateGUIData(GetSelectedKrembo());
             }         
+        }
+
+        private void UpdateGUIState()
+        {
+            //update GUI controls to current krembo state
+            base_on_rdbtn.Checked = GetSelectedKrembo().WkcOut.joy_control;
+            base_off_rdbtn.Checked = !GetSelectedKrembo().WkcOut.joy_control;
+            //TODO: CONTINUE HERE----------------------------------------------------------------------------------------
+
         }
 
         public void OnSelectedPhoton()
@@ -254,39 +229,84 @@ namespace KremboControl
             SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value);
         }
 
+        private void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            if (base_on_rdbtn.Checked)
+            {
+                bool valid_key = true;
+                switch (e.KeyCode)
+                {
+                    case Keys.W:
+                        if (linear_vel_sbar.Value + 1 <= 10)
+                           linear_vel_sbar.Value++;
+                        break;
+                    case Keys.S:
+                        if (linear_vel_sbar.Value - 1 >= -10)
+                            linear_vel_sbar.Value--;
+                        break;
+                    case Keys.D:
+                        if (angular_vel_sbar.Value + 1 <= 10)
+                            angular_vel_sbar.Value++;
+                        break;
+                    case Keys.A:
+                        if (angular_vel_sbar.Value - 1 >= -10)
+                            angular_vel_sbar.Value--;
+                        break;
+                    case Keys.X:
+                        angular_vel_sbar.Value = 0;
+                        linear_vel_sbar.Value = 0;
+                        break;
+                    default:
+                        valid_key = false;
+                        break;
+                }
+                if (valid_key)
+                    SendBaseCmd(linear_vel_sbar.Value, angular_vel_sbar.Value);
+            }
+        }
+
         private void reset_lin_vel_btn_Click(object sender, EventArgs e)
         {
-            GetSelectedKrembo().WkcOut.linear_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
-            GetSelectedKrembo().WkcOut.angular_vel = Krembo.MapBaseToByteVel(-100, 100, angular_vel_sbar.Value * 10);
-            SendMsgToSelectedKrembo();
-
             linear_vel_sbar.Value = 0;
-            linear_vel_lbl.Text = "0 %";
+            SendBaseCmd(0, angular_vel_sbar.Value);
+
+           // linear_vel_sbar.Value = 0;
+           // linear_vel_lbl.Text = "0 %";
         }
 
         private void reset_ang_vel_btn_Click(object sender, EventArgs e)
         {
-            GetSelectedKrembo().WkcOut.linear_vel = Krembo.MapBaseToByteVel(-100, 100, linear_vel_sbar.Value);
-            GetSelectedKrembo().WkcOut.angular_vel = Krembo.MapBaseToByteVel(-100, 100, 0);
-            SendMsgToSelectedKrembo();
-
             angular_vel_sbar.Value = 0;
-            angular_vel_lbl.Text = "0 %";
+            SendBaseCmd(linear_vel_sbar.Value, 0);
         }
 
         private void choose_color_btn_Click(object sender, EventArgs e)
         {
+            ChooseLedColor();
+        }
+
+        private void ChooseLedColor()
+        {
             if (color_dialog.ShowDialog() == DialogResult.OK)
             {
-                red_lbl.Text = color_dialog.Color.R.ToString();
-                green_lbl.Text = color_dialog.Color.G.ToString();
-                blue_lbl.Text = color_dialog.Color.B.ToString();
-                choose_color_btn.BackColor = color_dialog.Color;
+                if (color_dialog.Color.R > 0 ||
+                    color_dialog.Color.G > 0 ||
+                    color_dialog.Color.B > 0)
+                {
+                    red_lbl.Text = color_dialog.Color.R.ToString();
+                    green_lbl.Text = color_dialog.Color.G.ToString();
+                    blue_lbl.Text = color_dialog.Color.B.ToString();
+                    choose_color_btn.BackColor = color_dialog.Color;
 
-                GetSelectedKrembo().WkcOut.led_red = ushort.Parse(red_lbl.Text);
-                GetSelectedKrembo().WkcOut.led_green = ushort.Parse(green_lbl.Text);
-                GetSelectedKrembo().WkcOut.led_blue = ushort.Parse(blue_lbl.Text);
-                SendMsgToSelectedKrembo();
+                    GetSelectedKrembo().WkcOut.led_red = ushort.Parse(red_lbl.Text);
+                    GetSelectedKrembo().WkcOut.led_green = ushort.Parse(green_lbl.Text);
+                    GetSelectedKrembo().WkcOut.led_blue = ushort.Parse(blue_lbl.Text);
+                }
+                else
+                {
+                    led_off_rdbtn.Checked = true;
+                    led_on_rdbtn.Checked = false;
+                }
             }
         }
 
@@ -340,20 +360,12 @@ namespace KremboControl
         {
             if(led_on_rdbtn.Checked)
             {
-                GetSelectedKrembo().WkcOut.toggle_led = true;
-                GetSelectedKrembo().WkcOut.led_red = ushort.Parse(red_lbl.Text);
-                GetSelectedKrembo().WkcOut.led_green = ushort.Parse(green_lbl.Text);
-                GetSelectedKrembo().WkcOut.led_blue = ushort.Parse(blue_lbl.Text);
+                ChooseLedColor();
                 choose_color_btn.Enabled = true;
+                GetSelectedKrembo().WkcOut.toggle_led = true;
             }
             else
-            {
-                // wkc_msg_.led_red = 0;
-                // wkc_msg_.led_green = 0;
-                // wkc_msg_.led_blue = 0;
-                // SendMsgToSelectedKrembo();
                 GetSelectedKrembo().WkcOut.toggle_led = false;
-            }
             SendMsgToSelectedKrembo();
         }
 
@@ -485,8 +497,6 @@ namespace KremboControl
             GetSelectedKrembo().WkcOut.base_offset = true;
             GetSelectedKrembo().WkcOut.base_left_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_left_offset_txt.Value);
             GetSelectedKrembo().WkcOut.base_right_offset = Krembo.MapBaseToByteVel(-100, 100, (int)base_right_offset_txt.Value);
-            GetSelectedKrembo().WkcOut.linear_vel += GetSelectedKrembo().WkcOut.base_left_offset;
-            GetSelectedKrembo().WkcOut.angular_vel += GetSelectedKrembo().WkcOut.base_right_offset;
             SendMsgToSelectedKrembo();
             GetSelectedKrembo().WkcOut.base_offset = false;
         }
@@ -538,6 +548,13 @@ namespace KremboControl
             {
             }
             return local_ip;
+        }
+
+        private void bumps_calib_btn_Click(object sender, EventArgs e)
+        {
+            GetSelectedKrembo().WkcOut.bumps_calib = true;
+            SendMsgToSelectedKrembo();
+            GetSelectedKrembo().WkcOut.bumps_calib = false;
         }
     }
 }

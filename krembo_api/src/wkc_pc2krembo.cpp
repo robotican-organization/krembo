@@ -13,6 +13,8 @@ void WKCPC2Krembo::fromBytes(byte bytes_arr[])
                                            JOY_CTRL_BIT);
   base_offset = BitConverter::getBitInByte(bytes_arr[FLAGS_INDX],
                                            BASE_OFFSET_BIT);
+  bumps_calib = BitConverter::getBitInByte(bytes_arr[FLAGS_INDX],
+                                          BUMPS_CALIB_BIT);
 
   //extract joystick axes
   joy_x = (uint8_t)bytes_arr[JOY_X_INDX];

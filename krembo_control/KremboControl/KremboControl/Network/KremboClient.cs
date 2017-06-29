@@ -45,9 +45,7 @@ namespace KremboControl.Network
 
                     while ((num_of_bytes_rcved_ = net_stream_.Read(bytes_in_, 0, bytes_in_.Length)) != 0)
                     {
-                        /*ConsoleLogger.write("CamMessage",
-                             "got msg: " + bytes_in_ +
-                             " | size: " + bytes_in_.Length, DEBUG_MODE);*/
+
                         WKCKrembo2PC wkc_msg = new WKCKrembo2PC(bytes_in_);
                         ID = wkc_msg.ID;
                         server_.onMsgRcvdCallBack(wkc_msg);
@@ -63,13 +61,16 @@ namespace KremboControl.Network
         public void send(WKCPC2Krembo wkc_msg)
         {
             //send user msg (Krembo expecting to get it after WKC msg)
-            //byte[] user_msg_buff = Encoding.ASCII.GetBytes(wkc_msg.user_msg);
-
-            // byte[] buff = new byte[WKCPC2Krembo.];
             byte[] buff = wkc_msg.toBytes();
-            net_stream_.Write(buff, 0, buff.Length);
 
-            
+            try
+            {
+                net_stream_.Write(buff, 0, buff.Length);
+            }
+            catch (System.IO.IOException exp)
+            {
+                //handle exception - photon disconnected ------------------------------------------
+            }
         }
 
         private void OnCheckAliveTimer(Object source, ElapsedEventArgs e)

@@ -23,6 +23,7 @@ void Battery::print()
 {
   //TODO: use printf instead of println
   Serial.println("------------Battry Values------------");
+  Serial.print("Raw Battery read: "); Serial.print(analogRead(BATTERY_LVL_LEG));
   Serial.print("Battery level: "); Serial.print(readBatLvl());
   Serial.print(" | Charge Level: "); Serial.print(readChargelvl());
   Serial.print(" | Is Charging: "); Serial.print(isCharging() == false ? "No" : "Yes" );

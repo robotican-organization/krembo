@@ -9,15 +9,16 @@ using KremboControl.Utils;
 
 /***************************************************************************************************************
 * |----------------------------------------------N BYTES ARRAY-------------------------------------------------|
-* Index |  0 (8 BITS FLAGS)   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
-* Data  | | | |BO |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB | BRO | BLO |
-* Values|     |0-1|0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
+* Index |    0 (8 BITS FLAGS)   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+* Data  | | |BC |BO |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB | BRO | BLO |
+* Values|   |0-1|0-1|0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
 * DR = DATA REQUEST = master asks for sensors/Krembo state data
 * TL = TOGGLE LED = master asks to turn on/off led
 * BO = BASE OFFSET = indicates whether to set wheels speed offset (calibration)
+* BC = BUMPERS CALIBRATION MODE
 * 
 * JX = JOY X = joystick x value
 * JY = JOY Y = joystick y value
@@ -41,6 +42,7 @@ namespace KremboControl.Network
                     public const int TOGGLE_LED_BIT = 1;
                     public const int JOY_CTRL_BIT = 2;
                     public const int BASE_OFFSET_BIT = 3;
+                    public const int BUMPS_CALIB_BIT = 4;
 
         public const int JOY_X_INDX = 1;
         public const int JOY_Y_INDX = 2;
@@ -62,7 +64,8 @@ namespace KremboControl.Network
         public bool data_req,
                     toggle_led,
                     joy_control,
-                    base_offset;
+                    base_offset,
+                    bumps_calib;
 
         public string user_msg = "";
 
@@ -76,6 +79,7 @@ namespace KremboControl.Network
             setBitInByte(ref flags_byte, Convert.ToByte(toggle_led), TOGGLE_LED_BIT);
             setBitInByte(ref flags_byte, Convert.ToByte(joy_control), JOY_CTRL_BIT);
             setBitInByte(ref flags_byte, Convert.ToByte(base_offset), BASE_OFFSET_BIT);
+            setBitInByte(ref flags_byte, Convert.ToByte(bumps_calib), BUMPS_CALIB_BIT);
             buff[FLAGS_INDX] = flags_byte;
 
             buff[JOY_X_INDX] = (byte)linear_vel;

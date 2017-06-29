@@ -5,15 +5,16 @@
 
 /***************************************************************************************************************
 * |----------------------------------------------N BYTES ARRAY-------------------------------------------------|
-* Index |  0 (8 BITS FLAGS)   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
-* Data  | | | |BO |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB | BRO | BLO |
-* Values|     |0-1|0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
+* Index |    0 (8 BITS FLAGS)   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+* Data  | | |BC |BO |JC |DR |TL | JX  | JY  |  MS |  LR |  LG |  LB | BRO | BLO |
+* Values|   |0-1|0-1|0-1|0-1|0-1|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
 * DR = DATA REQUEST = master asks for sensors/Krembo state data
 * TL = TOGGLE LED = master asks to turn on/off led
 * BO = BASE OFFSET = indicates whether to set wheels speed offset (calibration)
+* BC = BUMPERS CALIBRATION MODE
 *
 * JX = JOY X = joystick x value
 * JY = JOY Y = joystick y value
@@ -32,6 +33,7 @@
         #define TOGGLE_LED_BIT 1
         #define JOY_CTRL_BIT 2
         #define BASE_OFFSET_BIT 3
+        #define BUMPS_CALIB_BIT 4
 
 #define JOY_X_INDX 1
 #define JOY_Y_INDX 2
@@ -60,7 +62,8 @@ public:
   bool data_req,
        toggle_led,
        joy_control,
-       base_offset;
+       base_offset,
+       bumps_calib;
 
   void fromBytes(byte bytes_arr[]);
   uint16_t size() { return PC2KREMBO_MSG_SIZE; }

@@ -92,12 +92,15 @@ void setup() {
 
 void loop()
 {
-  krembo.loop();
+  //krembo.loop();
+  //krembo.RgbaRear.print();
   //krembo.Bumpers.print();
+  //krembo.Bumpers.printCalib();
   //testIMU();
   //testRGBSensors();
   //delay(1000);
   //testRGBLeds();
+  testBattery();
 }
 
 

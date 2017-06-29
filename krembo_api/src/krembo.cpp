@@ -29,42 +29,49 @@ void Krembo::setup()
   master_asks_for_data_ = false;
   skip_led_gui_cmds_ = false;
   skip_base_gui_cmds_ = false;
+  bump_calib_mode_ = false;
 }
 
 void Krembo::loop()
 {
-  Serial.println("my name: " + my_name_);
-
-  if (!com_.isConnected())
+  //Serial.println("my name: " + my_name_);
+  if (!bump_calib_mode_)
   {
-    com_.connect(MASTER_IP, MASTER_PORT);
-    id_was_sent_ = false;
+    if (!com_.isConnected())
+    {
+      com_.connect(MASTER_IP, MASTER_PORT);
+      id_was_sent_ = false;
+    }
+    else
+    {
+      if (!id_was_sent_) //send id only once after connection
+      {
+        id_was_sent_ = true;
+        WKCKrembo2PC wkc_msg = createWKC();
+        sendWKC(wkc_msg);
+      }
+      else if (master_asks_for_data_ && send_data_timer_.finished())
+      {
+        //sendWKC();
+        WKCKrembo2PC wkc_msg = createWKC();
+        sendWKC(wkc_msg);
+        send_data_timer_.startOver();
+      }
+
+      if (com_.bytesWaiting())
+      {
+        rcveWKC();
+      }
+    }
   }
   else
   {
-    if (!id_was_sent_) //send id only once after connection
-    {
-      id_was_sent_ = true;
-      //sendWKC();
-
-      //Serial.println(System.freeMemory());
-      WKCKrembo2PC wkc_msg = createWKC();
-      sendWKC(wkc_msg);
-    }
-    else if (master_asks_for_data_ && send_data_timer_.finished())
-    {
-      //sendWKC();
-      WKCKrembo2PC wkc_msg = createWKC();
-      sendWKC(wkc_msg);
-      send_data_timer_.startOver();
-    }
-
-    if (com_.bytesWaiting())
-    {
-      rcveWKC();
-    }
+    bump_calib_mode_ = !Bumpers.calib();
+    if (!bump_calib_mode_)
+      Led.write(0, 0, 0);
   }
 }
+
 
 void Krembo::saveMyName(const char *topic, const char *data)
 {
@@ -154,6 +161,13 @@ void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
   {
     EEPROM.write(BASE_RIGHT_OFFSET_ADDR, wkc_msg.base_right_offset);
     EEPROM.write(BASE_LEFT_OFFSET_ADDR, wkc_msg.base_left_offset);
+    Base.drive(wkc_msg.joy_x, wkc_msg.joy_y); //call drive again to apply offsets
+  }
+
+  if (wkc_msg.bumps_calib)
+  {
+    Led.write(0, 255, 0);
+    bump_calib_mode_ = true;
   }
 
   if (wkc_msg.user_msg_size > 0) //get user message

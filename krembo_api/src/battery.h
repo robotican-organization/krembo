@@ -10,7 +10,7 @@
 
 //TODO: update those vals with Kiril
 #define MAX_BAT_LVL 4.2
-#define MIN_BAT_LVL 3.6
+#define MIN_BAT_LVL 3.7
 #define MAX_CHRG_LVL 5.0
 #define MIN_CHRG_LVL 0.0
 

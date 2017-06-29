@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.bat_chrg_lvl_lbl = new System.Windows.Forms.Label();
             this.id_lbl = new System.Windows.Forms.Label();
             this.bat_lvl_lbl = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.controller_grbx = new System.Windows.Forms.GroupBox();
+            this.retry_btn = new System.Windows.Forms.Button();
             this.local_ip_lbl = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -75,26 +77,25 @@
             this.linear_vel_lbl = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.heading = new Simple_HUD.Compass();
             this.color_dialog = new System.Windows.Forms.ColorDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.data_off_rdbtn = new System.Windows.Forms.RadioButton();
-            this.data_on_rdbtn = new System.Windows.Forms.RadioButton();
             this.bumper_front_lbl = new System.Windows.Forms.Label();
             this.bumper_right_lbl = new System.Windows.Forms.Label();
+            this.bumper_rear_lbl = new System.Windows.Forms.Label();
+            this.bumper_left_lbl = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.data_off_rdbtn = new System.Windows.Forms.RadioButton();
+            this.data_on_rdbtn = new System.Windows.Forms.RadioButton();
             this.rgba_front_right_lbl = new System.Windows.Forms.Label();
             this.rgba_right_lbl = new System.Windows.Forms.Label();
-            this.bumper_rear_lbl = new System.Windows.Forms.Label();
             this.rgba_rear_right_lbl = new System.Windows.Forms.Label();
             this.rgba_rear_lbl = new System.Windows.Forms.Label();
-            this.bumper_left_lbl = new System.Windows.Forms.Label();
             this.rgba_rear_left_lbl = new System.Windows.Forms.Label();
             this.rgba_left_lbl = new System.Windows.Forms.Label();
             this.rgba_front_left_lbl = new System.Windows.Forms.Label();
             this.rgba_front_lbl = new System.Windows.Forms.Label();
-            this.retry_btn = new System.Windows.Forms.Button();
             this.krembo_pic = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.bumps_calib_btn = new System.Windows.Forms.Button();
             this.controller_grbx.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -107,15 +108,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.linear_vel_sbar)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).BeginInit();
             this.SuspendLayout();
             // 
             // bat_chrg_lvl_lbl
             // 
             this.bat_chrg_lvl_lbl.AutoSize = true;
             this.bat_chrg_lvl_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bat_chrg_lvl_lbl.Location = new System.Drawing.Point(235, 407);
+            this.bat_chrg_lvl_lbl.Location = new System.Drawing.Point(129, 416);
             this.bat_chrg_lvl_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bat_chrg_lvl_lbl.Name = "bat_chrg_lvl_lbl";
             this.bat_chrg_lvl_lbl.Size = new System.Drawing.Size(35, 18);
@@ -128,7 +129,7 @@
             this.id_lbl.BackColor = System.Drawing.Color.Transparent;
             this.id_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.id_lbl.ForeColor = System.Drawing.Color.Black;
-            this.id_lbl.Location = new System.Drawing.Point(15, 82);
+            this.id_lbl.Location = new System.Drawing.Point(15, 63);
             this.id_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.id_lbl.Name = "id_lbl";
             this.id_lbl.Size = new System.Drawing.Size(24, 18);
@@ -139,7 +140,7 @@
             // 
             this.bat_lvl_lbl.AutoSize = true;
             this.bat_lvl_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bat_lvl_lbl.Location = new System.Drawing.Point(235, 381);
+            this.bat_lvl_lbl.Location = new System.Drawing.Point(15, 416);
             this.bat_lvl_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bat_lvl_lbl.Name = "bat_lvl_lbl";
             this.bat_lvl_lbl.Size = new System.Drawing.Size(35, 18);
@@ -209,6 +210,17 @@
             this.controller_grbx.TabStop = false;
             this.controller_grbx.Text = "Controller";
             // 
+            // retry_btn
+            // 
+            this.retry_btn.Location = new System.Drawing.Point(141, 27);
+            this.retry_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.retry_btn.Name = "retry_btn";
+            this.retry_btn.Size = new System.Drawing.Size(45, 25);
+            this.retry_btn.TabIndex = 27;
+            this.retry_btn.Text = "Retry";
+            this.retry_btn.UseVisualStyleBackColor = true;
+            this.retry_btn.Click += new System.EventHandler(this.retry_btn_Click);
+            // 
             // local_ip_lbl
             // 
             this.local_ip_lbl.AutoSize = true;
@@ -251,9 +263,9 @@
             // 
             // send_txt_btn
             // 
-            this.send_txt_btn.Location = new System.Drawing.Point(151, 95);
+            this.send_txt_btn.Location = new System.Drawing.Point(162, 92);
             this.send_txt_btn.Name = "send_txt_btn";
-            this.send_txt_btn.Size = new System.Drawing.Size(88, 23);
+            this.send_txt_btn.Size = new System.Drawing.Size(88, 26);
             this.send_txt_btn.TabIndex = 0;
             this.send_txt_btn.Text = "Send";
             this.send_txt_btn.UseVisualStyleBackColor = true;
@@ -273,12 +285,12 @@
             this.groupBox4.Size = new System.Drawing.Size(265, 173);
             this.groupBox4.TabIndex = 23;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Flash";
+            this.groupBox4.Text = "Flash Mode";
             // 
             // flash_off_rdbtn
             // 
             this.flash_off_rdbtn.AutoSize = true;
-            this.flash_off_rdbtn.Location = new System.Drawing.Point(73, 32);
+            this.flash_off_rdbtn.Location = new System.Drawing.Point(73, 29);
             this.flash_off_rdbtn.Name = "flash_off_rdbtn";
             this.flash_off_rdbtn.Size = new System.Drawing.Size(39, 17);
             this.flash_off_rdbtn.TabIndex = 11;
@@ -289,7 +301,7 @@
             // flash_on_rdbtn
             // 
             this.flash_on_rdbtn.AutoSize = true;
-            this.flash_on_rdbtn.Location = new System.Drawing.Point(24, 32);
+            this.flash_on_rdbtn.Location = new System.Drawing.Point(24, 29);
             this.flash_on_rdbtn.Name = "flash_on_rdbtn";
             this.flash_on_rdbtn.Size = new System.Drawing.Size(39, 17);
             this.flash_on_rdbtn.TabIndex = 10;
@@ -522,12 +534,12 @@
             // 
             this.base_right_offset_txt.Location = new System.Drawing.Point(162, 39);
             this.base_right_offset_txt.Maximum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             0});
             this.base_right_offset_txt.Minimum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             -2147483648});
@@ -663,7 +675,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1426, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1083, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -673,17 +685,9 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // heading
-            // 
-            this.heading.Heading = 0F;
-            this.heading.Location = new System.Drawing.Point(1157, 255);
-            this.heading.Name = "heading";
-            this.heading.Size = new System.Drawing.Size(150, 150);
-            this.heading.TabIndex = 20;
-            this.heading.YawRate = 0F;
-            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.bumps_calib_btn);
             this.groupBox3.Controls.Add(this.bumper_front_lbl);
             this.groupBox3.Controls.Add(this.bumper_right_lbl);
             this.groupBox3.Controls.Add(this.bumper_rear_lbl);
@@ -711,6 +715,76 @@
             this.groupBox3.Text = "Data";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // bumper_front_lbl
+            // 
+            this.bumper_front_lbl.AutoSize = true;
+            this.bumper_front_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_front_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_front_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_front_lbl.Location = new System.Drawing.Point(28, 349);
+            this.bumper_front_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_front_lbl.MaximumSize = new System.Drawing.Size(10, 10);
+            this.bumper_front_lbl.MinimumSize = new System.Drawing.Size(35, 10);
+            this.bumper_front_lbl.Name = "bumper_front_lbl";
+            this.bumper_front_lbl.Size = new System.Drawing.Size(35, 10);
+            this.bumper_front_lbl.TabIndex = 33;
+            this.bumper_front_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bumper_right_lbl
+            // 
+            this.bumper_right_lbl.AutoSize = true;
+            this.bumper_right_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_right_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_right_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_right_lbl.Location = new System.Drawing.Point(66, 361);
+            this.bumper_right_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_right_lbl.MinimumSize = new System.Drawing.Size(10, 35);
+            this.bumper_right_lbl.Name = "bumper_right_lbl";
+            this.bumper_right_lbl.Size = new System.Drawing.Size(10, 35);
+            this.bumper_right_lbl.TabIndex = 32;
+            this.bumper_right_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bumper_rear_lbl
+            // 
+            this.bumper_rear_lbl.AutoSize = true;
+            this.bumper_rear_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_rear_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_rear_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_rear_lbl.Location = new System.Drawing.Point(29, 396);
+            this.bumper_rear_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_rear_lbl.MaximumSize = new System.Drawing.Size(10, 10);
+            this.bumper_rear_lbl.MinimumSize = new System.Drawing.Size(35, 10);
+            this.bumper_rear_lbl.Name = "bumper_rear_lbl";
+            this.bumper_rear_lbl.Size = new System.Drawing.Size(35, 10);
+            this.bumper_rear_lbl.TabIndex = 31;
+            this.bumper_rear_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bumper_left_lbl
+            // 
+            this.bumper_left_lbl.AutoSize = true;
+            this.bumper_left_lbl.BackColor = System.Drawing.Color.DarkOrange;
+            this.bumper_left_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bumper_left_lbl.ForeColor = System.Drawing.Color.Black;
+            this.bumper_left_lbl.Location = new System.Drawing.Point(16, 361);
+            this.bumper_left_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bumper_left_lbl.MinimumSize = new System.Drawing.Size(10, 35);
+            this.bumper_left_lbl.Name = "bumper_left_lbl";
+            this.bumper_left_lbl.Size = new System.Drawing.Size(10, 35);
+            this.bumper_left_lbl.TabIndex = 30;
+            this.bumper_left_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::KremboControl.Properties.Resources.bumper_directions;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 357);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(45, 42);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 36;
+            this.pictureBox1.TabStop = false;
+            // 
             // data_off_rdbtn
             // 
             this.data_off_rdbtn.AutoSize = true;
@@ -735,42 +809,13 @@
             this.data_on_rdbtn.UseVisualStyleBackColor = true;
             this.data_on_rdbtn.CheckedChanged += new System.EventHandler(this.data_on_rdbtn_CheckedChanged);
             // 
-            // bumper_front_lbl
-            // 
-            this.bumper_front_lbl.AutoSize = true;
-            this.bumper_front_lbl.BackColor = System.Drawing.Color.DarkOrange;
-            this.bumper_front_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bumper_front_lbl.ForeColor = System.Drawing.Color.Black;
-            this.bumper_front_lbl.Location = new System.Drawing.Point(28, 368);
-            this.bumper_front_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.bumper_front_lbl.MaximumSize = new System.Drawing.Size(10, 10);
-            this.bumper_front_lbl.MinimumSize = new System.Drawing.Size(35, 10);
-            this.bumper_front_lbl.Name = "bumper_front_lbl";
-            this.bumper_front_lbl.Size = new System.Drawing.Size(35, 10);
-            this.bumper_front_lbl.TabIndex = 33;
-            this.bumper_front_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // bumper_right_lbl
-            // 
-            this.bumper_right_lbl.AutoSize = true;
-            this.bumper_right_lbl.BackColor = System.Drawing.Color.DarkOrange;
-            this.bumper_right_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bumper_right_lbl.ForeColor = System.Drawing.Color.Black;
-            this.bumper_right_lbl.Location = new System.Drawing.Point(66, 380);
-            this.bumper_right_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.bumper_right_lbl.MinimumSize = new System.Drawing.Size(10, 35);
-            this.bumper_right_lbl.Name = "bumper_right_lbl";
-            this.bumper_right_lbl.Size = new System.Drawing.Size(10, 35);
-            this.bumper_right_lbl.TabIndex = 32;
-            this.bumper_right_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // rgba_front_right_lbl
             // 
             this.rgba_front_right_lbl.AutoSize = true;
             this.rgba_front_right_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_front_right_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_front_right_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_front_right_lbl.Location = new System.Drawing.Point(40, 201);
+            this.rgba_front_right_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_front_right_lbl.Location = new System.Drawing.Point(40, 182);
             this.rgba_front_right_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_front_right_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_front_right_lbl.Name = "rgba_front_right_lbl";
@@ -784,8 +829,8 @@
             this.rgba_right_lbl.AutoSize = true;
             this.rgba_right_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_right_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_right_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_right_lbl.Location = new System.Drawing.Point(63, 157);
+            this.rgba_right_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_right_lbl.Location = new System.Drawing.Point(63, 138);
             this.rgba_right_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_right_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_right_lbl.Name = "rgba_right_lbl";
@@ -794,28 +839,13 @@
             this.rgba_right_lbl.Text = "0";
             this.rgba_right_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bumper_rear_lbl
-            // 
-            this.bumper_rear_lbl.AutoSize = true;
-            this.bumper_rear_lbl.BackColor = System.Drawing.Color.DarkOrange;
-            this.bumper_rear_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bumper_rear_lbl.ForeColor = System.Drawing.Color.Black;
-            this.bumper_rear_lbl.Location = new System.Drawing.Point(29, 415);
-            this.bumper_rear_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.bumper_rear_lbl.MaximumSize = new System.Drawing.Size(10, 10);
-            this.bumper_rear_lbl.MinimumSize = new System.Drawing.Size(35, 10);
-            this.bumper_rear_lbl.Name = "bumper_rear_lbl";
-            this.bumper_rear_lbl.Size = new System.Drawing.Size(35, 10);
-            this.bumper_rear_lbl.TabIndex = 31;
-            this.bumper_rear_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // rgba_rear_right_lbl
             // 
             this.rgba_rear_right_lbl.AutoSize = true;
             this.rgba_rear_right_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_rear_right_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_rear_right_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_rear_right_lbl.Location = new System.Drawing.Point(131, 133);
+            this.rgba_rear_right_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_rear_right_lbl.Location = new System.Drawing.Point(131, 114);
             this.rgba_rear_right_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_rear_right_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_rear_right_lbl.Name = "rgba_rear_right_lbl";
@@ -829,8 +859,8 @@
             this.rgba_rear_lbl.AutoSize = true;
             this.rgba_rear_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_rear_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_rear_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_rear_lbl.Location = new System.Drawing.Point(199, 158);
+            this.rgba_rear_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_rear_lbl.Location = new System.Drawing.Point(199, 139);
             this.rgba_rear_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_rear_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_rear_lbl.Name = "rgba_rear_lbl";
@@ -839,27 +869,13 @@
             this.rgba_rear_lbl.Text = "0";
             this.rgba_rear_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bumper_left_lbl
-            // 
-            this.bumper_left_lbl.AutoSize = true;
-            this.bumper_left_lbl.BackColor = System.Drawing.Color.DarkOrange;
-            this.bumper_left_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bumper_left_lbl.ForeColor = System.Drawing.Color.Black;
-            this.bumper_left_lbl.Location = new System.Drawing.Point(16, 380);
-            this.bumper_left_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.bumper_left_lbl.MinimumSize = new System.Drawing.Size(10, 35);
-            this.bumper_left_lbl.Name = "bumper_left_lbl";
-            this.bumper_left_lbl.Size = new System.Drawing.Size(10, 35);
-            this.bumper_left_lbl.TabIndex = 30;
-            this.bumper_left_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // rgba_rear_left_lbl
             // 
             this.rgba_rear_left_lbl.AutoSize = true;
             this.rgba_rear_left_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_rear_left_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_rear_left_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_rear_left_lbl.Location = new System.Drawing.Point(217, 204);
+            this.rgba_rear_left_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_rear_left_lbl.Location = new System.Drawing.Point(217, 185);
             this.rgba_rear_left_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_rear_left_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_rear_left_lbl.Name = "rgba_rear_left_lbl";
@@ -873,8 +889,8 @@
             this.rgba_left_lbl.AutoSize = true;
             this.rgba_left_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_left_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_left_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_left_lbl.Location = new System.Drawing.Point(195, 247);
+            this.rgba_left_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_left_lbl.Location = new System.Drawing.Point(195, 228);
             this.rgba_left_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_left_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_left_lbl.Name = "rgba_left_lbl";
@@ -888,8 +904,8 @@
             this.rgba_front_left_lbl.AutoSize = true;
             this.rgba_front_left_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_front_left_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_front_left_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_front_left_lbl.Location = new System.Drawing.Point(129, 270);
+            this.rgba_front_left_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_front_left_lbl.Location = new System.Drawing.Point(129, 251);
             this.rgba_front_left_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_front_left_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_front_left_lbl.Name = "rgba_front_left_lbl";
@@ -903,8 +919,8 @@
             this.rgba_front_lbl.AutoSize = true;
             this.rgba_front_lbl.BackColor = System.Drawing.Color.Transparent;
             this.rgba_front_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgba_front_lbl.ForeColor = System.Drawing.Color.Black;
-            this.rgba_front_lbl.Location = new System.Drawing.Point(65, 246);
+            this.rgba_front_lbl.ForeColor = System.Drawing.Color.White;
+            this.rgba_front_lbl.Location = new System.Drawing.Point(65, 227);
             this.rgba_front_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rgba_front_lbl.MinimumSize = new System.Drawing.Size(35, 0);
             this.rgba_front_lbl.Name = "rgba_front_lbl";
@@ -913,22 +929,11 @@
             this.rgba_front_lbl.Text = "0";
             this.rgba_front_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // retry_btn
-            // 
-            this.retry_btn.Location = new System.Drawing.Point(141, 27);
-            this.retry_btn.Margin = new System.Windows.Forms.Padding(2);
-            this.retry_btn.Name = "retry_btn";
-            this.retry_btn.Size = new System.Drawing.Size(45, 25);
-            this.retry_btn.TabIndex = 27;
-            this.retry_btn.Text = "Retry";
-            this.retry_btn.UseVisualStyleBackColor = true;
-            this.retry_btn.Click += new System.EventHandler(this.retry_btn_Click);
-            // 
             // krembo_pic
             // 
             this.krembo_pic.Image = global::KremboControl.Properties.Resources.krembo_scheme;
             this.krembo_pic.InitialImage = null;
-            this.krembo_pic.Location = new System.Drawing.Point(12, 108);
+            this.krembo_pic.Location = new System.Drawing.Point(12, 89);
             this.krembo_pic.Margin = new System.Windows.Forms.Padding(2);
             this.krembo_pic.Name = "krembo_pic";
             this.krembo_pic.Size = new System.Drawing.Size(265, 320);
@@ -937,31 +942,31 @@
             this.krembo_pic.TabStop = false;
             this.krembo_pic.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // pictureBox1
+            // bumps_calib_btn
             // 
-            this.pictureBox1.Image = global::KremboControl.Properties.Resources.bumper_directions;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 376);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(45, 42);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 36;
-            this.pictureBox1.TabStop = false;
+            this.bumps_calib_btn.Location = new System.Drawing.Point(198, 383);
+            this.bumps_calib_btn.Name = "bumps_calib_btn";
+            this.bumps_calib_btn.Size = new System.Drawing.Size(75, 23);
+            this.bumps_calib_btn.TabIndex = 37;
+            this.bumps_calib_btn.Text = "Bumps Calib";
+            this.bumps_calib_btn.UseVisualStyleBackColor = true;
+            this.bumps_calib_btn.Click += new System.EventHandler(this.bumps_calib_btn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1426, 695);
+            this.ClientSize = new System.Drawing.Size(1083, 498);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.controller_grbx);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.heading);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximumSize = new System.Drawing.Size(1099, 537);
+            this.MinimumSize = new System.Drawing.Size(1099, 537);
             this.Name = "MainForm";
             this.Text = "Krembo Control";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -984,8 +989,8 @@
             this.menuStrip1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.krembo_pic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1015,7 +1020,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button choose_color_btn;
         private System.Windows.Forms.GroupBox base_grbx;
-        private Simple_HUD.Compass heading;
         private System.Windows.Forms.ColorDialog color_dialog;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label blue_lbl;
@@ -1059,6 +1063,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button retry_btn;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button bumps_calib_btn;
     }
 }
 
