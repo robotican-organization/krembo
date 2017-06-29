@@ -63,6 +63,16 @@ namespace KremboControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bat_charging {
+            get {
+                object obj = ResourceManager.GetObject("bat_charging", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bumper_directions {
             get {
                 object obj = ResourceManager.GetObject("bumper_directions", resourceCulture);

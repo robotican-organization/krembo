@@ -26,8 +26,8 @@ void Battery::print()
   Serial.print("Raw Battery read: "); Serial.print(analogRead(BATTERY_LVL_LEG));
   Serial.print(" | Battery level: "); Serial.print(readBatLvl());
   Serial.print(" | Charge Level: "); Serial.print(readChargelvl());
-  Serial.print(" | Is Charging: "); Serial.print(isCharging() == false ? "No" : "Yes" );
-  Serial.print(" | Is Full: "); Serial.println(isFull() == false ? "No" : "Yes" );
+  Serial.print(" | Is Charging: "); Serial.print(!isCharging() == false ? "No" : "Yes" );
+  Serial.print(" | Is Full: "); Serial.println(!isFull() == false ? "No" : "Yes" );
 }
 
 bool Battery::isCharging()
