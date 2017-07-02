@@ -67,6 +67,12 @@ RGBAResult RGBASensor::read()
     result.IsReadOk = false;
     result.ErrCode = 4;
   }
+  else
+  { //convert proximity to distance (cm)
+    if (result.Proximity < 20) //minimum bound - read below it is not reliable
+      result.Distance = 20;
+    result.Distance = 17.55 * pow(result.Proximity, -0.51);
+  }
   return result;
 }
 

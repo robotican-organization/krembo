@@ -11,7 +11,7 @@
 * -------------------------------------------------------------------------------------------------------------|
 * Flags:
 * JC = JOY CONTROL = indicates whether master request to control base with joystick
-* DR = DATA REQUEST = master asks for sensors/Krembo state data
+* DR = DATA REQUEST = master asks for sensors/Krembot state data
 * TL = TOGGLE LED = master asks to turn on/off led
 * BO = BASE OFFSET = indicates whether to set wheels speed offset (calibration)
 * BC = BUMPERS CALIBRATION MODE
@@ -44,7 +44,7 @@
 #define BASE_RIGHT_OFFSET 7
 #define BASE_LEFT_OFFSET 8
 
-class WKCPC2Krembo
+class WKCPC2Krembot
 {
 private:
 

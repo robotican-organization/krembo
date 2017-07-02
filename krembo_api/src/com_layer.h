@@ -4,7 +4,7 @@
 #include "application.h"
 
 
-//WKC - wireless krembo communication protocol
+//WKC - wireless krembot communication protocol
 class COMLayer
 {
 private:
@@ -22,7 +22,7 @@ public:
   byte read();
   uint32_t read(byte buff[], size_t len);
   void disconnect();
-  
+
 };
 
 #endif

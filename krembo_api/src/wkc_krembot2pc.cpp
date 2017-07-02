@@ -1,12 +1,12 @@
 
-#include "wkc_krembo2pc.h"
+#include "wkc_krembot2pc.h"
 
-WKCKrembo2PC::WKCKrembo2PC()
+WKCKrembot2PC::WKCKrembot2PC()
 {
   id_ = System.deviceID(); //get 24 long id string
 }
 
-void WKCKrembo2PC::toBytes(byte bytes_arr[])
+void WKCKrembot2PC::toBytes(byte bytes_arr[])
 {
   byte flags_byte = 0;
 
@@ -93,7 +93,7 @@ void WKCKrembo2PC::toBytes(byte bytes_arr[])
   }
 }
 
-uint16_t WKCKrembo2PC::size()
+uint16_t WKCKrembot2PC::size()
 {
   return MSG_SIZE;
 }

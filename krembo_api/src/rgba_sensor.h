@@ -2,6 +2,7 @@
 #define RGBA_SENSOR_H
 
 #include "application.h"
+#include "math.h"
 #include "SparkFun_APDS9960.h"
 #define MUX_ADDR 0x70
 
@@ -13,6 +14,7 @@ struct RGBAResult
   uint16_t Green;
   uint16_t Blue;
   uint8_t Proximity;
+  float Distance;
   uint8_t ErrCode;
   bool IsReadOk;
 };

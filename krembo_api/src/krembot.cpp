@@ -1,11 +1,11 @@
 
-#include "krembo.h"
+#include "krembot.h"
 
-void Krembo::setup()
+void Krembot::setup(String master_ip, uint16_t port)
 {
   Serial.begin(38400);
 
-  Particle.subscribe("spark/", &Krembo::saveMyName, this);
+  Particle.subscribe("spark/", &Krembot::saveMyName, this);
   Particle.publish("spark/device/name");
 
   //init I2C
@@ -24,6 +24,8 @@ void Krembo::setup()
   RgbaLeft.init(uint8_t(RGBAAddr::Left));
   RgbaFrontLeft.init(uint8_t(RGBAAddr::FrontLeft));
 
+  master_ip_ = master_ip;
+  port_ = port;
 
   id_was_sent_ = false;
   master_asks_for_data_ = true; //default is to send data right away
@@ -32,14 +34,14 @@ void Krembo::setup()
   bump_calib_mode_ = false;
 }
 
-void Krembo::loop()
+void Krembot::loop()
 {
   //Serial.println("my name: " + my_name_);
   if (!bump_calib_mode_)
   {
     if (!com_.isConnected())
     {
-      com_.connect(MASTER_IP, MASTER_PORT);
+      com_.connect(master_ip_, port_);
       id_was_sent_ = false;
     }
     else
@@ -47,13 +49,13 @@ void Krembo::loop()
       if (!id_was_sent_) //send id only once after connection
       {
         id_was_sent_ = true;
-        WKCKrembo2PC wkc_msg = createWKC();
+        WKCKrembot2PC wkc_msg = createWKC();
         sendWKC(wkc_msg);
       }
       else if (master_asks_for_data_ && send_data_timer_.finished())
       {
         //sendWKC();
-        WKCKrembo2PC wkc_msg = createWKC();
+        WKCKrembot2PC wkc_msg = createWKC();
         sendWKC(wkc_msg);
         send_data_timer_.startOver();
       }
@@ -73,23 +75,23 @@ void Krembo::loop()
 }
 
 
-void Krembo::saveMyName(const char *topic, const char *data)
+void Krembot::saveMyName(const char *topic, const char *data)
 {
   Serial.println("received " + String(topic) + ": " + String(data));
   my_name_ = String(data);
 }
 
-void Krembo::sendWKC(WKCKrembo2PC& wkc_msg)
+void Krembot::sendWKC(WKCKrembot2PC& wkc_msg)
 {
   byte buff[wkc_msg.size()];
   wkc_msg.toBytes(buff);
   com_.write(buff, wkc_msg.size());
 }
 
-WKCKrembo2PC Krembo::createWKC()
+WKCKrembot2PC Krembot::createWKC()
 {
   //build WKC msg
-  WKCKrembo2PC wkc_msg;
+  WKCKrembot2PC wkc_msg;
 
   //rgba sensors
   wkc_msg.rgba_front = RgbaFront.read();
@@ -111,16 +113,16 @@ WKCKrembo2PC Krembo::createWKC()
   return wkc_msg;
 }
 
-void Krembo::rcveWKC()
+void Krembot::rcveWKC()
 {
-  WKCPC2Krembo wkc_msg;
+  WKCPC2Krembot wkc_msg;
   byte buff[wkc_msg.size()];
   com_.read(buff, wkc_msg.size());
   wkc_msg.fromBytes(buff);
   handleWKCFromPC(wkc_msg);
 }
 
-void Krembo::handleWKCFromPC(WKCPC2Krembo wkc_msg)
+void Krembot::handleWKCFromPC(WKCPC2Krembot wkc_msg)
 {
   wkc_msg.print();
 

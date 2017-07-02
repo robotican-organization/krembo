@@ -7,8 +7,8 @@
 #include "rgb_led.h"
 #include "rgba_sensor.h"
 #include "com_layer.h"
-#include "wkc_krembo2pc.h"
-#include "wkc_pc2krembo.h"
+#include "wkc_krembot2pc.h"
+#include "wkc_pc2krembot.h"
 #include "bluesky_timer.h"
 #include "dac_bumpers.h"
 //#include "imu_sensor.h"
@@ -28,11 +28,10 @@
 13. change rgba_sensor to color_sensor
 14. initiate Serial.begin inside photon and encapsulte Serial methods
 */
-#define MASTER_IP "10.0.0.11"
-#define MASTER_PORT 8000
+
 #define SEND_DATA_INTERVAL 100 //ms
 
-enum class RGBAAddr //TODO: extract this to krembo, and make constructor here take int8
+enum class RGBAAddr //TODO: extract this to krembot, and make constructor here take int8
 {
   Front = 0,
   FrontRight = 1,
@@ -44,7 +43,7 @@ enum class RGBAAddr //TODO: extract this to krembo, and make constructor here ta
   FrontLeft = 7
 };
 
-class Krembo
+class Krembot
 {
 private:
 
@@ -56,12 +55,14 @@ private:
   COMLayer com_;
   BlueSkyTimer send_data_timer_;
   String my_name_;
+  String master_ip_;
+  uint16_t port_;
 
 
-  WKCKrembo2PC createWKC();
+  WKCKrembot2PC createWKC();
   void rcveWKC();
-  void sendWKC(WKCKrembo2PC& wkc_msg);
-  void handleWKCFromPC(WKCPC2Krembo wkc_msg);
+  void sendWKC(WKCKrembot2PC& wkc_msg);
+  void handleWKCFromPC(WKCPC2Krembot wkc_msg);
   void saveMyName(const char *topic, const char *data);
 
 public:
@@ -80,7 +81,7 @@ public:
   Battery Bat;
   RGBLed Led;
   //IMUSensor IMU;
-  void setup();
+  void setup(String master_ip, uint16_t port = 8000);
   void loop();
   String getID() { return System.deviceID(); }
   String getName() { return  my_name_; }

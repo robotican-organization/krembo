@@ -12,7 +12,7 @@
 
 /**************************************************************************
  * |----------------------------------------- N BYTES ARRAY ----------------------------------------------|
- * |       0 (8 BITS FLAGS)        |   1    |   2   | 3-6 |7-10 |11-14|15-18|19-21|22-25|26-29|30-33|34-58|
+ * |       0 (8 BITS FLAGS)        |   1    |   2   | 3-6 |7-10 |11-14|15-18|19-22|23-26|27-30|31-34|35-59|
  * |   |   |FB |REB|LB |RIB|BC |BF |   BL   |  BCL% |RGBF |RGBRE|RGBRI|RGBL |RGBFR|RGBFL|RGBRR|RGBRL| ID  |
  * |0-1|0-1|0-1|0-1|0-1|0-1|0-1|0-1| 0-100  | 0-100 |0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|0-255|
  * |------------------------------------------------------------------------------------------------------|
@@ -72,24 +72,24 @@
 #define RGBA_RIGHT_START_INDX 11
 #define RGBA_LEFT_START_INDX 15
 #define RGBA_FRONT_RIGHT_START_INDX 19
-#define RGBA_FRONT_LEFT_START_INDX 22
-#define RGBA_REAR_RIGHT_START_INDX 26
-#define RGBA_REAR_LEFT_START_INDX 30
+#define RGBA_FRONT_LEFT_START_INDX 23
+#define RGBA_REAR_RIGHT_START_INDX 27
+#define RGBA_REAR_LEFT_START_INDX 31
 
 //id indexes
-#define ID_START_INDX 34
+#define ID_START_INDX 35
 #define ID_SIZE 24 //size of photon hardware id
 
-#define MSG_SIZE 34 + ID_SIZE //size bytes arr
+#define MSG_SIZE ID_START_INDX + ID_SIZE //size bytes arr
 
 #define RGBA16TO8(val) (uint8_t)(val / 37889.0 * 255.0)
 
-class WKCKrembo2PC
+class WKCKrembot2PC
 {
 private:
   String id_;
 public:
-  WKCKrembo2PC();
+  WKCKrembot2PC();
   uint8_t bat_lvl,
           bat_chrg_lvl;
 

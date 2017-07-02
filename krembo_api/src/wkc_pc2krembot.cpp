@@ -1,8 +1,8 @@
 
 
-#include "wkc_pc2krembo.h"
+#include "wkc_pc2krembot.h"
 
-void WKCPC2Krembo::fromBytes(byte bytes_arr[])
+void WKCPC2Krembot::fromBytes(byte bytes_arr[])
 {
   //extract flags
   data_req = BitConverter::getBitInByte(bytes_arr[FLAGS_INDX],
@@ -30,9 +30,9 @@ void WKCPC2Krembo::fromBytes(byte bytes_arr[])
   user_msg_size = (uint8_t)bytes_arr[USER_MSG_SIZE_INDX];
 }
 
-void WKCPC2Krembo::print()
+void WKCPC2Krembot::print()
 {
-  Serial.println("-------- WKCPC2Krembo pkg content: --------");
+  Serial.println("-------- WKCPC2Krembot pkg content: --------");
   Serial.printf("data_req?: %d\n", data_req);
   Serial.printf("toggle_led?: %d\n", toggle_led);
   Serial.printf("joy_control?: %d\n", joy_control);
